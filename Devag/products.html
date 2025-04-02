@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store - Sản Phẩm</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Fashion Store</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="products.html" class="active">Sản Phẩm</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>
+                <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
+                <li><a href="contact.html">Liên Hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <!-- Filters -->
+        <div class="filters">
+            <h3>Bộ Lọc</h3>
+            
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+            </div>
+
+            <!-- Categories -->
+            <div class="filter-group">
+                <h4>Danh Mục</h4>
+                <label>
+                    <input type="checkbox" name="category" value="men"> Thời Trang Nam
+                </label>
+                <label>
+                    <input type="checkbox" name="category" value="women"> Thời Trang Nữ
+                </label>
+            </div>
+
+            <!-- Price Range -->
+            <div class="filter-group">
+                <h4>Khoảng Giá</h4>
+                <label>
+                    <input type="checkbox" name="price" value="0-100">
+                    Dưới 100.000đ
+                </label>
+                <label>
+                    <input type="checkbox" name="price" value="100-500">
+                    100.000đ - 500.000đ
+                </label>
+                <label>
+                    <input type="checkbox" name="price" value="500-1000">
+                    500.000đ - 1.000.000đ
+                </label>
+                <label>
+                    <input type="checkbox" name="price" value="1000-5000">
+                    1.000.000đ - 5.000.000đ
+                </label>
+                <label>
+                    <input type="checkbox" name="price" value="5000+">
+                    Trên 5.000.000đ
+                </label>
+            </div>
+
+            <button class="apply-filters">Áp Dụng Bộ Lọc</button>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-container">
+            <div class="product-grid">
+                <!-- Products will be added here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Về Chúng Tôi</h3>
+                <p>Fashion Store - Nơi mang đến cho bạn những sản phẩm thời trang chất lượng cao với giá cả hợp lý.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Kết Nhanh</h3>
+                <ul>
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="products.html">Sản Phẩm</a></li>
+                    <li><a href="cart.html">Giỏ Hàng</a></li>
+                    <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Hệ</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> 0123.456.789</li>
+                    <li><i class="fas fa-envelope"></i> info@fashionstore.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Theo Dõi Chúng Tôi</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Fashion Store. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html> 
