@@ -15,6 +15,7 @@
         <ul class="nav-links">
             <li><a href="index.html" class="active">Trang Chủ</a></li>
             <li><a href="products.html">Sản Phẩm</a></li>
+            <li><a href="promotions.html">Khuyến Mãi</a></li>
             <li><a href="cart.html">Giỏ Hàng</a></li>
             <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
             <li><a href="contact.html">Liên Hệ</a></li>
@@ -29,46 +30,88 @@
         </div>
     </section>
 
-    <section class="featured-products">
-        <h2>Sản Phẩm Nổi Bật</h2>
-        <div class="product-grid">
-            <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
-        </div>
-    </section>
-
-    <section class="categories">
-        <h2>Danh Mục Sản Phẩm</h2>
-        <div class="category-grid">
-            <div class="category-card men">
-                <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Thời Trang Nam">
-                <h3>Thời Trang Nam</h3>
-                <a href="products.html?category=men" class="category-btn">Xem Thêm</a>
+    <div class="main-content">
+        <aside class="sidebar">
+            <div class="categories-sidebar">
+                <h3>Danh Mục Sản Phẩm</h3>
+                <ul class="category-list">
+                    <li><a href="products.html?category=men" class="category-item"><i class="fas fa-tshirt"></i>Quần Áo Nam</a></li>
+                    <li><a href="products.html?category=women" class="category-item"><i class="fas fa-female"></i>Quần Áo Nữ</a></li>
+                </ul>
             </div>
-            <div class="category-card women">
-                <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Thời Trang Nữ">
-                <h3>Thời Trang Nữ</h3>
-                <a href="products.html?category=women" class="category-btn">Xem Thêm</a>
-            </div>
-        </div>
-    </section>
+        </aside>
 
-    <section class="features">
-        <div class="feature">
-            <i class="fas fa-truck"></i>
-            <h3>Miễn Phí Vận Chuyển</h3>
-            <p>Cho đơn hàng trên 500.000đ</p>
-        </div>
-        <div class="feature">
-            <i class="fas fa-undo"></i>
-            <h3>Đổi Trả Dễ Dàng</h3>
-            <p>30 ngày đổi trả miễn phí</p>
-        </div>
-        <div class="feature">
-            <i class="fas fa-lock"></i>
-            <h3>Thanh Toán An Toàn</h3>
-            <p>Bảo mật thông tin thanh toán</p>
-        </div>
-    </section>
+        <main class="content">
+            <section class="featured-products">
+                <h2>Sản Phẩm Nổi Bật</h2>
+                <div class="product-grid">
+                    <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
+                    <!-- Xóa sản phẩm có id 4 và 7 -->
+                </div>
+            </section>
+
+            <section class="featured-promotions">
+                <h2>Khuyến Mãi Nổi Bật</h2>
+                <div class="promotions-container">
+                    <a href="promotions.html" class="promotion-link">
+                        <div class="promotion-card">
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Áo Thun Nam" class="promotion-image">
+                            <div class="promotion-content">
+                                <h3 class="promotion-title">Giảm 50% Áo Thun Nam</h3>
+                                <p class="promotion-description">Áo thun nam cao cấp với chất liệu cotton 100%</p>
+                                <span class="promotion-status status-active">Đang diễn ra</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="promotions.html" class="promotion-link">
+                        <div class="promotion-card">
+                            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Quần Jean Nam" class="promotion-image">
+                            <div class="promotion-content">
+                                <h3 class="promotion-title">Mua 2 Tặng 1 Quần Jean Nam</h3>
+                                <p class="promotion-description">Quần jean nam cao cấp, nhiều size</p>
+                                <span class="promotion-status status-active">Đang diễn ra</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="promotions.html" class="promotion-link">
+                        <div class="promotion-card">
+                            <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Áo Thun Nữ" class="promotion-image">
+                            <div class="promotion-content">
+                                <h3 class="promotion-title">Áo Thun Nữ - Giảm 40%</h3>
+                                <p class="promotion-description">Áo thun nữ thời trang, nhiều mẫu mã</p>
+                                <span class="promotion-status status-active">Đang diễn ra</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="features">
+                <div class="feature">
+                    <i class="fas fa-truck"></i>
+                    <h3>Miễn Phí Vận Chuyển</h3>
+                    <p>Cho đơn hàng từ 500.000đ</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-undo"></i>
+                    <h3>Đổi Trả Dễ Dàng</h3>
+                    <p>Trong vòng 7 ngày</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-lock"></i>
+                    <h3>Thanh Toán An Toàn</h3>
+                    <p>100% bảo mật</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-headset"></i>
+                    <h3>Hỗ Trợ 24/7</h3>
+                    <p>Luôn sẵn sàng hỗ trợ</p>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -81,6 +124,7 @@
                 <ul>
                     <li><a href="index.html">Trang Chủ</a></li>
                     <li><a href="products.html">Sản Phẩm</a></li>
+                    <li><a href="promotions.html">Khuyến Mãi</a></li>
                     <li><a href="cart.html">Giỏ Hàng</a></li>
                     <li><a href="contact.html">Liên Hệ</a></li>
                 </ul>
@@ -109,5 +153,178 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <style>
+        .main-content {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 30px;
+        }
+
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .categories-sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
+        }
+
+        .categories-sidebar h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 600;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 12px;
+            position: relative;
+        }
+
+        .categories-sidebar h3::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #4CAF50;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: #4CAF50;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-item:hover {
+            background-color: #f8f8f8;
+            color: #4CAF50;
+            transform: translateX(5px);
+        }
+
+        .category-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .category-item i {
+            margin-right: 10px;
+            font-size: 1.1em;
+            color: #4CAF50;
+        }
+
+        .content {
+            flex-grow: 1;
+        }
+
+        /* Điều chỉnh lại các section để phù hợp với layout mới */
+        .featured-products,
+        .featured-promotions,
+        .categories,
+        .features {
+            margin-left: 0;
+        }
+
+        .featured-promotions {
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .featured-promotions h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .promotions-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .promotion-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .promotion-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .promotion-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .promotion-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .promotion-content {
+            padding: 20px;
+        }
+
+        .promotion-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .promotion-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .promotion-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </body>
 </html> 
