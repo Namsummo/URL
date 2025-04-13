@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store - Khuyến Mãi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .promotions-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .promotions-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .promotion-tab {
+            padding: 12px 25px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #495057;
+            font-size: 1.1em;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .promotion-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .promotion-tab span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .promotion-tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-color: #e74c3c;
+        }
+
+        .promotion-tab.active {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .promotion-tab.active::before {
+            opacity: 1;
+        }
+
+        .promotion-tab:hover::before {
+            opacity: 0.1;
+        }
+
+        .promotion-tab.active:hover {
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            .promotions-tabs {
+                gap: 10px;
+                padding: 0 10px;
+            }
+
+            .promotion-tab {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+
+        .promotions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+            padding: 0 20px;
+        }
+
+        .promotion-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid #f0f0f0;
+        }
+
+        .promotion-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .promotion-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .promotion-card:hover .promotion-image {
+            transform: scale(1.05);
+        }
+
+        .promotion-content {
+            padding: 20px;
+            background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+        }
+
+        .promotion-title {
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            color: #2c3e50;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .promotion-description {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .promotion-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #95a5a6;
+            font-size: 0.9em;
+            font-weight: normal;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+            z-index: 1;
+        }
+
+        .promotion-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            padding: 20px;
+        }
+
+        .promotion-section.active {
+            display: grid;
+        }
+
+        .promotion-section-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2);
+        }
+
+        .promotion-section-title {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .promotion-section-subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .promotion-section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        /* Style cho từng section giảm giá */
+        #50-promotions .promotion-section-header {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+
+        #40-promotions .promotion-section-header {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+        }
+
+        #35-promotions .promotion-section-header {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+
+        #30-promotions .promotion-section-header {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+        }
+
+        #25-promotions .promotion-section-header {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        }
+
+        /* Style cho card trong từng section */
+        #50-promotions .promotion-card {
+            border: 2px solid #e74c3c;
+        }
+
+        #40-promotions .promotion-card {
+            border: 2px solid #f39c12;
+        }
+
+        #35-promotions .promotion-card {
+            border: 2px solid #3498db;
+        }
+
+        #30-promotions .promotion-card {
+            border: 2px solid #2ecc71;
+        }
+
+        #25-promotions .promotion-card {
+            border: 2px solid #9b59b6;
+        }
+
+        /* Style cho badge trong từng section */
+        #50-promotions .discount-badge {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+
+        #40-promotions .discount-badge {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+        }
+
+        #35-promotions .discount-badge {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+
+        #30-promotions .discount-badge {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+        }
+
+        #25-promotions .discount-badge {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        }
+
+        @media (max-width: 768px) {
+            .promotion-section-header {
+                padding: 15px;
+                margin-bottom: 30px;
+            }
+
+            .promotion-section-title {
+                font-size: 2em;
+            }
+
+            .promotion-section-subtitle {
+                font-size: 1em;
+            }
+
+            .promotion-section-grid {
+                gap: 20px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Fashion Store</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="products.html">Sản Phẩm</a></li>
+                <li><a href="promotions.html">Khuyến Mãi</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>
+                <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
+                <li><a href="contact.html">Liên Hệ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="promotions-container">
+        <h1>Khuyến Mãi Đặc Biệt</h1>
+        
+        <div class="promotions-tabs">
+            <button class="promotion-tab active" data-discount="all">
+                <span>Tất Cả Khuyến Mãi</span>
+            </button>
+            <button class="promotion-tab" data-discount="50">
+                <span>Giảm 50%</span>
+            </button>
+            <button class="promotion-tab" data-discount="40">
+                <span>Giảm 40%</span>
+            </button>
+            <button class="promotion-tab" data-discount="35">
+                <span>Giảm 35%</span>
+            </button>
+            <button class="promotion-tab" data-discount="30">
+                <span>Giảm 30%</span>
+            </button>
+            <button class="promotion-tab" data-discount="25">
+                <span>Giảm 25%</span>
+            </button>
+        </div>
+
+        <!-- Tất cả khuyến mãi -->
+        <div class="promotion-section active" id="all-promotions">
+            <div class="promotions-grid">
+                <!-- Promotion 1 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-50%</div>
+                    <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500&auto=format&fit=crop&q=60" alt="Áo thun nam" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Áo Thun Nam Basic</h3>
+                        <p class="promotion-description">Áo thun nam chất liệu cotton 100%, thoáng mát</p>
+                        <div class="promotion-price">
+                            <span class="original-price">300.000đ</span>
+                            150.000đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 2 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-50%</div>
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop&q=60" alt="Áo sơ mi nam" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Áo Sơ Mi Nam Công Sở</h3>
+                        <p class="promotion-description">Áo sơ mi nam thiết kế thanh lịch, phù hợp công sở</p>
+                        <div class="promotion-price">
+                            <span class="original-price">600.000đ</span>
+                            300.000đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 3 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-40%</div>
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop&q=60" alt="Quần jeans nam" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Quần Jeans Nam Premium</h3>
+                        <p class="promotion-description">Quần jeans nam chất liệu cao cấp, co giãn tốt</p>
+                        <div class="promotion-price">
+                            <span class="original-price">800.000đ</span>
+                            480.000đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 4 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-40%</div>
+                    <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500&auto=format&fit=crop&q=60" alt="Áo khoác nữ" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Áo Khoác Nữ Thời Trang</h3>
+                        <p class="promotion-description">Áo khoác nữ thiết kế hiện đại, chất liệu cao cấp</p>
+                        <div class="promotion-price">
+                            <span class="original-price">1.200.000đ</span>
+                            720.000đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 5 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-35%</div>
+                    <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500&auto=format&fit=crop&q=60" alt="Áo sơ mi nữ" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Áo Sơ Mi Nữ Công Sở</h3>
+                        <p class="promotion-description">Áo sơ mi nữ thiết kế thanh lịch, phù hợp công sở</p>
+                        <div class="promotion-price">
+                            <span class="original-price">650.000đ</span>
+                            422.500đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 6 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-35%</div>
+                    <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60" alt="Quần jeans nữ" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Quần Jeans Nữ Premium</h3>
+                        <p class="promotion-description">Quần jeans nữ chất liệu cao cấp, co giãn tốt</p>
+                        <div class="promotion-price">
+                            <span class="original-price">700.000đ</span>
+                            455.000đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 7 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-30%</div>
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop&q=60" alt="Quần tây nam" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Quần Tây Nam Cao Cấp</h3>
+                        <p class="promotion-description">Quần tây nam chất liệu cao cấp, form dáng chuẩn</p>
+                        <div class="promotion-price">
+                            <span class="original-price">900.000đ</span>
+                            630.000đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 8 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-30%</div>
+                    <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500&auto=format&fit=crop&q=60" alt="Áo khoác nam" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Áo Khoác Nam Cao Cấp</h3>
+                        <p class="promotion-description">Áo khoác nam phong cách hiện đại, chất liệu cao cấp</p>
+                        <div class="promotion-price">
+                            <span class="original-price">1.500.000đ</span>
+                            1.050.000đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 9 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-25%</div>
+                    <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500&auto=format&fit=crop&q=60" alt="Áo len nữ" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Áo Len Nữ Mùa Đông</h3>
+                        <p class="promotion-description">Áo len nữ ấm áp, thiết kế thời trang</p>
+                        <div class="promotion-price">
+                            <span class="original-price">750.000đ</span>
+                            562.500đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 10 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-25%</div>
+                    <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60" alt="Váy dạ hội" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Váy Dạ Hội Sang Trọng</h3>
+                        <p class="promotion-description">Váy dạ hội thiết kế độc quyền, phù hợp mọi dịp</p>
+                        <div class="promotion-price">
+                            <span class="original-price">2.800.000đ</span>
+                            2.100.000đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 11 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-45%</div>
+                    <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60" alt="Chân váy công sở" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Chân Váy Công Sở</h3>
+                        <p class="promotion-description">Chân váy công sở thiết kế hiện đại, thanh lịch</p>
+                        <div class="promotion-price">
+                            <span class="original-price">550.000đ</span>
+                            302.500đ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotion 12 -->
+                <div class="promotion-card">
+                    <div class="discount-badge">-45%</div>
+                    <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500&auto=format&fit=crop&q=60" alt="Váy liền thân" class="promotion-image">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">Váy Liền Thân Thời Trang</h3>
+                        <p class="promotion-description">Váy liền thân thiết kế hiện đại, phù hợp mọi dịp</p>
+                        <div class="promotion-price">
+                            <span class="original-price">850.000đ</span>
+                            467.500đ
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Các section khác sẽ được thêm vào đây -->
+        <div class="promotion-section" id="50-promotions">
+            <div class="promotion-section-header">
+                <h2 class="promotion-section-title">Khuyến Mãi 50%</h2>
+                <p class="promotion-section-subtitle">Giảm giá cực sốc - Mua 1 tặng 1</p>
+            </div>
+            <div class="promotion-section-grid">
+                <!-- Nội dung khuyến mãi 50% -->
+            </div>
+        </div>
+
+        <div class="promotion-section" id="40-promotions">
+            <div class="promotion-section-header">
+                <h2 class="promotion-section-title">Khuyến Mãi 40%</h2>
+                <p class="promotion-section-subtitle">Giảm giá đặc biệt - Tiết kiệm lớn</p>
+            </div>
+            <div class="promotion-section-grid">
+                <!-- Nội dung khuyến mãi 40% -->
+            </div>
+        </div>
+
+        <div class="promotion-section" id="35-promotions">
+            <div class="promotion-section-header">
+                <h2 class="promotion-section-title">Khuyến Mãi 35%</h2>
+                <p class="promotion-section-subtitle">Ưu đãi hấp dẫn - Giá tốt nhất</p>
+            </div>
+            <div class="promotion-section-grid">
+                <!-- Nội dung khuyến mãi 35% -->
+            </div>
+        </div>
+
+        <div class="promotion-section" id="30-promotions">
+            <div class="promotion-section-header">
+                <h2 class="promotion-section-title">Khuyến Mãi 30%</h2>
+                <p class="promotion-section-subtitle">Giảm giá thường xuyên - Chất lượng đảm bảo</p>
+            </div>
+            <div class="promotion-section-grid">
+                <!-- Nội dung khuyến mãi 30% -->
+            </div>
+        </div>
+
+        <div class="promotion-section" id="25-promotions">
+            <div class="promotion-section-header">
+                <h2 class="promotion-section-title">Khuyến Mãi 25%</h2>
+                <p class="promotion-section-subtitle">Ưu đãi đặc biệt - Giá hấp dẫn</p>
+            </div>
+            <div class="promotion-section-grid">
+                <!-- Nội dung khuyến mãi 25% -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Xử lý chuyển tab
+        document.querySelectorAll('.promotion-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Xóa class active của tất cả các tab
+                document.querySelectorAll('.promotion-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Thêm class active cho tab được click
+                tab.classList.add('active');
+                
+                // Ẩn tất cả các section
+                document.querySelectorAll('.promotion-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Hiển thị section tương ứng
+                const discount = tab.getAttribute('data-discount');
+                if (discount === 'all') {
+                    document.getElementById('all-promotions').classList.add('active');
+                } else {
+                    document.getElementById(`${discount}-promotions`).classList.add('active');
+                }
+            });
+        });
+
+        // Phân loại sản phẩm theo mức giảm giá
+        const promotions = document.querySelectorAll('.promotion-card');
+        promotions.forEach(promotion => {
+            const discount = promotion.querySelector('.discount-badge').textContent;
+            const discountValue = parseInt(discount.replace('-', '').replace('%', ''));
+            const targetSection = document.getElementById(`${discountValue}-promotions`);
+            
+            if (targetSection) {
+                const clone = promotion.cloneNode(true);
+                const grid = targetSection.querySelector('.promotion-section-grid');
+                grid.appendChild(clone);
+            }
+        });
+    </script>
+</body>
+</html> 

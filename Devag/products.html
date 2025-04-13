@@ -6,6 +6,466 @@
     <title>Fashion Store - Sản Phẩm</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .products-section {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .filters {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .filters h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 12px;
+            position: relative;
+        }
+
+        .filters h3::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #ff6b6b;
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1);
+            outline: none;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .filter-group:last-child {
+            border-bottom: none;
+        }
+
+        .filter-group h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 12px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .filter-group label:hover {
+            background-color: #f8f8f8;
+            color: #ff6b6b;
+        }
+
+        .filter-group input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #ff6b6b;
+        }
+
+        .apply-filters {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .apply-filters:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .products-container {
+            display: grid;
+            gap: 30px;
+        }
+
+        .product-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: #ff6b6b;
+        }
+
+        .section-subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image-container img {
+            transform: scale(1.05);
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-button:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-button i {
+            font-size: 1.2em;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price {
+            color: #ff6b6b;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .products-section {
+                padding: 20px;
+            }
+
+            .filters {
+                padding: 20px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .product-image-container {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image-container {
+                height: 200px;
+            }
+        }
+
+        /* Modal styles */
+        .product-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 900px;
+            width: 90%;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .product-detail-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product-detail-info {
+            padding: 20px;
+        }
+
+        .product-detail-info h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .detail-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .detail-price {
+            margin-bottom: 20px;
+        }
+
+        .current-price {
+            color: #ff6b6b;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: slideIn 0.5s ease;
+        }
+
+        .notification-content {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification i {
+            font-size: 1.2em;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Cart count badge */
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff6b6b;
+            color: white;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -17,6 +477,8 @@
             <ul class="nav-links">
                 <li><a href="index.html">Trang Chủ</a></li>
                 <li><a href="products.html" class="active">Sản Phẩm</a></li>
+                <li><a href="promotions.html">Khuyến Mãi</a></li>
+                <li><a href="orders.html">Đơn Hàng</a></li>
                 <li><a href="cart.html">Giỏ Hàng</a></li>
                 <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
                 <li><a href="contact.html">Liên Hệ</a></li>
@@ -44,6 +506,12 @@
                 </label>
                 <label>
                     <input type="checkbox" name="category" value="women"> Thời Trang Nữ
+                </label>
+                <label>
+                    <input type="checkbox" name="category" value="men-accessories"> Phụ Kiện Nam
+                </label>
+                <label>
+                    <input type="checkbox" name="category" value="women-accessories"> Phụ Kiện Nữ
                 </label>
             </div>
 
@@ -79,6 +547,224 @@
         <div class="products-container">
             <div class="product-grid">
                 <!-- Products will be added here by JavaScript -->
+            </div>
+
+            <!-- Phụ Kiện Nam -->
+            <div class="product-section" id="men-accessories">
+                <div class="section-header">
+                    <h2>Phụ Kiện Nam</h2>
+                    <p class="section-subtitle">Khám phá các phụ kiện thời trang cao cấp dành cho nam giới</p>
+                </div>
+                <div class="product-grid">
+                    <!-- Đồng Hồ Nam -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&auto=format&fit=crop&q=60" alt="Đồng Hồ Nam">
+                            <div class="product-overlay">
+                                <div class="action-buttons">
+                                    <div class="action-button" title="Xem nhanh">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="action-button" title="Thêm vào giỏ">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Đồng Hồ Nam Dây Da</h3>
+                            <p class="product-description">Đồng hồ nam thiết kế sang trọng, dây da cao cấp</p>
+                            <div class="price-container">
+                                <span class="price">1.500.000đ</span>
+                                <span class="original-price">2.000.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kính Mát Nam -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=500&auto=format&fit=crop&q=60" alt="Kính Mát Nam">
+                            <div class="product-overlay">
+                                <div class="action-buttons">
+                                    <div class="action-button" title="Xem nhanh">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="action-button" title="Thêm vào giỏ">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Kính Mát Nam Thời Trang</h3>
+                            <p class="product-description">Kính mát nam chống tia UV, thiết kế hiện đại</p>
+                            <div class="price-container">
+                                <span class="price">800.000đ</span>
+                                <span class="original-price">1.200.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thắt Lưng Nam -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&auto=format&fit=crop&q=60" alt="Thắt Lưng Nam">
+                            <div class="product-overlay">
+                                <div class="action-buttons">
+                                    <div class="action-button" title="Xem nhanh">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="action-button" title="Thêm vào giỏ">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Thắt Lưng Nam Da Bò</h3>
+                            <p class="product-description">Thắt lưng nam da bò thật, bền đẹp</p>
+                            <div class="price-container">
+                                <span class="price">450.000đ</span>
+                                <span class="original-price">600.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ví Nam -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&auto=format&fit=crop&q=60" alt="Ví Nam">
+                            <div class="product-overlay">
+                                <div class="action-buttons">
+                                    <div class="action-button" title="Xem nhanh">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="action-button" title="Thêm vào giỏ">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Ví Nam Da Bò</h3>
+                            <p class="product-description">Ví nam da bò thật, nhiều ngăn tiện lợi</p>
+                            <div class="price-container">
+                                <span class="price">600.000đ</span>
+                                <span class="original-price">800.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phụ Kiện Nữ -->
+            <div class="product-section" id="women-accessories">
+                <div class="section-header">
+                    <h2>Phụ Kiện Nữ</h2>
+                    <p class="section-subtitle">Khám phá các phụ kiện thời trang cao cấp dành cho nữ giới</p>
+                </div>
+                <div class="product-grid">
+                    <!-- Túi Xách Nữ -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&auto=format&fit=crop&q=60" alt="Túi Xách Nữ">
+                            <div class="product-overlay">
+                                <div class="action-buttons">
+                                    <div class="action-button" title="Xem nhanh">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="action-button" title="Thêm vào giỏ">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Túi Xách Nữ Thời Trang</h3>
+                            <p class="product-description">Túi xách nữ thiết kế hiện đại, chất liệu cao cấp</p>
+                            <div class="price-container">
+                                <span class="price">1.200.000đ</span>
+                                <span class="original-price">1.500.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vòng Tay Nữ -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&auto=format&fit=crop&q=60" alt="Vòng Tay Nữ">
+                            <div class="product-overlay">
+                                <div class="action-buttons">
+                                    <div class="action-button" title="Xem nhanh">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="action-button" title="Thêm vào giỏ">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Vòng Tay Nữ Đá Quý</h3>
+                            <p class="product-description">Vòng tay nữ đá quý tự nhiên, sang trọng</p>
+                            <div class="price-container">
+                                <span class="price">900.000đ</span>
+                                <span class="original-price">1.200.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khăn Choàng Nữ -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&auto=format&fit=crop&q=60" alt="Khăn Choàng Nữ">
+                            <div class="product-overlay">
+                                <div class="action-buttons">
+                                    <div class="action-button" title="Xem nhanh">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="action-button" title="Thêm vào giỏ">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Khăn Choàng Nữ Lụa</h3>
+                            <p class="product-description">Khăn choàng nữ lụa cao cấp, mềm mại</p>
+                            <div class="price-container">
+                                <span class="price">350.000đ</span>
+                                <span class="original-price">500.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mũ Nón Nữ -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=500&auto=format&fit=crop&q=60" alt="Mũ Nón Nữ">
+                            <div class="product-overlay">
+                                <div class="action-buttons">
+                                    <div class="action-button" title="Xem nhanh">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="action-button" title="Thêm vào giỏ">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Mũ Nón Nữ Thời Trang</h3>
+                            <p class="product-description">Mũ nón nữ thiết kế hiện đại, chống nắng tốt</p>
+                            <div class="price-container">
+                                <span class="price">250.000đ</span>
+                                <span class="original-price">350.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -123,5 +809,198 @@
         </div>
     </footer>
     <script src="script.js"></script>
+    <script>
+        // Lưu trữ giỏ hàng trong localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Hàm lọc sản phẩm theo danh mục
+        function filterProducts() {
+            const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked'))
+                .map(input => input.value);
+
+            const menAccessories = document.getElementById('men-accessories');
+            const womenAccessories = document.getElementById('women-accessories');
+
+            // Ẩn tất cả các section trước
+            if (menAccessories) menAccessories.style.display = 'none';
+            if (womenAccessories) womenAccessories.style.display = 'none';
+
+            // Nếu không có danh mục nào được chọn, hiển thị tất cả
+            if (selectedCategories.length === 0) {
+                if (menAccessories) menAccessories.style.display = 'block';
+                if (womenAccessories) womenAccessories.style.display = 'block';
+                return;
+            }
+
+            // Hiển thị các section theo danh mục được chọn
+            selectedCategories.forEach(category => {
+                if (category === 'men-accessories' && menAccessories) {
+                    menAccessories.style.display = 'block';
+                }
+                if (category === 'women-accessories' && womenAccessories) {
+                    womenAccessories.style.display = 'block';
+                }
+            });
+        }
+
+        // Thêm sự kiện cho nút áp dụng bộ lọc
+        document.querySelector('.apply-filters').addEventListener('click', filterProducts);
+
+        // Thêm sự kiện cho các checkbox danh mục
+        document.querySelectorAll('input[name="category"]').forEach(checkbox => {
+            checkbox.addEventListener('change', filterProducts);
+        });
+
+        // Hàm hiển thị modal chi tiết sản phẩm
+        function showProductDetail(product) {
+            const modal = document.createElement('div');
+            modal.className = 'product-modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <div class="product-detail">
+                        <div class="product-detail-image">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="product-detail-info">
+                            <h2>${product.name}</h2>
+                            <p class="detail-description">${product.description}</p>
+                            <div class="detail-price">
+                                <span class="current-price">${product.price}</span>
+                                <span class="original-price">${product.originalPrice}</span>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})">
+                                <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            // Đóng modal
+            const closeBtn = modal.querySelector('.close-modal');
+            closeBtn.onclick = function() {
+                modal.remove();
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.remove();
+                }
+            }
+        }
+
+        // Hàm thêm sản phẩm vào giỏ hàng
+        function addToCart(product) {
+            cart.push(product);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            showNotification('Đã thêm sản phẩm vào giỏ hàng!');
+            updateCartCount();
+        }
+
+        // Hàm hiển thị thông báo
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-check-circle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Hàm cập nhật số lượng sản phẩm trong giỏ hàng
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                cartCount.textContent = cart.length;
+            }
+        }
+
+        // Hàm xử lý sự kiện click cho các nút
+        function handleButtonClick(event, action) {
+            const button = event.target.closest('.action-button');
+            if (!button) return;
+
+            const productCard = button.closest('.product-card');
+            const product = {
+                image: productCard.querySelector('img').src,
+                name: productCard.querySelector('h3').textContent,
+                description: productCard.querySelector('.product-description').textContent,
+                price: productCard.querySelector('.price').textContent,
+                originalPrice: productCard.querySelector('.original-price').textContent
+            };
+
+            if (button.title === 'Xem nhanh') {
+                showProductDetail(product);
+            } else if (button.title === 'Thêm vào giỏ') {
+                addToCart(product);
+            }
+        }
+
+        // Thêm sự kiện click cho tất cả các nút trong phụ kiện nam và nữ
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gắn sự kiện cho phụ kiện nam
+            const menAccessories = document.getElementById('men-accessories');
+            if (menAccessories) {
+                menAccessories.querySelectorAll('.action-button').forEach(button => {
+                    button.addEventListener('click', (e) => handleButtonClick(e));
+                });
+            }
+
+            // Gắn sự kiện cho phụ kiện nữ
+            const womenAccessories = document.getElementById('women-accessories');
+            if (womenAccessories) {
+                womenAccessories.querySelectorAll('.action-button').forEach(button => {
+                    button.addEventListener('click', (e) => handleButtonClick(e));
+                });
+            }
+
+            // Thêm badge số lượng vào link giỏ hàng
+            const cartLink = document.querySelector('a[href="cart.html"]');
+            if (cartLink) {
+                const cartCount = document.createElement('span');
+                cartCount.className = 'cart-count';
+                cartCount.textContent = cart.length;
+                cartLink.style.position = 'relative';
+                cartLink.appendChild(cartCount);
+            }
+
+            // Cập nhật số lượng giỏ hàng
+            updateCartCount();
+
+            // Thêm khởi tạo bộ lọc
+            filterProducts();
+        });
+
+        // Xử lý sự kiện click cho icon
+        document.addEventListener('click', function(event) {
+            const icon = event.target.closest('.fas');
+            if (icon) {
+                const button = icon.closest('.action-button');
+                if (button) {
+                    handleButtonClick(event);
+                }
+            }
+        });
+    </script>
+
+    <!-- Thêm badge số lượng vào link giỏ hàng -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartLink = document.querySelector('a[href="cart.html"]');
+            const cartCount = document.createElement('span');
+            cartCount.className = 'cart-count';
+            cartCount.textContent = cart.length;
+            cartLink.style.position = 'relative';
+            cartLink.appendChild(cartCount);
+        });
+    </script>
 </body>
 </html> 
