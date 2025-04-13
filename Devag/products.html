@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,36 +16,28 @@
 
         .filters {
             background: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             margin-bottom: 30px;
             border: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .filters h3 {
             color: #333;
-            margin-bottom: 20px;
-            font-size: 1.4em;
+            font-size: 1.2em;
             font-weight: 600;
-            border-bottom: 2px solid #ff6b6b;
-            padding-bottom: 12px;
-            position: relative;
-        }
-
-        .filters h3::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: #ff6b6b;
+            margin-right: 15px;
+            white-space: nowrap;
         }
 
         .search-bar {
             position: relative;
-            margin-bottom: 25px;
+            flex: 1;
+            max-width: 300px;
         }
 
         .search-bar i {
@@ -57,59 +50,97 @@
 
         .search-bar input {
             width: 100%;
-            padding: 12px 15px 12px 40px;
+            padding: 10px 15px 10px 40px;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             font-size: 1em;
             transition: all 0.3s ease;
         }
 
-        .search-bar input:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1);
-            outline: none;
-        }
-
         .filter-group {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding: 0 15px;
+            border-right: 1px solid #f0f0f0;
         }
 
         .filter-group:last-child {
-            border-bottom: none;
+            border-right: none;
         }
 
         .filter-group h4 {
             color: #333;
-            margin-bottom: 15px;
             font-size: 1.1em;
             font-weight: 600;
-        }
-
-        .filter-group label {
-            display: block;
-            margin-bottom: 12px;
-            color: #555;
+            margin-right: 10px;
+            white-space: nowrap;
             cursor: pointer;
-            transition: all 0.3s ease;
             padding: 8px 12px;
             border-radius: 6px;
+            transition: all 0.3s ease;
         }
 
-        .filter-group label:hover {
+        .filter-group h4:hover {
             background-color: #f8f8f8;
             color: #ff6b6b;
         }
 
-        .filter-group input[type="checkbox"] {
-            margin-right: 10px;
+        .filter-group h4::after {
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .filter-group:hover h4::after {
+            transform: rotate(180deg);
+        }
+
+        .filter-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            min-width: 200px;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .filter-group:hover .filter-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin: 0;
+        }
+
+        .filter-options label:hover {
+            background-color: #f8f8f8;
+            color: #ff6b6b;
+        }
+
+        .filter-options input[type="checkbox"] {
+            margin-right: 8px;
             accent-color: #ff6b6b;
         }
 
         .apply-filters {
-            width: 100%;
-            padding: 12px;
+            padding: 10px 20px;
             background-color: #ff6b6b;
             color: white;
             border: none;
@@ -118,6 +149,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .apply-filters:hover {
@@ -289,12 +321,35 @@
             font-size: 0.9em;
         }
 
-        @media (max-width: 768px) {
-            .products-section {
-                padding: 20px;
+        @media (max-width: 1200px) {
+            .filters {
+                flex-wrap: wrap;
             }
 
-            .filters {
+            .filter-group {
+                flex: 1 1 100%;
+                border-right: none;
+                border-bottom: 1px solid #f0f0f0;
+                padding: 15px 0;
+            }
+
+            .search-bar {
+                max-width: 100%;
+            }
+
+            .filter-options {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                padding: 0;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-section {
                 padding: 20px;
             }
 
@@ -438,6 +493,7 @@
                 transform: translateX(100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateX(0);
                 opacity: 1;
@@ -467,6 +523,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -491,7 +548,7 @@
         <!-- Filters -->
         <div class="filters">
             <h3>Bộ Lọc</h3>
-            
+
             <!-- Search Bar -->
             <div class="search-bar">
                 <i class="fas fa-search"></i>
@@ -501,43 +558,47 @@
             <!-- Categories -->
             <div class="filter-group">
                 <h4>Danh Mục</h4>
-                <label>
-                    <input type="checkbox" name="category" value="men"> Thời Trang Nam
-                </label>
-                <label>
-                    <input type="checkbox" name="category" value="women"> Thời Trang Nữ
-                </label>
-                <label>
-                    <input type="checkbox" name="category" value="men-accessories"> Phụ Kiện Nam
-                </label>
-                <label>
-                    <input type="checkbox" name="category" value="women-accessories"> Phụ Kiện Nữ
-                </label>
+                <div class="filter-options">
+                    <label>
+                        <input type="checkbox" name="category" value="men"> Thời Trang Nam
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="women"> Thời Trang Nữ
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="men-accessories"> Phụ Kiện Nam
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="women-accessories"> Phụ Kiện Nữ
+                    </label>
+                </div>
             </div>
 
             <!-- Price Range -->
             <div class="filter-group">
                 <h4>Khoảng Giá</h4>
-                <label>
-                    <input type="checkbox" name="price" value="0-100">
-                    Dưới 100.000đ
-                </label>
-                <label>
-                    <input type="checkbox" name="price" value="100-500">
-                    100.000đ - 500.000đ
-                </label>
-                <label>
-                    <input type="checkbox" name="price" value="500-1000">
-                    500.000đ - 1.000.000đ
-                </label>
-                <label>
-                    <input type="checkbox" name="price" value="1000-5000">
-                    1.000.000đ - 5.000.000đ
-                </label>
-                <label>
-                    <input type="checkbox" name="price" value="5000+">
-                    Trên 5.000.000đ
-                </label>
+                <div class="filter-options">
+                    <label>
+                        <input type="checkbox" name="price" value="0-100">
+                        Dưới 100.000đ
+                    </label>
+                    <label>
+                        <input type="checkbox" name="price" value="100-500">
+                        100.000đ - 500.000đ
+                    </label>
+                    <label>
+                        <input type="checkbox" name="price" value="500-1000">
+                        500.000đ - 1.000.000đ
+                    </label>
+                    <label>
+                        <input type="checkbox" name="price" value="1000-5000">
+                        1.000.000đ - 5.000.000đ
+                    </label>
+                    <label>
+                        <input type="checkbox" name="price" value="5000+">
+                        Trên 5.000.000đ
+                    </label>
+                </div>
             </div>
 
             <button class="apply-filters">Áp Dụng Bộ Lọc</button>
@@ -559,7 +620,8 @@
                     <!-- Đồng Hồ Nam -->
                     <div class="product-card">
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&auto=format&fit=crop&q=60" alt="Đồng Hồ Nam">
+                            <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&auto=format&fit=crop&q=60"
+                                alt="Đồng Hồ Nam">
                             <div class="product-overlay">
                                 <div class="action-buttons">
                                     <div class="action-button" title="Xem nhanh">
@@ -584,7 +646,8 @@
                     <!-- Kính Mát Nam -->
                     <div class="product-card">
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=500&auto=format&fit=crop&q=60" alt="Kính Mát Nam">
+                            <img src="https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=500&auto=format&fit=crop&q=60"
+                                alt="Kính Mát Nam">
                             <div class="product-overlay">
                                 <div class="action-buttons">
                                     <div class="action-button" title="Xem nhanh">
@@ -609,7 +672,8 @@
                     <!-- Thắt Lưng Nam -->
                     <div class="product-card">
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&auto=format&fit=crop&q=60" alt="Thắt Lưng Nam">
+                            <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&auto=format&fit=crop&q=60"
+                                alt="Thắt Lưng Nam">
                             <div class="product-overlay">
                                 <div class="action-buttons">
                                     <div class="action-button" title="Xem nhanh">
@@ -634,7 +698,8 @@
                     <!-- Ví Nam -->
                     <div class="product-card">
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&auto=format&fit=crop&q=60" alt="Ví Nam">
+                            <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&auto=format&fit=crop&q=60"
+                                alt="Ví Nam">
                             <div class="product-overlay">
                                 <div class="action-buttons">
                                     <div class="action-button" title="Xem nhanh">
@@ -668,7 +733,8 @@
                     <!-- Túi Xách Nữ -->
                     <div class="product-card">
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&auto=format&fit=crop&q=60" alt="Túi Xách Nữ">
+                            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&auto=format&fit=crop&q=60"
+                                alt="Túi Xách Nữ">
                             <div class="product-overlay">
                                 <div class="action-buttons">
                                     <div class="action-button" title="Xem nhanh">
@@ -693,7 +759,8 @@
                     <!-- Vòng Tay Nữ -->
                     <div class="product-card">
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&auto=format&fit=crop&q=60" alt="Vòng Tay Nữ">
+                            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&auto=format&fit=crop&q=60"
+                                alt="Vòng Tay Nữ">
                             <div class="product-overlay">
                                 <div class="action-buttons">
                                     <div class="action-button" title="Xem nhanh">
@@ -718,7 +785,8 @@
                     <!-- Khăn Choàng Nữ -->
                     <div class="product-card">
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&auto=format&fit=crop&q=60" alt="Khăn Choàng Nữ">
+                            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&auto=format&fit=crop&q=60"
+                                alt="Khăn Choàng Nữ">
                             <div class="product-overlay">
                                 <div class="action-buttons">
                                     <div class="action-button" title="Xem nhanh">
@@ -743,7 +811,8 @@
                     <!-- Mũ Nón Nữ -->
                     <div class="product-card">
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=500&auto=format&fit=crop&q=60" alt="Mũ Nón Nữ">
+                            <img src="https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=500&auto=format&fit=crop&q=60"
+                                alt="Mũ Nón Nữ">
                             <div class="product-overlay">
                                 <div class="action-buttons">
                                     <div class="action-button" title="Xem nhanh">
@@ -880,10 +949,10 @@
 
             // Đóng modal
             const closeBtn = modal.querySelector('.close-modal');
-            closeBtn.onclick = function() {
+            closeBtn.onclick = function () {
                 modal.remove();
             }
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.remove();
                 }
@@ -945,7 +1014,7 @@
         }
 
         // Thêm sự kiện click cho tất cả các nút trong phụ kiện nam và nữ
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Gắn sự kiện cho phụ kiện nam
             const menAccessories = document.getElementById('men-accessories');
             if (menAccessories) {
@@ -980,7 +1049,7 @@
         });
 
         // Xử lý sự kiện click cho icon
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             const icon = event.target.closest('.fas');
             if (icon) {
                 const button = icon.closest('.action-button');
@@ -993,7 +1062,7 @@
 
     <!-- Thêm badge số lượng vào link giỏ hàng -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const cartLink = document.querySelector('a[href="cart.html"]');
             const cartCount = document.createElement('span');
             cartCount.className = 'cart-count';
@@ -1003,4 +1072,5 @@
         });
     </script>
 </body>
-</html> 
+
+</html>
