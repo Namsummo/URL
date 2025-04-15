@@ -244,6 +244,34 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* CSS cho Toast Message */
+        .toast-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff6b6b; /* Màu tương tự nút Thêm/Đăng nhập */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+            font-weight: 500;
+            white-space: nowrap; /* Đảm bảo không xuống dòng nếu nội dung dài */
+        }
+
+        .toast-message.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .notification.success {
+            background-color: #ff6b6b; /* Màu giống toast message */
+        }
     </style>
 </head>
 <body>
@@ -339,6 +367,9 @@
         </div>
     </div>
 
+    <!-- Phần tử hiển thị Toast Message -->
+    <div id="toast-message" class="toast-message"></div>
+
     <script src="script.js"></script>
     <script>
         // Lấy ID sản phẩm từ URL
@@ -408,8 +439,26 @@
             // Lưu giỏ hàng vào localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
 
-            // Hiển thị thông báo
-            alert('Đã thêm sản phẩm vào giỏ hàng!');
+            // Hiển thị thông báo tùy chỉnh thay vì alert
+            showToast('Đã thêm sản phẩm vào giỏ hàng!');
+        }
+
+        // Hàm hiển thị toast message
+        let toastTimeout; // Biến để lưu trữ timeout
+        function showToast(message) {
+            const toast = document.getElementById('toast-message');
+            if (!toast) return;
+
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            // Xóa timeout cũ nếu đang hiển thị toast khác
+            clearTimeout(toastTimeout);
+
+            // Tự động ẩn sau 3 giây
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
         }
 
         // Xử lý số lượng
@@ -462,7 +511,16 @@
         }
 
         // Load thông tin sản phẩm khi trang được tải
-        document.addEventListener('DOMContentLoaded', loadProductDetails);
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProductDetails();
+            // Đảm bảo phần tử toast tồn tại (phòng trường hợp load JS trước HTML)
+            if (!document.getElementById('toast-message')) {
+                const toastElement = document.createElement('div');
+                toastElement.id = 'toast-message';
+                toastElement.className = 'toast-message';
+                document.body.appendChild(toastElement);
+            }
+        });
     </script>
 </body>
 </html> 
