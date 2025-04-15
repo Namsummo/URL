@@ -300,6 +300,92 @@
                 margin-top: 20px;
             }
         }
+
+        /* Custom Confirm Modal */
+        .confirm-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1050;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .confirm-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .confirm-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .confirm-modal.show .confirm-modal-content {
+            transform: scale(1);
+        }
+
+        .confirm-modal-content h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.3em;
+        }
+
+        .confirm-modal-content p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1em;
+        }
+
+        .confirm-modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .confirm-modal-buttons button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .confirm-btn-ok {
+            background-color: #ff6b6b; /* Primary color */
+            color: white;
+        }
+
+        .confirm-btn-ok:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+        }
+
+        .confirm-btn-cancel {
+            background-color: #f1f1f1;
+            color: #555;
+        }
+
+        .confirm-btn-cancel:hover {
+            background-color: #e0e0e0;
+        }
     </style>
 </head>
 <body>
@@ -337,7 +423,7 @@
                 </div>
                 <div class="cart-summary-row">
                     <span>Phí vận chuyển:</span>
-                    <span class="shipping">30.000đ</span>
+                    <span class="shipping">0đ</span>
                 </div>
                 <div class="cart-summary-row">
                     <span>Tổng thanh toán:</span>
@@ -390,6 +476,18 @@
         </div>
     </footer>
 
+    <!-- Custom Confirm Modal -->
+    <div id="confirmDeleteModal" class="confirm-modal">
+        <div class="confirm-modal-content">
+            <h4>Xác nhận xóa</h4>
+            <p>Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?</p>
+            <div class="confirm-modal-buttons">
+                <button id="confirmBtnCancel" class="confirm-btn-cancel">Hủy</button>
+                <button id="confirmBtnOk" class="confirm-btn-ok">Xóa</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
     <script>
         function displayCart() {
@@ -403,31 +501,30 @@
                         <a href="products.html" class="continue-shopping">Tiếp tục mua sắm</a>
                     </div>
                 `;
-                return;
+            } else {
+                cartItems.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <div class="checkbox-container">
+                            <input type="checkbox" 
+                                   ${item.isChecked ? 'checked' : ''} 
+                                   onchange="toggleItemCheck(${index})">
+                        </div>
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-info">
+                            <h3 class="cart-item-name">${item.name}</h3>
+                            <span class="cart-item-size">Size: ${item.size}</span>
+                            <span class="cart-item-price">${formatPrice(item.price)}</span>
+                        </div>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity(${index}, -1)">-</button>
+                            <input type="number" value="${item.quantity}" min="1" 
+                                   onchange="updateQuantity(${index}, 0, this.value)">
+                            <button onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                        <i class="fas fa-trash remove-item" onclick="removeItem(${index})"></i>
+                    </div>
+                `).join('');
             }
-
-            cartItems.innerHTML = cart.map((item, index) => `
-                <div class="cart-item">
-                    <div class="checkbox-container">
-                        <input type="checkbox" 
-                               ${item.isChecked ? 'checked' : ''} 
-                               onchange="toggleItemCheck(${index})">
-                    </div>
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                    <div class="cart-item-info">
-                        <h3 class="cart-item-name">${item.name}</h3>
-                        <span class="cart-item-size">Size: ${item.size}</span>
-                        <span class="cart-item-price">${formatPrice(item.price)}</span>
-                    </div>
-                    <div class="quantity-selector">
-                        <button onclick="updateQuantity(${index}, -1)">-</button>
-                        <input type="number" value="${item.quantity}" min="1" 
-                               onchange="updateQuantity(${index}, 0, this.value)">
-                        <button onclick="updateQuantity(${index}, 1)">+</button>
-                    </div>
-                    <i class="fas fa-trash remove-item" onclick="removeItem(${index})"></i>
-                </div>
-            `).join('');
 
             updateCartSummary();
             updateSelectAllCheckbox();
@@ -467,13 +564,44 @@
             displayCart();
         }
 
+        let itemIndexToRemove = -1;
+        const confirmModal = document.getElementById('confirmDeleteModal');
+        const confirmBtnOk = document.getElementById('confirmBtnOk');
+        const confirmBtnCancel = document.getElementById('confirmBtnCancel');
+
         function removeItem(index) {
-            if (confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
-                cart.splice(index, 1);
+            itemIndexToRemove = index; // Lưu index để xử lý khi nhấn OK
+            showConfirmModal();
+        }
+
+        function showConfirmModal() {
+            confirmModal.classList.add('show');
+        }
+
+        function hideConfirmModal() {
+            confirmModal.classList.remove('show');
+            itemIndexToRemove = -1; // Reset index
+        }
+
+        // Event listener cho nút OK
+        confirmBtnOk.addEventListener('click', () => {
+            if (itemIndexToRemove !== -1) {
+                cart.splice(itemIndexToRemove, 1);
                 localStorage.setItem('cart', JSON.stringify(cart));
                 displayCart();
+                hideConfirmModal();
             }
-        }
+        });
+
+        // Event listener cho nút Hủy
+        confirmBtnCancel.addEventListener('click', hideConfirmModal);
+
+        // Event listener để đóng modal khi click ra ngoài
+        confirmModal.addEventListener('click', (event) => {
+            if (event.target === confirmModal) {
+                hideConfirmModal();
+            }
+        });
 
         function updateCartSummary() {
             const subtotal = cart.reduce((total, item) => {
@@ -494,9 +622,22 @@
         function checkout() {
             const hasCheckedItems = cart.some(item => item.isChecked);
             if (!hasCheckedItems) {
-                alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán');
+                showNotification('Vui lòng chọn ít nhất một sản phẩm để thanh toán', 'error');
                 return;
             }
+            
+            // Kiểm tra đăng nhập
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser') || 'null');
+            
+            if (!currentUser) {
+                showNotification('Vui lòng đăng nhập để tiến hành thanh toán!', 'info');
+                // Tùy chọn: Chuyển hướng đến trang đăng nhập sau 1.5 giây
+                setTimeout(() => {
+                    window.location.href = 'auth.html';
+                }, 1500);
+                return; // Ngăn không cho thực hiện thanh toán
+            }
+
             // Xử lý thanh toán ở đây
             alert('Chức năng thanh toán đang được phát triển');
         }
