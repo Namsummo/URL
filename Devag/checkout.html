@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store - Thanh Toán</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .checkout-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .checkout-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .payment-methods {
+            margin-top: 30px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: #4a90e2;
+        }
+
+        .payment-method.selected {
+            border-color: #4a90e2;
+            background: #f8f9ff;
+        }
+
+        .payment-method img {
+            width: 40px;
+            margin-right: 15px;
+        }
+
+        .order-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .summary-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .checkout-button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-button:hover {
+            background: #357abd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .selected-items {
+            margin-bottom: 30px;
+        }
+
+        .selected-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .selected-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .item-meta {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .item-price {
+            color: #ff6b6b;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Fashion Store</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Trang Chủ</a></li>
+            <li><a href="products.html">Sản Phẩm</a></li>
+            <li><a href="promotions.html">Khuyến Mãi</a></li>
+            <li><a href="cart.html">Giỏ Hàng</a></li>
+            <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
+            <li><a href="contact.html">Liên Hệ</a></li>
+        </ul>
+    </nav>
+
+    <div class="checkout-container">
+        <div class="checkout-form">
+            <h2>Thông tin thanh toán</h2>
+            <div class="form-group">
+                <label for="fullname">Họ và tên</label>
+                <input type="text" id="fullname" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="tel" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Địa chỉ</label>
+                <input type="text" id="address" required>
+            </div>
+            <div class="form-group">
+                <label for="city">Tỉnh/Thành phố</label>
+                <select id="city" required>
+                    <option value="">Chọn tỉnh/thành phố</option>
+                    <option value="hanoi">Hà Nội</option>
+                    <option value="hcm">TP. Hồ Chí Minh</option>
+                    <!-- Thêm các tỉnh thành khác -->
+                </select>
+            </div>
+
+            <div class="payment-methods">
+                <h3>Phương thức thanh toán</h3>
+                <div class="payment-method selected">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Cash_icon.svg/1200px-Cash_icon.svg.png" alt="COD">
+                    <div>
+                        <strong>Thanh toán khi nhận hàng (COD)</strong>
+                        <p>Thanh toán bằng tiền mặt khi nhận hàng</p>
+                    </div>
+                </div>
+                <div class="payment-method">
+                    <img src="https://cdn-icons-png.flaticon.com/512/147/147258.png" alt="Banking">
+                    <div>
+                        <strong>Chuyển khoản ngân hàng</strong>
+                        <p>Thanh toán qua tài khoản ngân hàng</p>
+                    </div>
+                </div>
+                <div class="payment-method">
+                    <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Momo">
+                    <div>
+                        <strong>Ví điện tử Momo</strong>
+                        <p>Thanh toán qua ví Momo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h2>Đơn hàng của bạn</h2>
+            <div class="selected-items" id="selected-items">
+                <!-- Các sản phẩm được chọn sẽ hiển thị ở đây -->
+            </div>
+            <div class="summary-item">
+                <span>Tổng tiền hàng</span>
+                <span id="subtotal">0đ</span>
+            </div>
+            <div class="summary-item">
+                <span>Phí vận chuyển</span>
+                <span id="shipping">30.000đ</span>
+            </div>
+            <div class="summary-total">
+                <span>Tổng thanh toán</span>
+                <span id="total">0đ</span>
+            </div>
+            <button class="checkout-button" onclick="processCheckout()">
+                Đặt hàng
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Load giỏ hàng từ localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Chỉ hiển thị các sản phẩm được check
+        const selectedItems = cart.filter(item => item.isChecked);
+        
+        // Tính tổng tiền
+        function calculateTotal() {
+            const subtotal = selectedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const shipping = 30000;
+            const total = subtotal + shipping;
+
+            document.getElementById('subtotal').textContent = formatPrice(subtotal);
+            document.getElementById('shipping').textContent = formatPrice(shipping);
+            document.getElementById('total').textContent = formatPrice(total);
+        }
+
+        // Hiển thị các sản phẩm được chọn
+        function displaySelectedItems() {
+            const container = document.getElementById('selected-items');
+            container.innerHTML = selectedItems.map(item => `
+                <div class="selected-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-meta">
+                            Size: ${item.size} | Số lượng: ${item.quantity}
+                        </div>
+                    </div>
+                    <div class="item-price">${formatPrice(item.price * item.quantity)}</div>
+                </div>
+            `).join('');
+        }
+
+        // Xử lý chọn phương thức thanh toán
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                paymentMethods.forEach(m => m.classList.remove('selected'));
+                method.classList.add('selected');
+            });
+        });
+
+        // Xử lý đặt hàng
+        function processCheckout() {
+            const fullname = document.getElementById('fullname').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+
+            if (!fullname || !phone || !email || !address || !city) {
+                alert('Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+
+            // Tạo đơn hàng
+            const order = {
+                items: selectedItems,
+                customerInfo: {
+                    fullname,
+                    phone,
+                    email,
+                    address,
+                    city
+                },
+                paymentMethod: document.querySelector('.payment-method.selected').querySelector('strong').textContent,
+                total: parseFloat(document.getElementById('total').textContent.replace('đ', '').replace(',', '')),
+                orderDate: new Date().toISOString()
+            };
+
+            // Lưu đơn hàng vào localStorage (có thể thay bằng API call)
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // Xóa các sản phẩm đã đặt khỏi giỏ hàng
+            cart = cart.filter(item => !item.isChecked);
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Chuyển hướng đến trang xác nhận đơn hàng
+            alert('Đặt hàng thành công!');
+            window.location.href = 'order-confirmation.html';
+        }
+
+        // Format giá tiền
+        function formatPrice(price) {
+            return price.toLocaleString('vi-VN') + 'đ';
+        }
+
+        // Khởi tạo trang
+        document.addEventListener('DOMContentLoaded', () => {
+            displaySelectedItems();
+            calculateTotal();
+        });
+    </script>
+</body>
+</html> 
