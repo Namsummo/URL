@@ -810,185 +810,55 @@
     </footer>
     <script src="script.js"></script>
     <script>
-        // Lưu trữ giỏ hàng trong localStorage
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Hàm lọc sản phẩm theo danh mục
-        function filterProducts() {
-            const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked'))
-                .map(input => input.value);
-
-            const menAccessories = document.getElementById('men-accessories');
-            const womenAccessories = document.getElementById('women-accessories');
-
-            // Ẩn tất cả các section trước
-            if (menAccessories) menAccessories.style.display = 'none';
-            if (womenAccessories) womenAccessories.style.display = 'none';
-
-            // Nếu không có danh mục nào được chọn, hiển thị tất cả
-            if (selectedCategories.length === 0) {
-                if (menAccessories) menAccessories.style.display = 'block';
-                if (womenAccessories) womenAccessories.style.display = 'block';
-                return;
-            }
-
-            // Hiển thị các section theo danh mục được chọn
-            selectedCategories.forEach(category => {
-                if (category === 'men-accessories' && menAccessories) {
-                    menAccessories.style.display = 'block';
-                }
-                if (category === 'women-accessories' && womenAccessories) {
-                    womenAccessories.style.display = 'block';
-                }
-            });
-        }
-
-        // Thêm sự kiện cho nút áp dụng bộ lọc
-        document.querySelector('.apply-filters').addEventListener('click', filterProducts);
-
-        // Thêm sự kiện cho các checkbox danh mục
-        document.querySelectorAll('input[name="category"]').forEach(checkbox => {
-            checkbox.addEventListener('change', filterProducts);
+        // Lấy danh mục được chọn từ localStorage
+        const selectedCategory = localStorage.getItem('selectedCategory');
+        
+        // Lấy danh sách sản phẩm từ localStorage
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        
+        // Ẩn tất cả các section
+        document.querySelectorAll('.product-section').forEach(section => {
+            section.style.display = 'none';
         });
-
-        // Hàm hiển thị modal chi tiết sản phẩm
-        function showProductDetail(product) {
-            const modal = document.createElement('div');
-            modal.className = 'product-modal';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <div class="product-detail">
-                        <div class="product-detail-image">
+        
+        // Hiển thị section tương ứng với danh mục được chọn
+        if (selectedCategory === 'men-accessories') {
+            const menAccessoriesSection = document.getElementById('men-accessories');
+            if (menAccessoriesSection) {
+                menAccessoriesSection.style.display = 'block';
+            }
+        } else if (selectedCategory === 'women-accessories') {
+            const womenAccessoriesSection = document.getElementById('women-accessories');
+            if (womenAccessoriesSection) {
+                womenAccessoriesSection.style.display = 'block';
+            }
+        } else {
+            // Hiển thị sản phẩm trong grid chính cho các danh mục khác
+            const productGrid = document.querySelector('.product-grid');
+            if (productGrid) {
+                productGrid.innerHTML = products.map(product => `
+                    <div class="product-card">
+                        <div class="product-image-container">
                             <img src="${product.image}" alt="${product.name}">
-                        </div>
-                        <div class="product-detail-info">
-                            <h2>${product.name}</h2>
-                            <p class="detail-description">${product.description}</p>
-                            <div class="detail-price">
-                                <span class="current-price">${product.price}</span>
-                                <span class="original-price">${product.originalPrice}</span>
+                            <div class="product-overlay">
+                                <div class="action-buttons">
+                                    <button class="action-button" title="Xem nhanh">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-button" title="Thêm vào giỏ">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <button class="add-to-cart-btn" onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})">
-                                <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
-                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p class="price">${product.price}</p>
                         </div>
                     </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-
-            // Đóng modal
-            const closeBtn = modal.querySelector('.close-modal');
-            closeBtn.onclick = function() {
-                modal.remove();
-            }
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.remove();
-                }
+                `).join('');
             }
         }
-
-        // Hàm thêm sản phẩm vào giỏ hàng
-        function addToCart(product) {
-            cart.push(product);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            showNotification('Đã thêm sản phẩm vào giỏ hàng!');
-            updateCartCount();
-        }
-
-        // Hàm hiển thị thông báo
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.innerHTML = `
-                <div class="notification-content">
-                    <i class="fas fa-check-circle"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-
-        // Hàm cập nhật số lượng sản phẩm trong giỏ hàng
-        function updateCartCount() {
-            const cartCount = document.querySelector('.cart-count');
-            if (cartCount) {
-                cartCount.textContent = cart.length;
-            }
-        }
-
-        // Hàm xử lý sự kiện click cho các nút
-        function handleButtonClick(event, action) {
-            const button = event.target.closest('.action-button');
-            if (!button) return;
-
-            const productCard = button.closest('.product-card');
-            const product = {
-                image: productCard.querySelector('img').src,
-                name: productCard.querySelector('h3').textContent,
-                description: productCard.querySelector('.product-description').textContent,
-                price: productCard.querySelector('.price').textContent,
-                originalPrice: productCard.querySelector('.original-price').textContent
-            };
-
-            if (button.title === 'Xem nhanh') {
-                showProductDetail(product);
-            } else if (button.title === 'Thêm vào giỏ') {
-                addToCart(product);
-            }
-        }
-
-        // Thêm sự kiện click cho tất cả các nút trong phụ kiện nam và nữ
-        document.addEventListener('DOMContentLoaded', function() {
-            // Gắn sự kiện cho phụ kiện nam
-            const menAccessories = document.getElementById('men-accessories');
-            if (menAccessories) {
-                menAccessories.querySelectorAll('.action-button').forEach(button => {
-                    button.addEventListener('click', (e) => handleButtonClick(e));
-                });
-            }
-
-            // Gắn sự kiện cho phụ kiện nữ
-            const womenAccessories = document.getElementById('women-accessories');
-            if (womenAccessories) {
-                womenAccessories.querySelectorAll('.action-button').forEach(button => {
-                    button.addEventListener('click', (e) => handleButtonClick(e));
-                });
-            }
-
-            // Thêm badge số lượng vào link giỏ hàng
-            const cartLink = document.querySelector('a[href="cart.html"]');
-            if (cartLink) {
-                const cartCount = document.createElement('span');
-                cartCount.className = 'cart-count';
-                cartCount.textContent = cart.length;
-                cartLink.style.position = 'relative';
-                cartLink.appendChild(cartCount);
-            }
-
-            // Cập nhật số lượng giỏ hàng
-            updateCartCount();
-
-            // Thêm khởi tạo bộ lọc
-            filterProducts();
-        });
-
-        // Xử lý sự kiện click cho icon
-        document.addEventListener('click', function(event) {
-            const icon = event.target.closest('.fas');
-            if (icon) {
-                const button = icon.closest('.action-button');
-                if (button) {
-                    handleButtonClick(event);
-                }
-            }
-        });
     </script>
 
     <!-- Thêm badge số lượng vào link giỏ hàng -->

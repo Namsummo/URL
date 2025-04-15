@@ -11,17 +11,27 @@
 
 <body>
     <nav class="navbar">
-        <div class="logo">
-            <h1>Fashion Store</h1>
+        <div class="nav-container">
+            <div class="left-section">
+                <div class="logo">
+                    <h1>Fashion Store</h1>
+                </div>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm...">
+                    <button class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Trang Chủ</a></li>
+                <li><a href="products.html">Sản Phẩm</a></li>
+                <li><a href="promotions.html">Khuyến Mãi</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>
+                <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
+                <li><a href="contact.html">Liên Hệ</a></li>
+            </ul>
         </div>
-        <ul class="nav-links">
-            <li><a href="index.html" class="active">Trang Chủ</a></li>
-            <li><a href="products.html">Sản Phẩm</a></li>
-            <li><a href="promotions.html">Khuyến Mãi</a></li>
-            <li><a href="cart.html">Giỏ Hàng</a></li>
-            <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
-            <li><a href="contact.html">Liên Hệ</a></li>
-        </ul>
     </nav>
 
     <section class="hero">
@@ -32,25 +42,21 @@
         </div>
     </section>
 
-    <div class="main-content">
-        <aside class="sidebar">
-            <div class="categories-sidebar">
-                <h3>Danh Mục Sản Phẩm</h3>
-                <ul class="category-list">
-                    <li><a href="products.html?category=men" class="category-item"><i class="fas fa-tshirt"></i>Quần Áo
-                            Nam</a></li>
-                    <li><a href="products.html?category=women" class="category-item"><i class="fas fa-female"></i>Quần
-                            Áo Nữ</a></li>
-                </ul>
-            </div>
-        </aside>
+    <div class="categories-bar">
+        <div class="categories-container">
+            <ul class="category-list">
+                <li><a href="products.html?category=clothing" class="category-item" data-category="clothing"><i class="fas fa-tshirt"></i>Quần Áo</a></li>
+                <li><a href="products.html?category=accessories" class="category-item" data-category="accessories"><i class="fas fa-glasses"></i>Phụ Kiện</a></li>
+            </ul>
+        </div>
+    </div>
 
+    <div class="main-content">
         <main class="content">
             <section class="featured-products">
                 <h2>Sản Phẩm Nổi Bật</h2>
                 <div class="product-grid">
                     <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
-                    <!-- Xóa sản phẩm có id 4 và 7 -->
                 </div>
             </section>
 
@@ -59,11 +65,11 @@
                 <div class="promotions-container">
                     <a href="promotions.html" class="promotion-link">
                         <div class="promotion-card">
-                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60"
                                 alt="Áo Thun Nam" class="promotion-image">
                             <div class="promotion-content">
                                 <h3 class="promotion-title">Giảm 50% Áo Thun Nam</h3>
-                                <p class="promotion-description">Áo thun nam cao cấp với chất liệu cotton 100%</p>
+                                <p class="promotion-description">Áo thun nam cao cấp với chất liệu cotton 100%, thoáng mát và thoải mái khi mặc.</p>
                                 <span class="promotion-status status-active">Đang diễn ra</span>
                             </div>
                         </div>
@@ -71,11 +77,11 @@
 
                     <a href="promotions.html" class="promotion-link">
                         <div class="promotion-card">
-                            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60"
                                 alt="Quần Jean Nam" class="promotion-image">
                             <div class="promotion-content">
                                 <h3 class="promotion-title">Mua 2 Tặng 1 Quần Jean Nam</h3>
-                                <p class="promotion-description">Quần jean nam cao cấp, nhiều size</p>
+                                <p class="promotion-description">Quần jean nam cao cấp, nhiều size, chất liệu bền đẹp và thoải mái khi mặc.</p>
                                 <span class="promotion-status status-active">Đang diễn ra</span>
                             </div>
                         </div>
@@ -83,11 +89,11 @@
 
                     <a href="promotions.html" class="promotion-link">
                         <div class="promotion-card">
-                            <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                            <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60"
                                 alt="Áo Thun Nữ" class="promotion-image">
                             <div class="promotion-content">
                                 <h3 class="promotion-title">Áo Thun Nữ - Giảm 40%</h3>
-                                <p class="promotion-description">Áo thun nữ thời trang, nhiều mẫu mã</p>
+                                <p class="promotion-description">Áo thun nữ thời trang, nhiều mẫu mã, chất liệu mềm mại và thoáng mát.</p>
                                 <span class="promotion-status status-active">Đang diễn ra</span>
                             </div>
                         </div>
@@ -184,119 +190,119 @@
     </div>
 
     <style>
-        .main-content {
-            display: flex;
+        .hero {
+            position: relative;
+            margin-bottom: 0;
+        }
+
+        .categories-bar {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .categories-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            gap: 30px;
-        }
-
-        .sidebar {
-            width: 280px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-        }
-
-        .categories-sidebar {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border: 1px solid #f0f0f0;
-        }
-
-        .categories-sidebar h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            font-weight: 600;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 12px;
-            position: relative;
-        }
-
-        .categories-sidebar h3::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: #4CAF50;
+            padding: 0 20px;
         }
 
         .category-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
             list-style: none;
-            padding: 0;
             margin: 0;
+            padding: 0;
         }
 
         .category-item {
             display: flex;
             align-items: center;
-            padding: 12px 15px;
             color: #333;
             text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
             transition: all 0.3s ease;
-            border-radius: 8px;
-            margin-bottom: 8px;
             font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .category-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background-color: #4CAF50;
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
+            background-color: #f8f8f8;
         }
 
         .category-item:hover {
-            background-color: #f8f8f8;
-            color: #4CAF50;
-            transform: translateX(5px);
-        }
-
-        .category-item:hover::before {
-            transform: scaleY(1);
+            background-color: #4CAF50;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
         }
 
         .category-item i {
-            margin-right: 10px;
+            margin-right: 8px;
             font-size: 1.1em;
             color: #4CAF50;
+            transition: color 0.3s ease;
+        }
+
+        .category-item:hover i {
+            color: white;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         .content {
-            flex-grow: 1;
+            width: 100%;
         }
 
-        /* Điều chỉnh lại các section để phù hợp với layout mới */
-        .featured-products,
-        .featured-promotions,
-        .categories,
-        .features {
-            margin-left: 0;
+        @media (max-width: 768px) {
+            .categories-bar {
+                padding: 10px 0;
+            }
+
+            .category-list {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: flex-start;
+            }
+
+            .category-item {
+                padding: 6px 12px;
+                font-size: 0.9em;
+                flex: 1 1 calc(50% - 10px);
+                justify-content: center;
+            }
         }
 
         .featured-promotions {
-            padding: 40px 20px;
+            padding: 40px 0;
             background-color: #f9f9f9;
         }
 
         .featured-promotions h2 {
             text-align: center;
-            margin-bottom: 30px;
             color: #333;
+            font-size: 2em;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .featured-promotions h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: #ff6b6b;
         }
 
         .promotions-container {
@@ -305,6 +311,7 @@
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
         .promotion-link {
@@ -314,196 +321,215 @@
 
         .promotion-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .promotion-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
         }
 
         .promotion-image {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .promotion-card:hover .promotion-image {
+            transform: scale(1.05);
         }
 
         .promotion-content {
             padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .promotion-title {
+            color: #333;
             font-size: 1.2em;
             margin-bottom: 10px;
-            color: #333;
+            font-weight: 600;
         }
 
         .promotion-description {
             color: #666;
+            font-size: 0.95em;
             margin-bottom: 15px;
+            line-height: 1.5;
+            flex: 1;
         }
 
         .promotion-status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.9em;
-            font-weight: bold;
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        /* Chat Widget Styles */
-        .chat-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .chat-button {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            font-size: 24px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-top: auto;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .chat-button:hover {
-            background-color: #45a049;
-            transform: scale(1.1);
-        }
-
-        .chat-window {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            width: 350px;
-            height: 450px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            display: none;
-            flex-direction: column;
-        }
-
-        .chat-header {
-            padding: 15px;
-            background: #4CAF50;
+        .status-active {
+            background-color: #4CAF50;
             color: white;
-            border-radius: 10px 10px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .promotion-card:hover .promotion-status {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .promotions-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 15px;
+            }
+
+            .promotion-image {
+                height: 180px;
+            }
+        }
+
+        .navbar {
+            border-bottom: 1px solid #ddd;
+            background-color: white;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .chat-header h3 {
-            margin: 0;
-            font-size: 16px;
-        }
-
-        .close-chat {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .chat-messages {
-            flex-grow: 1;
-            padding: 15px;
-            overflow-y: auto;
-        }
-
-        .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            max-width: 80%;
-        }
-
-        .message.system {
-            background: #f0f0f0;
-            align-self: flex-start;
-        }
-
-        .message.user {
-            background: #4CAF50;
-            color: white;
-            margin-left: auto;
-        }
-
-        .chat-input {
-            padding: 10px;
+        .left-section {
             display: flex;
-            gap: 10px;
-            border-top: 1px solid #eee;
+            align-items: center;
+            gap: 20px;
         }
 
-        .chat-input input {
-            flex-grow: 1;
-            padding: 8px;
+        .logo h1 {
+            margin: 0;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        .search-container {
+            display: flex;
+            background: white;
+            border-radius: 2px;
+            overflow: hidden;
+            width: 300px;
             border: 1px solid #ddd;
-            border-radius: 5px;
         }
 
-        .chat-input button {
-            background: #4CAF50;
-            color: white;
+        .search-input {
+            flex: 1;
+            padding: 8px 12px;
             border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-button {
             padding: 8px 15px;
-            border-radius: 5px;
+            background: #f5f5f5;
+            border: none;
+            border-left: 1px solid #ddd;
             cursor: pointer;
-        }
-
-        .chat-input button:hover {
-            background: #45a049;
-        }
-
-        .typing-indicator {
-            opacity: 0.7;
-            font-style: italic;
-        }
-
-        .response-time {
-            display: block;
-            font-size: 0.8em;
-            color: #666;
-            margin-top: 5px;
-            text-align: right;
-        }
-
-        .message.system {
-            position: relative;
-        }
-
-        .message.system::before {
-            content: 'Nhân viên hỗ trợ';
-            position: absolute;
-            top: -15px;
-            left: 0;
-            font-size: 0.8em;
             color: #666;
         }
 
-        .message.user::before {
-            content: 'Bạn';
-            position: absolute;
-            top: -15px;
-            right: 0;
-            font-size: 0.8em;
+        .search-button:hover {
+            background: #eee;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
             color: #666;
+        }
+
+        .nav-links a.active {
+            color: #ee4d2d;
+            font-weight: 500;
+        }
+
+        .auth-link {
+            padding: 6px 12px;
+            border-radius: 2px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .auth-link:hover {
+            background: #eee;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .left-section {
+                width: 100%;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
         }
     </style>
 
@@ -568,6 +594,159 @@
             if (e.key === 'Enter') {
                 sendMessage();
             }
+        });
+
+        // Lưu trữ dữ liệu sản phẩm mẫu
+        const sampleProducts = {
+            clothing: [
+                {
+                    id: 1,
+                    name: "Áo Thun Nam Cổ Tròn",
+                    category: "clothing",
+                    gender: "men",
+                    price: "250.000đ",
+                    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 2,
+                    name: "Quần Jean Nam",
+                    category: "clothing",
+                    gender: "men",
+                    price: "450.000đ",
+                    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 3,
+                    name: "Áo Sơ Mi Nam",
+                    category: "clothing",
+                    gender: "men",
+                    price: "350.000đ",
+                    image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 4,
+                    name: "Quần Tây Nam",
+                    category: "clothing",
+                    gender: "men",
+                    price: "500.000đ",
+                    image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 5,
+                    name: "Áo Thun Nữ",
+                    category: "clothing",
+                    gender: "women",
+                    price: "220.000đ",
+                    image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 6,
+                    name: "Váy Đầm Nữ",
+                    category: "clothing",
+                    gender: "women",
+                    price: "350.000đ",
+                    image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 7,
+                    name: "Áo Khoác Nữ",
+                    category: "clothing",
+                    gender: "women",
+                    price: "600.000đ",
+                    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 8,
+                    name: "Quần Jean Nữ",
+                    category: "clothing",
+                    gender: "women",
+                    price: "400.000đ",
+                    image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&auto=format&fit=crop&q=60"
+                }
+            ],
+            accessories: [
+                {
+                    id: 9,
+                    name: "Đồng Hồ Nam",
+                    category: "accessories",
+                    gender: "men",
+                    price: "1.500.000đ",
+                    image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 10,
+                    name: "Kính Mát Nam",
+                    category: "accessories",
+                    gender: "men",
+                    price: "800.000đ",
+                    image: "https://images.unsplash.com/photo-1572635196237-14b3f2812f49?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 11,
+                    name: "Thắt Lưng Nam",
+                    category: "accessories",
+                    gender: "men",
+                    price: "450.000đ",
+                    image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 12,
+                    name: "Ví Nam",
+                    category: "accessories",
+                    gender: "men",
+                    price: "600.000đ",
+                    image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 13,
+                    name: "Túi Xách Nữ",
+                    category: "accessories",
+                    gender: "women",
+                    price: "1.200.000đ",
+                    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 14,
+                    name: "Vòng Tay Nữ",
+                    category: "accessories",
+                    gender: "women",
+                    price: "900.000đ",
+                    image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 15,
+                    name: "Khăn Choàng Nữ",
+                    category: "accessories",
+                    gender: "women",
+                    price: "350.000đ",
+                    image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&auto=format&fit=crop&q=60"
+                },
+                {
+                    id: 16,
+                    name: "Mũ Nón Nữ",
+                    category: "accessories",
+                    gender: "women",
+                    price: "250.000đ",
+                    image: "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=500&auto=format&fit=crop&q=60"
+                }
+            ]
+        };
+
+        // Xử lý sự kiện click vào danh mục
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const category = this.getAttribute('data-category');
+                
+                // Lưu danh mục được chọn
+                localStorage.setItem('selectedCategory', category);
+                
+                // Lưu sản phẩm của danh mục được chọn
+                localStorage.setItem('products', JSON.stringify(sampleProducts[category]));
+                
+                // Chuyển đến trang sản phẩm
+                window.location.href = this.getAttribute('href');
+            });
         });
     </script>
 </body>
