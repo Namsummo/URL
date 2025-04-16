@@ -492,6 +492,24 @@
     <script>
         function displayCart() {
             const cartItems = document.querySelector('.cart-items');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+
+            if (!currentUser) {
+                // Nếu chưa đăng nhập, hiển thị thông báo yêu cầu đăng nhập
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-user-lock"></i>
+                        <h2>Vui lòng đăng nhập</h2>
+                        <p>Bạn cần đăng nhập để xem giỏ hàng của mình</p>
+                        <a href="auth.html" class="continue-shopping" onclick="saveReturnUrl()">Đăng nhập ngay</a>
+                    </div>
+                `;
+                // Ẩn phần tổng giỏ hàng
+                document.querySelector('.cart-summary').style.display = 'none';
+                return;
+            }
+
+            // Nếu đã đăng nhập, hiển thị giỏ hàng
             if (!cart || cart.length === 0) {
                 cartItems.innerHTML = `
                     <div class="empty-cart">
@@ -501,7 +519,11 @@
                         <a href="products.html" class="continue-shopping">Tiếp tục mua sắm</a>
                     </div>
                 `;
+                // Ẩn phần tổng giỏ hàng
+                document.querySelector('.cart-summary').style.display = 'none';
             } else {
+                // Hiện phần tổng giỏ hàng
+                document.querySelector('.cart-summary').style.display = 'block';
                 cartItems.innerHTML = cart.map((item, index) => `
                     <div class="cart-item">
                         <div class="checkbox-container">
@@ -622,28 +644,36 @@
         function checkout() {
             const hasCheckedItems = cart.some(item => item.isChecked);
             if (!hasCheckedItems) {
-                showNotification('Vui lòng chọn ít nhất một sản phẩm để thanh toán', 'error');
+                alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán');
                 return;
             }
             
             // Kiểm tra đăng nhập
-            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser') || 'null');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
             
             if (!currentUser) {
-                showNotification('Vui lòng đăng nhập để tiến hành thanh toán!', 'info');
-                // Tùy chọn: Chuyển hướng đến trang đăng nhập sau 1.5 giây
-                setTimeout(() => {
-                    window.location.href = 'auth.html';
-                }, 1500);
-                return; // Ngăn không cho thực hiện thanh toán
+                alert('Vui lòng đăng nhập để tiến hành thanh toán!');
+                // Lưu URL hiện tại vào session storage để sau khi đăng nhập có thể quay lại
+                sessionStorage.setItem('returnUrl', window.location.href);
+                window.location.href = 'auth.html';
+                return;
             }
 
-            // Xử lý thanh toán ở đây
-            alert('Chức năng thanh toán đang được phát triển');
+            // Chuyển hướng sang trang checkout
+            window.location.href = 'checkout.html';
         }
 
-        // Hiển thị giỏ hàng khi trang được tải
-        document.addEventListener('DOMContentLoaded', displayCart);
+        // Khởi tạo giỏ hàng khi trang được tải
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lấy giỏ hàng từ localStorage
+            cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            displayCart();
+        });
+
+        // Hàm lưu URL để quay lại sau khi đăng nhập
+        function saveReturnUrl() {
+            sessionStorage.setItem('returnUrl', window.location.href);
+        }
     </script>
 </body>
 </html> 

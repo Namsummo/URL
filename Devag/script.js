@@ -770,23 +770,31 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (user) {
                 // Lưu thông tin đăng nhập nếu được chọn
+                const userData = {
+                    fullName: user.name,
+                    email: user.email,
+                    phone: user.phone
+                };
+
                 if (rememberMe) {
-                    localStorage.setItem('currentUser', JSON.stringify({
-                        name: user.name,
-                        email: user.email
-                    }));
+                    localStorage.setItem('currentUser', JSON.stringify(userData));
                 } else {
-                    sessionStorage.setItem('currentUser', JSON.stringify({
-                        name: user.name,
-                        email: user.email
-                    }));
+                    sessionStorage.setItem('currentUser', JSON.stringify(userData));
                 }
                 
                 showNotification('Đăng nhập thành công!', 'success');
                 
-                // Chuyển hướng về trang chủ sau 1.5 giây
+                // Kiểm tra xem có URL để quay lại không
+                const returnUrl = sessionStorage.getItem('returnUrl');
+                
+                // Chuyển hướng sau 1.5 giây
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    if (returnUrl) {
+                        sessionStorage.removeItem('returnUrl'); // Xóa URL đã lưu
+                        window.location.href = returnUrl;
+                    } else {
+                        window.location.href = 'index.html';
+                    }
                 }, 1500);
             } else {
                 showNotification('Email hoặc mật khẩu không chính xác!', 'error');
@@ -817,7 +825,7 @@ function updateAuthStatus() {
         const userMenu = document.createElement('li');
         userMenu.className = 'user-menu';
         userMenu.innerHTML = `
-            <span class="user-name">${currentUser.name}</span>
+            <span class="user-name">${currentUser.fullName}</span>
             <div class="dropdown-menu">
                 <a href="profile.html"><i class="fas fa-user"></i> Tài Khoản</a>
                 <a href="orders.html"><i class="fas fa-shopping-bag"></i> Đơn Hàng</a>
