@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store - Hóa Đơn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .invoice-container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #333;
+        }
+
+        .invoice-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .invoice-items {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        .invoice-items th,
+        .invoice-items td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .invoice-items th {
+            background-color: #f5f5f5;
+        }
+
+        .invoice-total {
+            text-align: right;
+        }
+
+        .invoice-total table {
+            width: 300px;
+            margin-left: auto;
+        }
+
+        .invoice-total td {
+            padding: 0.5rem 1rem;
+        }
+
+        .invoice-footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .print-btn {
+            display: block;
+            width: 200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .print-btn:hover {
+            background-color: #555;
+        }
+
+        @media print {
+            .navbar, .footer, .print-btn {
+                display: none;
+            }
+            .invoice-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Fashion Store</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Trang Chủ</a></li>
+            <li><a href="products.html">Sản Phẩm</a></li>
+            <li><a href="cart.html">Giỏ Hàng</a></li>
+            <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
+            <li><a href="contact.html">Liên Hệ</a></li>
+        </ul>
+    </nav>
+
+    <section class="invoice-section">
+        <div class="invoice-container">
+            <div class="invoice-header">
+                <h2>HÓA ĐƠN BÁN HÀNG</h2>
+                <div class="invoice-info">
+                    <p>Mã đơn hàng: <span id="orderId"></span></p>
+                    <p>Ngày: <span id="orderDate"></span></p>
+                </div>
+            </div>
+
+            <div class="invoice-content">
+                <div class="customer-info">
+                    <h3>Thông Tin Khách Hàng</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Họ và tên:</label>
+                            <span id="customerName"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>Email:</label>
+                            <span id="customerEmail"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>Số điện thoại:</label>
+                            <span id="customerPhone"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>Địa chỉ:</label>
+                            <span id="customerAddress"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>Ghi chú:</label>
+                            <span id="customerNote"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-info">
+                    <h3>Thông Tin Đơn Hàng</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Phương thức thanh toán:</label>
+                            <span id="paymentMethod"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>Phương thức giao hàng:</label>
+                            <span id="deliveryMethod"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-items">
+                    <h3>Danh Sách Sản Phẩm</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Đơn giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoiceItems">
+                            <!-- Items will be added here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="order-summary">
+                    <div class="summary-item">
+                        <span>Tạm tính:</span>
+                        <span id="subtotal"></span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Phí vận chuyển:</span>
+                        <span id="shipping"></span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Tổng cộng:</span>
+                        <span id="total"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="invoice-footer">
+                <p>Cảm ơn quý khách đã mua hàng!</p>
+                <p>Hẹn gặp lại quý khách trong những lần mua sắm tiếp theo.</p>
+                <button class="print-btn" onclick="window.print()">
+                    <i class="fas fa-print"></i> In Hóa Đơn
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Về Chúng Tôi</h3>
+                <p>Fashion Store - Nơi mang đến cho bạn những sản phẩm thời trang chất lượng cao với giá cả hợp lý.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Kết Nhanh</h3>
+                <ul>
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="products.html">Sản Phẩm</a></li>
+                    <li><a href="cart.html">Giỏ Hàng</a></li>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Hệ</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> 0123.456.789</li>
+                    <li><i class="fas fa-envelope"></i> info@fashionstore.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Theo Dõi Chúng Tôi</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Fashion Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

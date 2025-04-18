@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store - Lịch Sử Đơn Hàng</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .orders-section {
+            padding: 80px 20px;
+            background: #f8f9fa;
+            min-height: calc(100vh - 60px);
+        }
+
+        .orders-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .orders-container h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .order-header {
+            padding: 20px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .order-id {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .order-date {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .order-status {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        .status-processing {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+
+        .status-shipping {
+            background: #e3f2fd;
+            color: #2196f3;
+        }
+
+        .status-delivered {
+            background: #e8f5e9;
+            color: #4caf50;
+        }
+
+        .status-cancelled {
+            background: #ffebee;
+            color: #f44336;
+        }
+
+        .order-details {
+            padding: 20px;
+        }
+
+        .order-items {
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .order-item-info {
+            flex: 1;
+        }
+
+        .order-item-name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .order-item-details {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .order-total {
+            text-align: right;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .total-label {
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .total-amount {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #ff6b6b;
+        }
+
+        .tracking-timeline {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ddd;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            border: 2px solid white;
+        }
+
+        .timeline-item.active::before {
+            background: #ff6b6b;
+        }
+
+        .timeline-item.completed::before {
+            background: #4caf50;
+        }
+
+        .timeline-date {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .timeline-status {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .timeline-location {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .no-orders {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .no-orders i {
+            font-size: 4em;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .no-orders h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .no-orders p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .continue-shopping {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .continue-shopping:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+        }
+
+        .highlight-order {
+            animation: highlightOrder 3s ease-out;
+        }
+
+        @keyframes highlightOrder {
+            0% {
+                background-color: rgba(255, 107, 107, 0.1);
+                transform: scale(1.01);
+            }
+            100% {
+                background-color: white;
+                transform: scale(1);
+            }
+        }
+
+        .next-update {
+            font-size: 0.9em;
+            color: #666;
+            margin-left: 10px;
+            font-weight: normal;
+        }
+
+        .next-update i {
+            color: #ff6b6b;
+            margin-right: 5px;
+        }
+
+        .order-status i {
+            margin-right: 8px;
+        }
+
+        .payment-info {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .payment-info h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .payment-method i {
+            font-size: 1.5em;
+            color: #ff6b6b;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-details {
+            flex: 1;
+        }
+
+        .payment-method-name {
+            display: block;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .payment-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .payment-status.pending {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+
+        .payment-status.paid {
+            background: #e8f5e9;
+            color: #4caf50;
+        }
+
+        .bank-details, .momo-details {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+
+        .bank-details p, .momo-details p {
+            margin: 8px 0;
+            color: #666;
+        }
+
+        .bank-details strong, .momo-details strong {
+            color: #333;
+            display: inline-block;
+            width: 120px;
+        }
+
+        @media (max-width: 768px) {
+            .payment-method {
+                padding: 12px;
+            }
+
+            .payment-method i {
+                font-size: 1.2em;
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Fashion Store</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="products.html">Sản Phẩm</a></li>
+                <li><a href="promotions.html">Khuyến Mãi</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>  
+                <li><a href="contact.html">Liên Hệ</a></li>            
+                <li class="user-menu">
+                    <a href="auth.html" class="auth-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Đăng Nhập</span>
+                    </a>
+                </li>               
+            </ul>
+            <div class="nav-search">
+                <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                <button type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Orders Section -->
+    <section class="orders-section">
+        <div class="orders-container">
+            <h2>Lịch Sử Đơn Hàng</h2>
+            <div class="orders-list">
+                <!-- Orders will be displayed here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Về Fashion Store</h3>
+                <p>Fashion Store là cửa hàng thời trang uy tín, cung cấp các sản phẩm chất lượng cao với giá cả hợp lý.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Kết Nhanh</h3>
+                <ul>
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="products.html">Sản Phẩm</a></li>
+                    <li><a href="cart.html">Giỏ Hàng</a></li>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Hệ</h3>
+                <p><i class="fas fa-phone"></i> +84 123 456 789</p>
+                <p><i class="fas fa-envelope"></i> info@fashionstore.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Theo Dõi Chúng Tôi</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Fashion Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hàm cập nhật trạng thái đăng nhập
+        function updateAuthStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('clientUser') || sessionStorage.getItem('clientUser'));
+            const userMenu = document.querySelector('.user-menu');
+            
+            if (currentUser && userMenu) {
+                userMenu.innerHTML = `
+                    <a href="#" class="auth-link">
+                        <i class="fas fa-user"></i>
+                        ${currentUser.name}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="profile.html"><i class="fas fa-user-circle"></i> Tài khoản của tôi</a></li>
+                        <li><a href="orders.html"><i class="fas fa-shopping-bag"></i> Đơn hàng</a></li>
+                        <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                    </ul>
+                `;
+            } else if (userMenu) {
+                userMenu.innerHTML = `
+                    <a href="auth.html" class="auth-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Đăng Nhập</span>
+                    </a>
+                `;
+            }
+        }
+
+        // Hàm đăng xuất
+        function logout() {
+            localStorage.removeItem('clientUser');
+            sessionStorage.removeItem('clientUser');
+            window.location.href = 'index.html';
+        }
+
+        // Hàm lấy tham số từ URL
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Hàm cuộn đến đơn hàng cụ thể
+        function scrollToOrder(orderId) {
+            const orderElement = document.querySelector(`[data-order-id="${orderId}"]`);
+            if (orderElement) {
+                orderElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                orderElement.classList.add('highlight-order');
+                setTimeout(() => {
+                    orderElement.classList.remove('highlight-order');
+                }, 3000);
+            }
+        }
+
+        // Hàm hiển thị đơn hàng
+        function displayOrders() {
+            const ordersList = document.querySelector('.orders-list');
+            const currentUser = JSON.parse(localStorage.getItem('clientUser') || sessionStorage.getItem('clientUser'));
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const targetOrderId = getUrlParameter('orderId');
+
+            // Kiểm tra nếu người dùng chưa đăng nhập
+            if (!currentUser) {
+                ordersList.innerHTML = `
+                    <div class="no-orders">
+                        <i class="fas fa-user-lock"></i>
+                        <h3>Vui lòng đăng nhập</h3>
+                        <p>Bạn cần đăng nhập để xem lịch sử đơn hàng.</p>
+                        <a href="auth.html" class="continue-shopping">Đăng nhập ngay</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const userOrders = orders.filter(order => {
+                const customerEmail = order.customer?.email;
+                return customerEmail === currentUser.email;
+            }).sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+
+            if (userOrders.length === 0) {
+                ordersList.innerHTML = `
+                    <div class="no-orders">
+                        <i class="fas fa-shopping-bag"></i>
+                        <h3>Bạn chưa có đơn hàng nào</h3>
+                        <p>Hãy mua sắm và tận hưởng những ưu đãi hấp dẫn từ Fashion Store</p>
+                        <a href="products.html" class="continue-shopping">Mua sắm ngay</a>
+                    </div>
+                `;
+                return;
+            }
+
+            ordersList.innerHTML = userOrders.map(order => {
+                const orderDate = new Date(order.orderDate);
+                const formattedDate = orderDate.toLocaleDateString('vi-VN', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                const now = new Date();
+                const timeline = order.timeline || [];
+                let currentStatus = 'Đang xử lý';
+                let statusClass = 'processing';
+
+                if (timeline.length > 0) {
+                    for (let i = timeline.length - 1; i >= 0; i--) {
+                        const step = timeline[i];
+                        if (new Date(step.date) <= now) {
+                            currentStatus = step.status;
+                            statusClass = step.status.toLowerCase().replace(/\s+/g, '-');
+                            break;
+                        }
+                    }
+                }
+
+                // Tính thời gian còn lại đến bước tiếp theo
+                let nextStep = null;
+                let timeRemaining = '';
+                for (let i = 0; i < timeline.length; i++) {
+                    const step = timeline[i];
+                    const stepDate = new Date(step.date);
+                    if (stepDate > now) {
+                        nextStep = step;
+                        const diffMinutes = Math.floor((stepDate - now) / (1000 * 60));
+                        if (diffMinutes < 60) {
+                            timeRemaining = `${diffMinutes} phút`;
+                        } else {
+                            const diffHours = Math.floor(diffMinutes / 60);
+                            timeRemaining = `${diffHours} giờ ${diffMinutes % 60} phút`;
+                        }
+                        break;
+                    }
+                }
+
+                return `
+                    <div class="order-card ${order.orderId === targetOrderId ? 'highlight-order' : ''}" 
+                         data-order-id="${order.orderId}">
+                        <div class="order-header">
+                            <div class="order-info">
+                                <span class="order-id">Đơn hàng #${order.orderId}</span>
+                                <span class="order-date">${formattedDate}</span>
+                            </div>
+                            <span class="order-status status-${statusClass}">
+                                <i class="fas ${getStatusIcon(currentStatus)}"></i>
+                                ${currentStatus}
+                            </span>
+                        </div>
+                        <div class="order-details">
+                            <div class="order-items">
+                                ${order.items.map(item => `
+                                    <div class="order-item">
+                                        <img src="${item.image}" alt="${item.name}">
+                                        <div class="order-item-info">
+                                            <div class="order-item-name">${item.name}</div>
+                                            <div class="order-item-details">
+                                                Size: ${item.size} | Số lượng: ${item.quantity} | ${formatPrice(item.price)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="order-total">
+                                <span class="total-label">Tổng tiền:</span>
+                                <span class="total-amount">${order.total}</span>
+                            </div>
+                            <div class="payment-info">
+                                <h4>Thông tin thanh toán</h4>
+                                <div class="payment-method">
+                                    <i class="fas ${getPaymentIcon(order.payment?.method || 'cod')}"></i>
+                                    <div class="payment-details">
+                                        <span class="payment-method-name">
+                                            ${getPaymentMethodName(order.payment?.method || 'cod')}
+                                        </span>
+                                        <span class="payment-status ${order.payment?.status === 'Đã thanh toán' ? 'paid' : 'pending'}">
+                                            <i class="fas ${order.payment?.status === 'Đã thanh toán' ? 'fa-check-circle' : 'fa-clock'}"></i>
+                                            ${order.payment?.status || 'Chưa thanh toán'}
+                                        </span>
+                                    </div>
+                                </div>
+                                ${order.payment?.method === 'bank' ? `
+                                    <div class="bank-details">
+                                        <p><strong>Ngân hàng:</strong> Vietcombank</p>
+                                        <p><strong>Số tài khoản:</strong> 1234567890</p>
+                                        <p><strong>Chủ tài khoản:</strong> FASHION STORE</p>
+                                        <p><strong>Nội dung:</strong> DH${order.orderId}</p>
+                                    </div>
+                                ` : ''}
+                                ${order.payment?.method === 'momo' ? `
+                                    <div class="momo-details">
+                                        <p><strong>Số điện thoại:</strong> 0123456789</p>
+                                        <p><strong>Tên tài khoản:</strong> FASHION STORE</p>
+                                        <p><strong>Nội dung:</strong> DH${order.orderId}</p>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="tracking-timeline">
+                                <h4 class="timeline-title">
+                                    Theo dõi đơn hàng
+                                    ${nextStep ? `
+                                        <span class="next-update">
+                                            <i class="fas fa-clock"></i>
+                                            ${nextStep.status} trong ${timeRemaining}
+                                        </span>
+                                    ` : ''}
+                                </h4>
+                                <div class="timeline">
+                                    ${(order.timeline || []).map(item => {
+                                        const stepDate = new Date(item.date);
+                                        const isCompleted = stepDate <= now;
+                                        const isActive = item.status === currentStatus;
+                                        return `
+                                            <div class="timeline-item ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''}">
+                                                <div class="timeline-date">
+                                                    ${stepDate.toLocaleDateString('vi-VN', {
+                                                        weekday: 'long',
+                                                        year: 'numeric',
+                                                        month: 'long',
+                                                        day: 'numeric',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit'
+                                                    })}
+                                                </div>
+                                                <div class="timeline-status">
+                                                    <i class="fas ${getStatusIcon(item.status)}"></i>
+                                                    ${item.status}
+                                                </div>
+                                                <div class="timeline-location">${item.location}</div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Cuộn đến đơn hàng được chỉ định (nếu có)
+            if (targetOrderId) {
+                setTimeout(() => {
+                    scrollToOrder(targetOrderId);
+                }, 100);
+            }
+        }
+
+        // Hàm lấy icon cho từng trạng thái
+        function getStatusIcon(status) {
+            switch (status) {
+                case 'Đơn hàng đã đặt':
+                    return 'fa-shopping-cart';
+                case 'Đang xử lý':
+                    return 'fa-box';
+                case 'Đang giao hàng':
+                    return 'fa-truck';
+                case 'Đã giao hàng':
+                    return 'fa-check-circle';
+                default:
+                    return 'fa-info-circle';
+            }
+        }
+
+        // Hàm định dạng giá tiền
+        function formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(price);
+        }
+
+        // Thêm hàm mới để lấy icon cho phương thức thanh toán
+        function getPaymentIcon(method) {
+            switch (method) {
+                case 'cod':
+                    return 'fa-money-bill-wave';
+                case 'bank':
+                    return 'fa-university';
+                case 'momo':
+                    return 'fa-wallet';
+                default:
+                    return 'fa-money-bill-wave';
+            }
+        }
+
+        // Thêm hàm mới để lấy tên phương thức thanh toán
+        function getPaymentMethodName(method) {
+            switch (method) {
+                case 'cod':
+                    return 'Thanh toán khi nhận hàng (COD)';
+                case 'bank':
+                    return 'Chuyển khoản ngân hàng';
+                case 'momo':
+                    return 'Ví điện tử MoMo';
+                default:
+                    return 'Thanh toán khi nhận hàng (COD)';
+            }
+        }
+
+        // Khởi tạo trang và cập nhật real-time
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = JSON.parse(localStorage.getItem('clientUser') || sessionStorage.getItem('clientUser'));
+            
+            if (!currentUser) {
+                window.location.href = 'auth.html';
+                return;
+            }
+
+            updateAuthStatus();
+            displayOrders();
+
+            // Cập nhật trạng thái đơn hàng mỗi 30 giây
+            setInterval(() => {
+                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                let hasUpdates = false;
+
+                orders.forEach(order => {
+                    if (!order.timeline) return;
+                    
+                    const now = new Date();
+                    order.timeline.forEach((step, index) => {
+                        const stepDate = new Date(step.date);
+                        if (stepDate <= now && !step.completed) {
+                            step.completed = true;
+                            if (index < order.timeline.length - 1) {
+                                order.timeline[index + 1].active = true;
+                            }
+                            hasUpdates = true;
+                        }
+                    });
+
+                    // Cập nhật trạng thái chính của đơn hàng
+                    for (let i = order.timeline.length - 1; i >= 0; i--) {
+                        const step = order.timeline[i];
+                        if (new Date(step.date) <= now) {
+                            order.status = step.status;
+                            break;
+                        }
+                    }
+                });
+
+                if (hasUpdates) {
+                    localStorage.setItem('orders', JSON.stringify(orders));
+                    displayOrders();
+                }
+            }, 30000); // Cập nhật mỗi 30 giây
+        });
+    </script>
+</body>
+</html> 
