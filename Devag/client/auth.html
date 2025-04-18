@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Fashion Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="js/middleware.js"></script>
+    <style>
+    .auth-tabs {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+    }
+
+    .auth-tab {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+
+    .auth-tab.active {
+    color: #e44d26;
+    border-bottom: 2px solid #e44d26;
+    margin-bottom: -2px;
+    }
+
+    .auth-form {
+    display: none;
+    }
+
+    .auth-form.active {
+    display: block;
+    }
+
+    .form-group {
+    margin-bottom: 20px;
+    }
+
+    .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+    }
+
+    .form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+    outline: none;
+    border-color: #e44d26;
+    box-shadow: 0 0 0 3px rgba(228, 77, 38, 0.1);
+    }
+
+    .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    color: #666;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    }
+
+    .forgot-password {
+    float: right;
+    color: #e44d26;
+    text-decoration: none;
+    font-size: 0.9em;
+    }
+
+    .auth-btn {
+    width: 100%;
+    padding: 15px;
+    background: #e44d26;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    }
+
+    .auth-btn:hover {
+    background: #c73e1d;
+    transform: translateY(-2px);
+    }
+
+    .social-login {
+    margin-top: 30px;
+    text-align: center;
+    }
+
+    .social-login p {
+    color: #666;
+    margin-bottom: 20px;
+    position: relative;
+    }
+
+        .social-login p:before,
+        .social-login p:after {
+            content: "";
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: #eee;
+    }
+
+        .social-login p:before {
+    left: 0;
+    }
+
+        .social-login p:after {
+    right: 0;
+    }
+
+    .social-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    }
+
+    .social-btn {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    background: white;
+    color: #333;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    }
+
+    .social-btn:hover {
+    background: #f8f8f8;
+    border-color: #ddd;
+    }
+
+    .social-btn i {
+    font-size: 1.2em;
+    }
+
+    .social-btn.facebook i {
+    color: #1877f2;
+    }
+
+    .social-btn.google i {
+    color: #db4437;
+    }
+
+    @media (max-width: 600px) {
+    .auth-section {
+    padding: 10px;
+    }
+
+    .auth-container {
+    padding: 20px;
+    }
+
+    .social-buttons {
+    flex-direction: column;
+    }
+    }
+
+    /* Thêm CSS cho thông báo */
+    .notification-toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 16px 24px;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 1000;
+        animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s;
+        max-width: 400px;
+    }
+
+    .notification-toast.success {
+        border-left: 4px solid #e44d26;
+    }
+
+    .notification-toast i {
+        font-size: 20px;
+        color: #e44d26;
+    }
+
+    .notification-content {
+        flex: 1;
+    }
+
+    .notification-title {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 4px;
+    }
+
+    .notification-message {
+        color: #666;
+        font-size: 0.9em;
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+    </style>
+    </head>
+
+    <body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Fashion Store</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="products.html">Sản Phẩm</a></li>
+                <li><a href="promotions.html">Khuyến Mãi</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>  
+                <li><a href="contact.html">Liên Hệ</a></li>            
+                <li><a href="auth.html" class="active">Đăng Nhập</a></li>               
+            </ul>
+            <div class="nav-search">
+                <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                <button type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-section">
+            <div class="auth-container">
+                    <h1>Fashion Store</h1>
+                    <p>Đăng nhập để trải nghiệm mua sắm tuyệt vời</p>
+
+                <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Đăng Nhập</div>
+                <div class="auth-tab" data-tab="register">Đăng Ký</div>
+                </div>
+
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                    <label for="loginPassword">Mật khẩu</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe">
+                            Ghi nhớ đăng nhập
+                        </label>
+                        <a href="#" class="forgot-password">Quên mật khẩu?</a>
+                    </div>
+                    <button type="submit" class="auth-btn">Đăng Nhập</button>
+                </form>
+
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="registerName">Họ và tên</label>
+                        <input type="text" id="registerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPhone">Số điện thoại</label>
+                        <input type="tel" id="registerPhone" pattern="[0-9]{10}" title="Vui lòng nhập đúng 10 chữ số" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Mật khẩu</label>
+                        <input type="password" id="registerPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Xác nhận mật khẩu</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Đăng Ký</button>
+                </form>
+
+                <div class="social-login">
+                    <p>Hoặc đăng nhập với</p>
+                    <div class="social-buttons">
+                        <button class="social-btn facebook">
+                        <i class="fab fa-facebook"></i>
+                            Facebook
+                        </button>
+                        <button class="social-btn google">
+                            <i class="fab fa-google"></i>
+                            Google
+                        </button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent form from submitting normally
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', handleLogin);
+            }
+
+            const registerForm = document.getElementById('registerForm');
+            if (registerForm) {
+                registerForm.addEventListener('submit', handleRegister);
+            }
+
+            // Tab switching
+            const tabs = document.querySelectorAll('.auth-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetForm = tab.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.querySelectorAll('.auth-form').forEach(form => {
+                        form.classList.toggle('active', form.id === `${targetForm}Form`);
+                    });
+                });
+            });
+
+            // Handle login submission
+            async function handleLogin(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                const rememberMe = document.getElementById('rememberMe').checked;
+
+                try {
+                    // Clear existing auth data
+                    localStorage.removeItem('adminUser');
+                    localStorage.removeItem('clientUser');
+                    sessionStorage.removeItem('clientUser');
+
+                    // Admin login
+                    if (email === 'admin@fashionstore.com' && password === 'admin123') {
+                        const adminUser = {
+                            id: 'admin',
+                            name: 'Administrator',
+                            email: email,
+                            role: 'admin'
+                        };
+                        localStorage.setItem('adminUser', JSON.stringify(adminUser));
+                        showNotification('Đăng nhập thành công!', 'Chào mừng Admin đã quay trở lại');
+                        setTimeout(() => {
+                            window.location.replace('../admin/dashboard.html');
+                        }, 1500);
+                        return;
+                    }
+
+                    // Client login
+                    const users = JSON.parse(localStorage.getItem('users')) || [];
+                    const user = users.find(u => u.email === email && u.password === password);
+
+                    if (user) {
+                        const clientUser = {
+                            id: user.id,
+                            name: user.name,
+                            email: user.email,
+                            phone: user.phone,
+                            role: 'client'
+                        };
+                        
+                        // Lưu thông tin đăng nhập
+                        if (rememberMe) {
+                            localStorage.setItem('clientUser', JSON.stringify(clientUser));
+                            sessionStorage.removeItem('clientUser'); // Xóa session nếu có
+                        } else {
+                            sessionStorage.setItem('clientUser', JSON.stringify(clientUser));
+                            localStorage.removeItem('clientUser'); // Xóa local storage nếu có
+                        }
+
+                        console.log('Đã lưu thông tin đăng nhập:', {
+                            rememberMe,
+                            storage: rememberMe ? 'localStorage' : 'sessionStorage',
+                            user: clientUser
+                        });
+                        
+                        showNotification('Đăng nhập thành công!', 'Chào mừng bạn đã quay trở lại Fashion Store');
+                        setTimeout(() => {
+                            window.location.replace('index.html');
+                        }, 1500);
+                    } else {
+                        showNotification('Đăng nhập thất bại', 'Email hoặc mật khẩu không chính xác!', 'error');
+                    }
+                } catch (error) {
+                    console.error('Lỗi đăng nhập:', error);
+                    showNotification('Đăng nhập thất bại', 'Có lỗi xảy ra, vui lòng thử lại!', 'error');
+                }
+            }
+
+            // Handle register submission
+            async function handleRegister(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const phone = document.getElementById('registerPhone').value;
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (email === 'admin@fashionstore.com') {
+                    showNotification('Đăng ký thất bại', 'Email này không được phép sử dụng!', 'error');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    showNotification('Đăng ký thất bại', 'Mật khẩu xác nhận không khớp!', 'error');
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                if (users.some(user => user.email === email)) {
+                    showNotification('Đăng ký thất bại', 'Email đã được sử dụng!', 'error');
+                    return;
+                }
+
+                const newUser = {
+                    id: Date.now().toString(),
+                    name,
+                    email,
+                    phone,
+                    password,
+                    role: 'client'
+                };
+
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                showNotification('Đăng ký thành công!', 'Vui lòng đăng nhập để tiếp tục');
+                document.querySelector('[data-tab="login"]').click();
+            }
+
+            function showNotification(title, message, type = 'success') {
+                const notification = document.createElement('div');
+                notification.className = `notification-toast ${type}`;
+                notification.innerHTML = `
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    <div class="notification-content">
+                        <div class="notification-title">${title}</div>
+                        <div class="notification-message">${message}</div>
+                    </div>
+                `;
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 3000);
+            }
+        });
+    </script>
+    </body>
+
+</html>

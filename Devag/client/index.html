@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store - Thời Trang Nam Nữ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Fashion Store</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Trang Chủ</a></li>
+                <li><a href="products.html">Sản Phẩm</a></li>
+                <li><a href="promotions.html">Khuyến Mãi</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>  
+                <li><a href="contact.html">Liên Hệ</a></li>            
+                <li><a href="auth.html">Đăng Nhập</a></li>               
+            </ul>
+            <div class="nav-search">
+                <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                <button type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1573855619003-97b4799dcd8b?w=1200&auto=format&fit=crop&q=80" alt="Banner 1">
+                <div class="hero-content">
+                    <h1>Thời Trang Nam Nữ</h1>
+                    <p>Khám phá bộ sưu tập thời trang mới nhất với những thiết kế độc đáo và chất lượng cao cấp</p>
+                    <a href="products.html" class="cta-button">Xem Sản Phẩm</a>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&auto=format&fit=crop&q=80" alt="Banner 2">
+                <div class="hero-content">
+                    <h1>Bộ Sưu Tập Mùa Hè 2024</h1>
+                    <p>Tận hưởng mùa hè với những thiết kế thoáng mát, năng động và thời trang</p>
+                    <a href="products.html" class="cta-button">Khám Phá Ngay</a>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&auto=format&fit=crop&q=80" alt="Banner 3">
+                <div class="hero-content">
+                    <h1>Ưu Đãi Đặc Biệt</h1>
+                    <p>Giảm giá lên đến 50% cho các sản phẩm mới về. Nhanh tay sở hữu ngay!</p>
+                    <a href="promotions.html" class="cta-button">Xem Khuyến Mãi</a>
+                </div>
+            </div>
+            <div class="slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+            <div class="slider-arrows">
+                <button class="prev-arrow"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-arrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories-section">
+        <div class="container">
+            <div class="categories-nav">
+                <a href="products.html?category=tshirt" class="nav-item active">Áo phông/ Áo thun</a>
+                <span class="separator">|</span>
+                <a href="products.html?category=polo" class="nav-item">Áo polo</a>
+                <span class="separator">|</span>
+                <a href="products.html?category=shirt" class="nav-item">Áo sơ mi</a>
+                <span class="separator">|</span>
+                <a href="products.html?category=shorts" class="nav-item">Quần soóc/ Quần short</a>
+                <span class="separator">|</span>
+                <a href="products.html?category=pants" class="nav-item">Quần dài & Quần Jean</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="main-content">
+        
+
+        <main class="content">
+            <section class="featured-products">
+                <h2>Sản Phẩm Nổi Bật</h2>
+                <div class="product-grid">
+                    <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
+                    <!-- Xóa sản phẩm có id 4 và 7 -->
+                </div>
+            </section>
+
+            <section class="featured-promotions">
+                <h2>Khuyến Mãi Nổi Bật</h2>
+                <div class="promotions-container">
+                    <a href="promotions.html" class="promotion-link">
+                        <div class="promotion-card">
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Áo Thun Nam" class="promotion-image">
+                            <div class="promotion-content">
+                                <h3 class="promotion-title">Giảm 50% Áo Thun Nam</h3>
+                                <p class="promotion-description">Áo thun nam cao cấp với chất liệu cotton 100%</p>
+                                <span class="promotion-status status-active">Đang diễn ra</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="promotions.html" class="promotion-link">
+                        <div class="promotion-card">
+                            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Quần Jean Nam" class="promotion-image">
+                            <div class="promotion-content">
+                                <h3 class="promotion-title">Mua 2 Tặng 1 Quần Jean Nam</h3>
+                                <p class="promotion-description">Quần jean nam cao cấp, nhiều size</p>
+                                <span class="promotion-status status-active">Đang diễn ra</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="promotions.html" class="promotion-link">
+                        <div class="promotion-card">
+                            <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Áo Thun Nữ" class="promotion-image">
+                            <div class="promotion-content">
+                                <h3 class="promotion-title">Áo Thun Nữ - Giảm 40%</h3>
+                                <p class="promotion-description">Áo thun nữ thời trang, nhiều mẫu mã</p>
+                                <span class="promotion-status status-active">Đang diễn ra</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="features">
+                <div class="feature">
+                    <i class="fas fa-truck"></i>
+                    <h3>Miễn Phí Vận Chuyển</h3>
+                    <p>Cho đơn hàng từ 500.000đ</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-undo"></i>
+                    <h3>Đổi Trả Dễ Dàng</h3>
+                    <p>Trong vòng 7 ngày</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-lock"></i>
+                    <h3>Thanh Toán An Toàn</h3>
+                    <p>100% bảo mật</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-headset"></i>
+                    <h3>Hỗ Trợ 24/7</h3>
+                    <p>Luôn sẵn sàng hỗ trợ</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Về Chúng Tôi</h3>
+                <p>Fashion Store - Nơi mang đến cho bạn những sản phẩm thời trang chất lượng cao với giá cả hợp lý.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Kết Nhanh</h3>
+                <ul>
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="products.html">Sản Phẩm</a></li>
+                    <li><a href="promotions.html">Khuyến Mãi</a></li>
+                    <li><a href="cart.html">Giỏ Hàng</a></li>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Liên Hệ</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> 0123.456.789</li>
+                    <li><i class="fas fa-envelope"></i> info@fashionstore.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Theo Dõi Chúng Tôi</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Fashion Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" onclick="toggleChat()">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h3>Hỗ Trợ Trực Tuyến</h3>
+                <button class="close-chat" onclick="toggleChat()">×</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message system">
+                    <p>Xin chào! Chúng tôi có thể giúp gì cho bạn?</p>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userMessage" placeholder="Nhập tin nhắn của bạn...">
+                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .main-content {
+            display: flex;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 30px;
+        }
+
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .categories-sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
+        }
+
+        .categories-sidebar h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 600;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 12px;
+            position: relative;
+        }
+
+        .categories-sidebar h3::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #4CAF50;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: #4CAF50;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-item:hover {
+            background-color: #f8f8f8;
+            color: #4CAF50;
+            transform: translateX(5px);
+        }
+
+        .category-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .category-item i {
+            margin-right: 10px;
+            font-size: 1.1em;
+            color: #4CAF50;
+        }
+
+        .content {
+            flex-grow: 1;
+            width: calc(100% + 200px);
+        }
+
+        /* Điều chỉnh lại các section để phù hợp với layout mới */
+        .featured-products,
+        .featured-promotions,
+        .categories,
+        .features {
+            margin-left: 0;
+        }
+
+        .featured-promotions {
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .featured-promotions h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .promotions-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .promotion-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .promotion-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .promotion-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .promotion-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .promotion-content {
+            padding: 20px;
+        }
+
+        .promotion-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .promotion-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .promotion-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Chat Widget Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-button:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 15px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 80%;
+        }
+
+        .message.system {
+            background: #f0f0f0;
+            align-self: flex-start;
+        }
+
+        .message.user {
+            background: #4CAF50;
+            color: white;
+            margin-left: auto;
+        }
+
+        .chat-input {
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .chat-input button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background: #45a049;
+        }
+
+        .typing-indicator {
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        .response-time {
+            display: block;
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .message.system {
+            position: relative;
+        }
+
+        .message.system::before {
+            content: 'Nhân viên hỗ trợ';
+            position: absolute;
+            top: -15px;
+            left: 0;
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .message.user::before {
+            content: 'Bạn';
+            position: absolute;
+            top: -15px;
+            right: 0;
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        /* Slider styles */
+        .hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: brightness(0.7);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 180px 20px 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s forwards;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 5;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            transform: scale(1.2);
+        }
+
+        .dot.active {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .slider-arrows {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 5;
+            transform: translateY(-50%);
+        }
+
+        .prev-arrow, .next-arrow {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prev-arrow:hover, .next-arrow:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 500px;
+            }
+            
+            .hero-content {
+                padding-top: 120px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .slider-arrows {
+                display: none;
+            }
+        }
+
+        /* Styles for Categories Section */
+        .categories-section {
+            padding: 20px 0;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .categories-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .categories-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #333;
+            font-size: 15px;
+            padding: 8px 16px;
+            transition: all 0.3s ease;
+            border-radius: 20px;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            color: #ff6b6b;
+            background-color: #fff5f5;
+            transform: translateY(-2px);
+        }
+
+        .nav-item.active {
+            color: #fff;
+            background-color: #ff6b6b;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+        }
+
+        .nav-item.active:hover {
+            background-color: #ff5252;
+            color: #fff;
+        }
+
+        .separator {
+            color: #ddd;
+            font-size: 14px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .categories-nav {
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding: 10px 0;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE and Edge */
+            }
+
+            .categories-nav::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Opera */
+            }
+
+            .nav-item {
+                white-space: nowrap;
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+        }
+
+        .featured-products {
+            width: calc(100% + 100px);
+            margin-left: -50px;
+            padding: 0 50px;
+        }
+
+        .featured-products h2 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .featured-products h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #ff6b6b;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 350px);
+            gap: 35px;
+            margin-top: 30px;
+            width: 100%;
+            justify-content: center;
+            padding: 0 25px;
+        }
+
+        @media (max-width: 1600px) {
+            .featured-products {
+                width: 100%;
+                margin-left: 0;
+                padding: 0 20px;
+            }
+            .product-grid {
+                grid-template-columns: repeat(3, 350px);
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 350px);
+                gap: 30px;
+            }
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 15px;
+            position: relative;
+            width: 350px;
+            min-height: 430px;
+            cursor: pointer;
+            text-decoration: none;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-image {
+            width: 320px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: transform 0.4s ease;
+        }
+
+        .product-info {
+            padding: 10px 5px;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 12px 0;
+        }
+
+        .color-option {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px #eee;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .color-option:hover {
+            transform: scale(1.15);
+        }
+
+        .color-option.selected {
+            box-shadow: 0 0 0 2px #ff6b6b;
+        }
+
+        .color-option.selected::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .product-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.8em;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin: 8px 0;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-price::before {
+            content: '₫';
+            font-size: 0.8em;
+            margin-right: 2px;
+            color: #ff6b6b;
+        }
+
+        @media (max-width: 1600px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 350px);
+            }
+            .product-card {
+                min-height: 420px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 350px);
+                gap: 25px;
+            }
+            .product-card {
+                min-height: 410px;
+            }
+            .product-image {
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(1, 350px);
+                gap: 20px;
+            }
+            .product-card {
+                min-height: 400px;
+            }
+            .product-image {
+                height: 270px;
+            }
+            .product-name {
+                font-size: 1.1em;
+            }
+            .product-price {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+
+    <script>
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function showTypingIndicator() {
+            const messagesDiv = document.getElementById('chatMessages');
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'message system typing-indicator';
+            typingIndicator.id = 'typingIndicator';
+            typingIndicator.innerHTML = '<p>Nhân viên đang nhập tin nhắn...</p>';
+            messagesDiv.appendChild(typingIndicator);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userMessage');
+            const message = input.value.trim();
+
+            if (message) {
+                const messagesDiv = document.getElementById('chatMessages');
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user';
+                userMessage.innerHTML = `<p>${message}</p>`;
+                messagesDiv.appendChild(userMessage);
+
+                // Show typing indicator after 1 second
+                setTimeout(showTypingIndicator, 1000);
+
+                // Simulate response after 30 seconds
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    const response = document.createElement('div');
+                    response.className = 'message system';
+                    const currentTime = new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                    response.innerHTML = `
+                        <p>Cảm ơn bạn đã liên hệ. Chúng tôi sẽ hỗ trợ bạn ngay.</p>
+                        <small class="response-time">Phản hồi lúc ${currentTime}</small>
+                    `;
+                    messagesDiv.appendChild(response);
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                }, 30000);
+
+                input.value = '';
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        }
+
+        // Handle Enter key press
+        document.getElementById('userMessage').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Banner slider
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.prev-arrow');
+            const nextBtn = document.querySelector('.next-arrow');
+            let currentSlide = 0;
+            let slideInterval;
+
+            // Function to initialize the slider
+            function initSlider() {
+                // Start automatic slideshow
+                startSlideshow();
+                
+                // Add event listeners for dots
+                dots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        goToSlide(slideIndex);
+                    });
+                });
+                
+                // Add event listeners for arrows
+                prevBtn.addEventListener('click', prevSlide);
+                nextBtn.addEventListener('click', nextSlide);
+                
+                // Pause slideshow on hover
+                const slider = document.querySelector('.hero-slider');
+                slider.addEventListener('mouseenter', pauseSlideshow);
+                slider.addEventListener('mouseleave', startSlideshow);
+            }
+
+            // Function to show a specific slide
+            function goToSlide(index) {
+                // Remove active class from all slides and dots
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Add active class to current slide and dot
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                
+                // Update current slide index
+                currentSlide = index;
+            }
+
+            // Function to go to next slide
+            function nextSlide() {
+                const next = (currentSlide + 1) % slides.length;
+                goToSlide(next);
+            }
+
+            // Function to go to previous slide
+            function prevSlide() {
+                const prev = (currentSlide - 1 + slides.length) % slides.length;
+                goToSlide(prev);
+            }
+
+            // Function to start automatic slideshow
+            function startSlideshow() {
+                // Clear any existing interval
+                if (slideInterval) {
+                    clearInterval(slideInterval);
+                }
+                
+                // Set interval for 5 seconds
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+
+            // Function to pause slideshow
+            function pauseSlideshow() {
+                clearInterval(slideInterval);
+            }
+
+            // Initialize slider
+            initSlider();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hiển thị sản phẩm nổi bật
+            const featuredProducts = [
+                {
+                    id: 1,
+                    colors: ['#1a237e', '#c62828', '#ffffff'],
+                    name: 'Áo Thun Nam Premium',
+                    price: '299.000₫',
+                    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60'
+                },
+                {
+                    id: 2,
+                    colors: ['#212121', '#f5f5f5', '#01579b'],
+                    name: 'Áo Polo Nam Thể Thao',
+                    price: '359.000₫',
+                    image: 'https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=500&auto=format&fit=crop&q=60'
+                },
+                {
+                    id: 3,
+                    colors: ['#1a237e', '#263238', '#000000'],
+                    name: 'Quần Jean Nam Slim Fit',
+                    price: '499.000₫',
+                    image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60'
+                },
+                {
+                    id: 4,
+                    colors: ['#ffffff', '#90caf9', '#f5f5f5'],
+                    name: 'Áo Sơ Mi Nam Công Sở',
+                    price: '399.000₫',
+                    image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?w=500&auto=format&fit=crop&q=60'
+                }
+            ];
+
+            const productGrid = document.querySelector('.product-grid');
+            productGrid.innerHTML = ''; // Xóa tất cả sản phẩm cũ
+
+            featuredProducts.forEach(product => {
+                const productCard = `
+                    <a href="product-detail.html?id=${product.id}" class="product-card">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="product-info">
+                            <div class="color-options">
+                                ${product.colors.map(color => `
+                                    <div class="color-option" 
+                                         style="background-color: ${color}"
+                                         onclick="selectColor(this, event)">
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <h3 class="product-name">${product.name}</h3>
+                            <div class="product-price">${product.price}</div>
+                        </div>
+                    </a>
+                `;
+                productGrid.innerHTML += productCard;
+            });
+        });
+
+        function selectColor(element, event) {
+            // Ngăn chặn sự kiện click lan ra thẻ a
+            event.preventDefault();
+            event.stopPropagation();
+            
+            // Bỏ chọn tất cả các màu trong cùng một nhóm
+            const colorOptions = element.parentElement.querySelectorAll('.color-option');
+            colorOptions.forEach(option => option.classList.remove('selected'));
+            
+            // Chọn màu mới
+            element.classList.add('selected');
+        }
+
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+
+        const authLinkContainer = document.querySelector('.nav-links li:last-child');
+    </script>
+</body>
+
+</html>

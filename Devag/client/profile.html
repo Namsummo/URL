@@ -6,6 +6,7 @@
     <title>Fashion Store - Thông Tin Tài Khoản</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/middleware.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -15,10 +16,16 @@
                 <li><a href="index.html">Trang Chủ</a></li>
                 <li><a href="products.html">Sản Phẩm</a></li>
                 <li><a href="promotions.html">Khuyến Mãi</a></li>
-                <li><a href="cart.html">Giỏ Hàng</a></li>
-                <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
-                <li><a href="contact.html">Liên Hệ</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>  
+                <li><a href="contact.html">Liên Hệ</a></li>            
+                <li><a href="auth.html" class="active">Đăng Nhập</a></li>               
             </ul>
+            <div class="nav-search">
+                <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                <button type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -133,5 +140,75 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Kiểm tra đăng nhập
+            const currentUser = JSON.parse(localStorage.getItem('clientUser') || sessionStorage.getItem('clientUser'));
+            
+            if (!currentUser) {
+                window.location.href = 'auth.html';
+                return;
+            }
+
+            // Load thông tin người dùng
+            document.getElementById('fullName').value = currentUser.name || '';
+            document.getElementById('email').value = currentUser.email || '';
+            document.getElementById('phone').value = currentUser.phone || '';
+            
+            // Load avatar nếu có
+            if (currentUser.avatar) {
+                document.getElementById('userAvatar').src = currentUser.avatar;
+            }
+
+            // Xử lý form cập nhật thông tin
+            const profileForm = document.getElementById('profileForm');
+            if (profileForm) {
+                profileForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Cập nhật thông tin người dùng
+                    const updatedUser = {
+                        ...currentUser,
+                        name: document.getElementById('fullName').value,
+                        phone: document.getElementById('phone').value,
+                        birthday: document.getElementById('birthday').value,
+                        gender: document.getElementById('gender').value
+                    };
+
+                    // Lưu thông tin cập nhật
+                    if (localStorage.getItem('clientUser')) {
+                        localStorage.setItem('clientUser', JSON.stringify(updatedUser));
+                    }
+                    if (sessionStorage.getItem('clientUser')) {
+                        sessionStorage.setItem('clientUser', JSON.stringify(updatedUser));
+                    }
+
+                    // Hiển thị thông báo thành công
+                    alert('Cập nhật thông tin thành công!');
+                });
+            }
+
+            // Xử lý đổi mật khẩu
+            const securityForm = document.getElementById('securityForm');
+            if (securityForm) {
+                securityForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const currentPassword = document.getElementById('currentPassword').value;
+                    const newPassword = document.getElementById('newPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+
+                    // Kiểm tra mật khẩu mới
+                    if (newPassword !== confirmPassword) {
+                        alert('Mật khẩu mới không khớp!');
+                        return;
+                    }
+
+                    // TODO: Thêm logic kiểm tra mật khẩu hiện tại và cập nhật mật khẩu mới
+                    alert('Chức năng đổi mật khẩu đang được phát triển!');
+                });
+            }
+        });
+    </script>
 </body>
 </html> 
