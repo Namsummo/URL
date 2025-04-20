@@ -7,9 +7,98 @@
     <title>Fashion Store - Thời Trang Nam Nữ</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Styles for the new title/category section */
+        .page-subheader {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            /* Adjust padding, removed side padding as main-content handles it */
+            background-color: #fff;
+            /* White background */
+            border-bottom: 1px solid #eee;
+            /* Optional border */
+            gap: 30px;
+            /* Space between title and links */
+            margin-bottom: 30px;
+            /* Space below subheader */
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            /* Adjust size */
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+            /* Remove default margin */
+        }
+
+        .category-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+            /* Space between links */
+        }
+
+        .category-nav a {
+            text-decoration: none;
+            color: #555;
+            font-size: 1rem;
+            /* Adjust size */
+            font-weight: 500;
+            text-transform: uppercase;
+            /* Match image style */
+            transition: color 0.3s ease;
+        }
+
+        .category-nav a:hover {
+            color: #000;
+            /* Darker color on hover */
+        }
+
+        /* Ensure main content takes full width */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Center content */
+            padding: 20px;
+        }
+
+        .content {
+            width: 100%;
+            /* Ensure content uses full width */
+        }
+
+        .featured-products {
+            padding: 0;
+            /* Remove default padding */
+            text-align: left;
+            margin-bottom: 40px;
+            /* Add space between product sections */
+        }
+
+        /* Style for individual category titles */
+        .category-title-section {
+            padding: 20px 0;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+            /* Space below title */
+        }
+
+        .category-title-section .page-title {
+            /* Inherits base styles */
+            /* No flex needed if it's just the title */
+        }
+
+        /* Keep product-grid styles from styles.css */
+    </style>
 </head>
 
 <body>
+    <!-- Original Navbar -->
     <nav class="navbar">
         <div class="logo">
             <h1>Fashion Store</h1>
@@ -24,6 +113,7 @@
         </ul>
     </nav>
 
+    <!-- Original Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h1>Thời Trang Nam Nữ</h1>
@@ -33,93 +123,240 @@
     </section>
 
     <div class="main-content">
-        <aside class="sidebar">
-            <div class="categories-sidebar">
-                <h3>Danh Mục Sản Phẩm</h3>
-                <ul class="category-list">
-                    <li><a href="products.html?category=men" class="category-item"><i class="fas fa-tshirt"></i>Quần Áo
-                            Nam</a></li>
-                    <li><a href="products.html?category=women" class="category-item"><i class="fas fa-female"></i>Quần
-                            Áo Nữ</a></li>
-                </ul>
-            </div>
-        </aside>
-
         <main class="content">
-            <section class="featured-products">
-                <h2>Sản Phẩm Nổi Bật</h2>
+            <!-- Section: Áo Xuân Hè -->
+            <section class="page-subheader">
+                <h1 class="page-title">ÁO XUÂN HÈ</h1>
+                <nav class="category-nav">
+                    <ul>
+                        <li><a href="#">ÁO PHÔNG</a></li>
+                        <li><a href="#">ÁO POLO</a></li>
+                        <li><a href="#">ÁO SƠ MI DÀI TAY</a></li>
+                        <li><a href="#">QUẦN</a></li>
+                        <li><a href="#">PHỤ KIỆN</a></li>
+                    </ul>
+                </nav>
+            </section>
+            <section class="featured-products" id="ao-xuan-he-products">
                 <div class="product-grid">
-                    <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
-                    <!-- Xóa sản phẩm có id 4 và 7 -->
+                    <!-- Sản phẩm Áo Xuân Hè -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Áo Polo Nam Atino">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Áo Polo Nam Atino</h3>
+                            <div class="price">550.000₫</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1605367924938-29c3b5700bb9?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Áo Polo Phối Màu">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Áo Polo Phối Màu</h3>
+                            <div class="price">480.000₫</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Áo Sơ Mi Trắng">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Áo Sơ Mi Trắng Nam</h3>
+                            <div class="price">650.000₫</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1550246140-5119ae4790b8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Áo Phông Atino Basic">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Áo Phông Atino Basic</h3>
+                            <div class="price">350.000₫</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section class="featured-promotions">
-                <h2>Khuyến Mãi Nổi Bật</h2>
-                <div class="promotions-container">
-                    <a href="promotions.html" class="promotion-link">
-                        <div class="promotion-card">
-                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
-                                alt="Áo Thun Nam" class="promotion-image">
-                            <div class="promotion-content">
-                                <h3 class="promotion-title">Giảm 50% Áo Thun Nam</h3>
-                                <p class="promotion-description">Áo thun nam cao cấp với chất liệu cotton 100%</p>
-                                <span class="promotion-status status-active">Đang diễn ra</span>
+            <!-- Section: Quần -->
+            <section class="category-title-section">
+                <h1 class="page-title">QUẦN</h1>
+            </section>
+            <section class="featured-products" id="quan-products">
+                <div class="product-grid">
+                    <!-- Sản phẩm Quần -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Quần Jeans Nam Slim Fit">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
                             </div>
                         </div>
-                    </a>
+                        <div class="product-info">
+                            <h3>Quần Jeans Nam Slim Fit</h3>
+                            <div class="price">750.000₫</div>
+                        </div>
+                    </div>
 
-                    <a href="promotions.html" class="promotion-link">
-                        <div class="promotion-card">
-                            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
-                                alt="Quần Jean Nam" class="promotion-image">
-                            <div class="promotion-content">
-                                <h3 class="promotion-title">Mua 2 Tặng 1 Quần Jean Nam</h3>
-                                <p class="promotion-description">Quần jean nam cao cấp, nhiều size</p>
-                                <span class="promotion-status status-active">Đang diễn ra</span>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Quần Khaki Nam">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
                             </div>
                         </div>
-                    </a>
+                        <div class="product-info">
+                            <h3>Quần Khaki Nam</h3>
+                            <div class="price">600.000₫</div>
+                        </div>
+                    </div>
 
-                    <a href="promotions.html" class="promotion-link">
-                        <div class="promotion-card">
-                            <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
-                                alt="Áo Thun Nữ" class="promotion-image">
-                            <div class="promotion-content">
-                                <h3 class="promotion-title">Áo Thun Nữ - Giảm 40%</h3>
-                                <p class="promotion-description">Áo thun nữ thời trang, nhiều mẫu mã</p>
-                                <span class="promotion-status status-active">Đang diễn ra</span>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1555689502-c4b22d76c56f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Quần Short Nam">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
                             </div>
                         </div>
-                    </a>
+                        <div class="product-info">
+                            <h3>Quần Short Nam</h3>
+                            <div class="price">450.000₫</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Quần Âu Nam Cao Cấp">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Quần Âu Nam Cao Cấp</h3>
+                            <div class="price">850.000₫</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section class="features">
-                <div class="feature">
-                    <i class="fas fa-truck"></i>
-                    <h3>Miễn Phí Vận Chuyển</h3>
-                    <p>Cho đơn hàng từ 500.000đ</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-undo"></i>
-                    <h3>Đổi Trả Dễ Dàng</h3>
-                    <p>Trong vòng 7 ngày</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-lock"></i>
-                    <h3>Thanh Toán An Toàn</h3>
-                    <p>100% bảo mật</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-headset"></i>
-                    <h3>Hỗ Trợ 24/7</h3>
-                    <p>Luôn sẵn sàng hỗ trợ</p>
+            <!-- Section: Phụ Kiện -->
+            <section class="category-title-section">
+                <h1 class="page-title">PHỤ KIỆN</h1>
+            </section>
+            <section class="featured-products" id="phu-kien-products">
+                <div class="product-grid">
+                    <!-- Sản phẩm Phụ Kiện -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1553859943-a02c5418b798?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Đồng Hồ Nam">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Đồng Hồ Nam</h3>
+                            <div class="price">1.950.000₫</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1624623278313-a930126a11c3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Thắt Lưng Da Cao Cấp">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Thắt Lưng Da Cao Cấp</h3>
+                            <div class="price">750.000₫</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1613334226484-e2f296ac47fb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Kính Mát Thời Trang">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Kính Mát Thời Trang</h3>
+                            <div class="price">580.000₫</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1537832816519-689ad163238b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                                alt="Cà Vạt Lụa">
+                            <div class="product-overlay">
+                                <button class="quick-view-btn"><i class="fas fa-eye"></i> Xem nhanh</button>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Thêm vào
+                                    giỏ</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Cà Vạt Lụa</h3>
+                            <div class="price">450.000₫</div>
+                        </div>
+                    </div>
                 </div>
             </section>
+
         </main>
+        <!-- Sidebar related styles and structure removed -->
     </div>
 
+    <!-- Original Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -161,7 +398,7 @@
 
     <script src="script.js"></script>
 
-    <!-- Chat Widget -->
+    <!-- Original Chat Widget -->
     <div class="chat-widget">
         <button class="chat-button" onclick="toggleChat()">
             <i class="fas fa-comments"></i>
@@ -184,178 +421,7 @@
     </div>
 
     <style>
-        .main-content {
-            display: flex;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            gap: 30px;
-        }
-
-        .sidebar {
-            width: 280px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-        }
-
-        .categories-sidebar {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border: 1px solid #f0f0f0;
-        }
-
-        .categories-sidebar h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            font-weight: 600;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 12px;
-            position: relative;
-        }
-
-        .categories-sidebar h3::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: #4CAF50;
-        }
-
-        .category-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .category-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            color: #333;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .category-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background-color: #4CAF50;
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
-        .category-item:hover {
-            background-color: #f8f8f8;
-            color: #4CAF50;
-            transform: translateX(5px);
-        }
-
-        .category-item:hover::before {
-            transform: scaleY(1);
-        }
-
-        .category-item i {
-            margin-right: 10px;
-            font-size: 1.1em;
-            color: #4CAF50;
-        }
-
-        .content {
-            flex-grow: 1;
-        }
-
-        /* Điều chỉnh lại các section để phù hợp với layout mới */
-        .featured-products,
-        .featured-promotions,
-        .categories,
-        .features {
-            margin-left: 0;
-        }
-
-        .featured-promotions {
-            padding: 40px 20px;
-            background-color: #f9f9f9;
-        }
-
-        .featured-promotions h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .promotions-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .promotion-link {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .promotion-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .promotion-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .promotion-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .promotion-content {
-            padding: 20px;
-        }
-
-        .promotion-title {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .promotion-description {
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .promotion-status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.9em;
-            font-weight: bold;
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        /* Chat Widget Styles */
+        /* Original Chat Widget Styles - Assuming these are wanted */
         .chat-widget {
             position: fixed;
             bottom: 20px;
@@ -367,7 +433,8 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background-color: #4CAF50;
+            background-color: orangered;
+            /* Keep original color or change */
             color: white;
             border: none;
             cursor: pointer;
@@ -380,7 +447,8 @@
         }
 
         .chat-button:hover {
-            background-color: #45a049;
+            background-color: #e65c00;
+            /* Darker orange */
             transform: scale(1.1);
         }
 
@@ -394,12 +462,14 @@
             border-radius: 10px;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             display: none;
+            /* Initially hidden */
             flex-direction: column;
         }
 
         .chat-header {
             padding: 15px;
-            background: #4CAF50;
+            background: orangered;
+            /* Match button */
             color: white;
             border-radius: 10px 10px 0 0;
             display: flex;
@@ -424,101 +494,111 @@
             flex-grow: 1;
             padding: 15px;
             overflow-y: auto;
+            background-color: #f9f9f9;
+            /* Light background for messages */
         }
 
         .message {
             margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 10px 15px;
+            border-radius: 18px;
             max-width: 80%;
+            line-height: 1.4;
         }
 
+        .message.system p,
+        .message.user p {
+            margin: 0;
+        }
+
+
         .message.system {
-            background: #f0f0f0;
+            background: #e5e5ea;
+            /* Lighter gray for system */
+            color: #333;
             align-self: flex-start;
+            border-bottom-left-radius: 4px;
         }
 
         .message.user {
-            background: #4CAF50;
+            background: orangered;
+            /* Match button */
             color: white;
             margin-left: auto;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
         }
 
         .chat-input {
-            padding: 10px;
+            padding: 10px 15px;
             display: flex;
             gap: 10px;
             border-top: 1px solid #eee;
+            background-color: #fff;
         }
 
         .chat-input input {
             flex-grow: 1;
-            padding: 8px;
+            padding: 10px 15px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: orangered;
+            box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.2);
         }
 
         .chat-input button {
-            background: #4CAF50;
+            background: orangered;
+            /* Match button */
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 0 15px;
+            border-radius: 20px;
             cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
         }
 
         .chat-input button:hover {
-            background: #45a049;
+            background: #e65c00;
+            /* Darker orange */
         }
 
         .typing-indicator {
             opacity: 0.7;
             font-style: italic;
-        }
-
-        .response-time {
-            display: block;
-            font-size: 0.8em;
-            color: #666;
-            margin-top: 5px;
-            text-align: right;
-        }
-
-        .message.system {
-            position: relative;
-        }
-
-        .message.system::before {
-            content: 'Nhân viên hỗ trợ';
-            position: absolute;
-            top: -15px;
-            left: 0;
-            font-size: 0.8em;
-            color: #666;
-        }
-
-        .message.user::before {
-            content: 'Bạn';
-            position: absolute;
-            top: -15px;
-            right: 0;
-            font-size: 0.8em;
+            padding: 5px 15px;
             color: #666;
         }
     </style>
 
     <script>
+        // Original Chat Widget Script
         function toggleChat() {
             const chatWindow = document.getElementById('chatWindow');
             chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+            // Scroll to bottom when opening
+            if (chatWindow.style.display === 'flex') {
+                const messagesDiv = document.getElementById('chatMessages');
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
         }
 
         function showTypingIndicator() {
             const messagesDiv = document.getElementById('chatMessages');
+            // Remove existing typing indicator if any
+            removeTypingIndicator();
             const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'message system typing-indicator';
+            typingIndicator.className = 'typing-indicator';
             typingIndicator.id = 'typingIndicator';
-            typingIndicator.innerHTML = '<p>Nhân viên đang nhập tin nhắn...</p>';
+            typingIndicator.innerHTML = 'Nhân viên đang nhập tin nhắn...';
             messagesDiv.appendChild(typingIndicator);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
@@ -532,40 +612,50 @@
 
         function sendMessage() {
             const input = document.getElementById('userMessage');
-            const message = input.value.trim();
+            const messageText = input.value.trim();
+            const messagesDiv = document.getElementById('chatMessages');
 
-            if (message) {
-                const messagesDiv = document.getElementById('chatMessages');
-                const userMessage = document.createElement('div');
-                userMessage.className = 'message user';
-                userMessage.innerHTML = `<p>${message}</p>`;
-                messagesDiv.appendChild(userMessage);
+            if (messageText) {
+                // Display user message
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.className = 'message user';
+                const userP = document.createElement('p');
+                userP.textContent = messageText;
+                userMessageDiv.appendChild(userP);
+                messagesDiv.appendChild(userMessageDiv);
 
-                // Show typing indicator after 1 second
-                setTimeout(showTypingIndicator, 1000);
+                input.value = ''; // Clear input
+                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll down
 
-                // Simulate response after 30 seconds
+                // Simulate bot response
+                showTypingIndicator();
+
                 setTimeout(() => {
                     removeTypingIndicator();
-                    const response = document.createElement('div');
-                    response.className = 'message system';
-                    const currentTime = new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-                    response.innerHTML = `
-                        <p>Cảm ơn bạn đã liên hệ. Chúng tôi sẽ hỗ trợ bạn ngay.</p>
-                        <small class="response-time">Phản hồi lúc ${currentTime}</small>
-                    `;
-                    messagesDiv.appendChild(response);
-                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                }, 30000);
+                    const botMessageDiv = document.createElement('div');
+                    botMessageDiv.className = 'message system';
+                    const botP = document.createElement('p');
 
-                input.value = '';
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                    // Simple canned response logic
+                    if (messageText.toLowerCase().includes('hỗ trợ')) {
+                        botP.textContent = 'Chào bạn, bạn cần hỗ trợ về vấn đề gì ạ?';
+                    } else if (messageText.toLowerCase().includes('sản phẩm')) {
+                        botP.textContent = 'Bạn quan tâm đến sản phẩm nào? Bạn có thể xem các sản phẩm của shop tại trang Sản Phẩm nhé.';
+                    } else {
+                        botP.textContent = 'Cảm ơn bạn đã nhắn tin. Hiện tại các nhân viên đang bận, chúng tôi sẽ phản hồi bạn sớm nhất có thể!';
+                    }
+
+                    botMessageDiv.appendChild(botP);
+                    messagesDiv.appendChild(botMessageDiv);
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll down
+                }, 1500 + Math.random() * 1500); // Random delay for realistic feel
             }
         }
 
-        // Handle Enter key press
+        // Handle Enter key press in chat input
         document.getElementById('userMessage').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent default form submission
                 sendMessage();
             }
         });

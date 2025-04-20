@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion Store - Thông Tin Tài Khoản</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Logo styles */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #ff6b6b;
+        }
+    </style>
 </head>
+
 <body>
     <nav class="navbar">
         <div class="nav-container">
@@ -27,12 +43,17 @@
             <div class="profile-header">
                 <h2>Thông Tin Tài Khoản</h2>
             </div>
-            
+
             <div class="profile-content">
                 <div class="profile-sidebar">
                     <div class="profile-avatar">
-                        <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" alt="Avatar" id="userAvatar">
-                        <button class="change-avatar-btn">Thay đổi ảnh</button>
+                        <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+                            alt="Avatar" id="userAvatar">
+                        <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                        <button class="change-avatar-btn" onclick="document.getElementById('avatarInput').click()">
+                            <i class="fas fa-camera"></i>
+                            Thay đổi ảnh
+                        </button>
                     </div>
                     <div class="profile-menu">
                         <button class="profile-menu-item active" data-tab="info">
@@ -49,7 +70,7 @@
                         </button>
                         <button class="profile-menu-item" data-tab="address">
                             <i class="fas fa-map-marker-alt"></i>
-                            Sổ địa chỉ
+                            Số địa chỉ
                         </button>
                     </div>
                 </div>
@@ -71,6 +92,7 @@
                                 <label for="phone">Số điện thoại</label>
                                 <input type="tel" id="phone" name="phone">
                             </div>
+
                             <div class="form-group">
                                 <label for="birthday">Ngày sinh</label>
                                 <input type="date" id="birthday" name="birthday">
@@ -133,5 +155,37 @@
     </div>
 
     <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const avatarInput = document.getElementById('avatarInput');
+            const userAvatar = document.getElementById('userAvatar');
+            const changeAvatarBtn = document.querySelector('.change-avatar-btn');
+            const defaultAvatarUrl = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+
+            // Load avatar từ localStorage nếu có
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar) {
+                userAvatar.src = savedAvatar;
+            }
+
+            // Xử lý khi chọn file
+            avatarInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const imageUrl = e.target.result;
+                        userAvatar.src = imageUrl;
+                        localStorage.setItem('userAvatar', imageUrl);
+                    };
+                    reader.readAsDataURL(file);
+                    // Reset input để có thể chọn lại cùng một file
+                    avatarInput.value = '';
+                }
+            });
+        });
+    </script>
 </body>
-</html> 
+
+</html>
