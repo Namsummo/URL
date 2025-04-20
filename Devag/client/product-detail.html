@@ -6,6 +6,7 @@
     <title>Fashion Store - Chi Tiết Sản Phẩm</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/middleware.js"></script>
     <style>
         .product-detail-container {
             max-width: 1200px;
@@ -272,21 +273,249 @@
         .notification.success {
             background-color: #ff6b6b; /* Màu giống toast message */
         }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        /* Style cho navigation */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #ff5252;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b6b;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #ff6b6b;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            transform: scaleX(1);
+        }
+
+        .nav-links a.active {
+            color: #ff6b6b;
+        }
+
+        .nav-search {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-search:focus-within {
+            background: #fff;
+            box-shadow: 0 0 0 2px #ff6b6b;
+        }
+
+        .nav-search input {
+            border: none;
+            background: none;
+            padding: 8px;
+            width: 200px;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+        }
+
+        .nav-search input::placeholder {
+            color: #999;
+        }
+
+        .nav-search button {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-search button:hover {
+            color: #ff6b6b;
+        }
+
+        /* Style cho user menu và icon */
+        .user-menu {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .auth-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .auth-link:hover {
+            background: #ff5252;
+            transform: translateY(-1px);
+        }
+
+        .auth-link i {
+            font-size: 16px;
+        }
+
+        /* Style cho dropdown menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 45px;
+            right: -10px;
+            background: white;
+            min-width: 180px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            z-index: 1000;
+            padding: 8px 0;
+            border: 1px solid #ddd;
+        }
+
+        .user-menu:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown-menu a {
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 0.9em;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f5f5f5;
+            color: #ff6b6b;
+        }
+
+        .dropdown-menu a i {
+            font-size: 1em;
+            width: 20px;
+            color: #ff6b6b;
+        }
+
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            right: 20px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            transform: rotate(45deg);
+            border-left: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">
-            <h1>Fashion Store</h1>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Fashion Store</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="products.html">Sản Phẩm</a></li>
+                <li><a href="promotions.html">Khuyến Mãi</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>  
+                <li><a href="contact.html">Liên Hệ</a></li>            
+                <li class="user-menu">
+                    <a href="auth.html" class="auth-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Đăng Nhập</span>
+                    </a>
+                </li>               
+            </ul>
+            <div class="nav-search">
+                <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                <button type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
-        <ul class="nav-links">
-            <li><a href="index.html">Trang Chủ</a></li>
-            <li><a href="products.html">Sản Phẩm</a></li>
-            <li><a href="promotions.html">Khuyến Mãi</a></li>
-            <li><a href="cart.html">Giỏ Hàng</a></li>
-            <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
-            <li><a href="contact.html">Liên Hệ</a></li>
-        </ul>
     </nav>
 
     <div class="product-detail-container">
@@ -374,6 +603,21 @@
     <script>
         // Hàm hiển thị toast message
         let toastTimeout;
+        
+        // Xử lý active link cho navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set active class cho link Sản Phẩm vì đang ở trang product-detail
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                // Kiểm tra nếu link trỏ đến products.html hoặc nếu đang ở trang chi tiết sản phẩm
+                if (link.getAttribute('href') === 'products.html' || 
+                    window.location.pathname.includes('product-detail.html')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
         function showToast(message) {
             const toast = document.getElementById('toast-message');
             if (!toast) return;
@@ -390,71 +634,108 @@
             }, 3000);
         }
 
+        // Hàm xử lý hiệu ứng cho user menu
+        function initializeUserMenu() {
+            const userMenu = document.querySelector('.user-menu');
+            if (!userMenu) return;
+
+            // Thêm hiệu ứng hover cho icon
+            const authLink = userMenu.querySelector('.auth-link');
+            if (authLink) {
+                authLink.addEventListener('mouseenter', () => {
+                    const icon = authLink.querySelector('i');
+                    if (icon) {
+                        icon.style.transition = 'transform 0.3s ease';
+                        icon.style.transform = 'scale(1.1)';
+                    }
+                });
+
+                authLink.addEventListener('mouseleave', () => {
+                    const icon = authLink.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1)';
+                    }
+                });
+            }
+
+            // Thêm hiệu ứng cho dropdown menu items
+            const dropdownItems = userMenu.querySelectorAll('.dropdown-menu a');
+            dropdownItems.forEach((item, index) => {
+                // Thêm animation delay cho từng item
+                item.style.transitionDelay = `${index * 0.05}s`;
+
+                // Hiệu ứng hover cho từng item
+                item.addEventListener('mouseenter', () => {
+                    const icon = item.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.1)';
+                        item.style.paddingLeft = '20px';
+                    }
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    const icon = item.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1)';
+                        item.style.paddingLeft = '15px';
+                    }
+                });
+            });
+        }
+
         // Hàm cập nhật trạng thái đăng nhập trên navigation
         function updateAuthStatus() {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
-            const authLink = document.querySelector('.auth-link');
+            const currentUser = JSON.parse(localStorage.getItem('clientUser') || sessionStorage.getItem('clientUser'));
+            const userMenu = document.querySelector('.user-menu');
             
+            if (!userMenu) return;
+
             if (currentUser) {
-                authLink.innerHTML = `<i class="fas fa-user"></i> ${currentUser.fullName}`;
-                authLink.href = '#';
-                // Thêm dropdown menu khi hover
-                authLink.parentElement.innerHTML += `
-                    <ul class="dropdown-menu">
-                        <li><a href="profile.html">Tài khoản của tôi</a></li>
-                        <li><a href="orders.html">Đơn hàng</a></li>
-                        <li><a href="#" onclick="logout()">Đăng xuất</a></li>
-                    </ul>
+                userMenu.innerHTML = `
+                    <a href="#" class="auth-link">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li>
+                                <a href="profile.html">
+                                    <i class="fas fa-user"></i>
+                                    <span>Tài khoản</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="orders.html">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Đơn hàng</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 `;
+
+                // Khởi tạo hiệu ứng cho menu sau khi cập nhật HTML
+                initializeUserMenu();
             } else {
-                authLink.innerHTML = 'Đăng nhập';
-                authLink.href = 'auth.html';
+                userMenu.innerHTML = `
+                    <a href="auth.html" class="auth-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </a>
+                `;
             }
         }
 
         // Hàm đăng xuất
         function logout() {
-            localStorage.removeItem('currentUser');
-            sessionStorage.removeItem('currentUser');
+            localStorage.removeItem('clientUser');
+            sessionStorage.removeItem('clientUser');
             window.location.href = 'index.html';
         }
-
-        // Thêm style cho dropdown menu
-        const style = document.createElement('style');
-        style.textContent = `
-            .nav-links li {
-                position: relative;
-            }
-            .dropdown-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                background: white;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                border-radius: 4px;
-                padding: 10px 0;
-                min-width: 180px;
-                z-index: 1000;
-            }
-            .nav-links li:hover .dropdown-menu {
-                display: block;
-            }
-            .dropdown-menu li {
-                display: block;
-                margin: 0;
-            }
-            .dropdown-menu a {
-                padding: 8px 20px;
-                display: block;
-                color: #333;
-                font-size: 0.9em;
-            }
-            .dropdown-menu a:hover {
-                background: #f8f9fa;
-            }
-        `;
-        document.head.appendChild(style);
 
         // Lấy ID sản phẩm từ URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -499,7 +780,7 @@
         // Xử lý thêm vào giỏ hàng
         function addToCart() {
             // Kiểm tra đăng nhập
-            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+            const currentUser = JSON.parse(localStorage.getItem('clientUser') || sessionStorage.getItem('clientUser'));
             if (!currentUser) {
                 // Lưu URL hiện tại để sau khi đăng nhập có thể quay lại
                 sessionStorage.setItem('returnUrl', window.location.href);
@@ -542,7 +823,7 @@
         // Xử lý mua ngay
         function buyNow() {
             // Kiểm tra đăng nhập
-            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+            const currentUser = JSON.parse(localStorage.getItem('clientUser') || sessionStorage.getItem('clientUser'));
             if (!currentUser) {
                 // Lưu URL hiện tại để sau khi đăng nhập có thể quay lại
                 sessionStorage.setItem('returnUrl', window.location.href);

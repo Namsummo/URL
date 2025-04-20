@@ -11,6 +11,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            margin-top: 70px;
         }
 
         .promotions-tabs {
@@ -296,21 +297,54 @@
                 padding: 15px;
             }
         }
+
+        /* Thêm style cho navigation active link */
+        .nav-links a.active {
+            color: #e74c3c;
+            position: relative;
+        }
+
+        .nav-links a.active::after {
+            content: none; /* Bỏ gạch chân */
+        }
+
+        /* Thay đổi chỉ màu chữ, không dùng gạcah chân */
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #e74c3c;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">
-            <h1>Fashion Store</h1>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Fashion Store</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="products.html">Sản Phẩm</a></li>
+                <li><a href="promotions.html" class="active">Khuyến Mãi</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>  
+                <li><a href="contact.html">Liên Hệ</a></li>            
+                <li><a href="auth.html">Đăng Nhập</a></li>               
+            </ul>
+            <div class="nav-search">
+                <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                <button type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
-        <ul class="nav-links">
-            <li><a href="index.html">Trang Chủ</a></li>
-            <li><a href="products.html">Sản Phẩm</a></li>
-            <li><a href="promotions.html" class="active">Khuyến Mãi</a></li>
-            <li><a href="cart.html">Giỏ Hàng</a></li>
-            <li><a href="auth.html" class="auth-link">Đăng Nhập</a></li>
-            <li><a href="contact.html">Liên Hệ</a></li>
-        </ul>
     </nav>
 
     <div class="promotions-container">
@@ -562,7 +596,53 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
     <script>
+        // Debug navigation
+        console.log('=== DEBUG NAVIGATION START ===');
+        
+        // Log current page path
+        console.log('Current page path:', window.location.pathname);
+        
+        // Log all navigation links
+        const navLinks = document.querySelectorAll('.nav-links a');
+        console.log('Navigation links found:', navLinks.length);
+        navLinks.forEach((link, index) => {
+            console.log(`Link ${index + 1}:`, {
+                href: link.href,
+                text: link.textContent,
+                classes: link.className,
+                isActive: link.classList.contains('active')
+            });
+        });
+
+        // Log authentication status
+        const currentUser = JSON.parse(localStorage.getItem('currentUser')) || 
+                          JSON.parse(sessionStorage.getItem('currentUser'));
+        console.log('Current user:', currentUser);
+
+        // Monitor navigation changes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    console.log('Navigation class changed:', {
+                        element: mutation.target,
+                        newClass: mutation.target.className
+                    });
+                }
+            });
+        });
+
+        // Observe navigation changes
+        navLinks.forEach(link => {
+            observer.observe(link, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+
+        console.log('=== DEBUG NAVIGATION END ===');
+
         // Xử lý chuyển tab
         document.querySelectorAll('.promotion-tab').forEach(tab => {
             tab.addEventListener('click', () => {
