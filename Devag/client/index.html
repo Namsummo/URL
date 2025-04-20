@@ -7,6 +7,7 @@
     <title>Fashion Store - Thời Trang Nam Nữ</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/navbar.js"></script>
 </head>
 
 <body>
@@ -70,23 +71,13 @@
 
     <section class="categories-section">
         <div class="container">
-            <div class="categories-nav">
-                <a href="products.html?category=tshirt" class="nav-item active">Áo phông/ Áo thun</a>
-                <span class="separator">|</span>
-                <a href="products.html?category=polo" class="nav-item">Áo polo</a>
-                <span class="separator">|</span>
-                <a href="products.html?category=shirt" class="nav-item">Áo sơ mi</a>
-                <span class="separator">|</span>
-                <a href="products.html?category=shorts" class="nav-item">Quần soóc/ Quần short</a>
-                <span class="separator">|</span>
-                <a href="products.html?category=pants" class="nav-item">Quần dài & Quần Jean</a>
+            <div class="categories-nav" id="categoriesNav">
+                <!-- Categories will be loaded dynamically -->
             </div>
         </div>
     </section>
 
     <div class="main-content">
-        
-
         <main class="content">
             <section class="featured-products">
                 <h2>Sản Phẩm Nổi Bật</h2>
@@ -231,96 +222,11 @@
             max-width: 1500px;
             margin: 0 auto;
             padding: 20px;
-            gap: 30px;
-        }
-
-        .sidebar {
-            width: 280px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-        }
-
-        .categories-sidebar {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border: 1px solid #f0f0f0;
-        }
-
-        .categories-sidebar h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            font-weight: 600;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 12px;
-            position: relative;
-        }
-
-        .categories-sidebar h3::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: #4CAF50;
-        }
-
-        .category-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .category-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            color: #333;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .category-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background-color: #4CAF50;
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
-        .category-item:hover {
-            background-color: #f8f8f8;
-            color: #4CAF50;
-            transform: translateX(5px);
-        }
-
-        .category-item:hover::before {
-            transform: scaleY(1);
-        }
-
-        .category-item i {
-            margin-right: 10px;
-            font-size: 1.1em;
-            color: #4CAF50;
         }
 
         .content {
             flex-grow: 1;
-            width: calc(100% + 200px);
+            width: 100%;
         }
 
         /* Điều chỉnh lại các section để phù hợp với layout mới */
@@ -1161,7 +1067,10 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Hiển thị sản phẩm nổi bật
+            // Load categories for navigation
+            loadCategories();
+            
+            // Load featured products
             const featuredProducts = [
                 {
                     id: 1,
@@ -1234,6 +1143,39 @@
         const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
 
         const authLinkContainer = document.querySelector('.nav-links li:last-child');
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load categories for navigation
+            loadCategories();
+            
+            // Other existing DOMContentLoaded handlers...
+        });
+
+        function loadCategories() {
+            const categories = JSON.parse(localStorage.getItem('categories')) || [];
+            
+            // Load categories for the categories section only
+            const categoriesNav = document.getElementById('categoriesNav');
+            if (categoriesNav) {
+                categoriesNav.innerHTML = categories
+                    .filter(category => category.isActive)
+                    .sort((a, b) => a.displayOrder - b.displayOrder)
+                    .map((category, index) => `
+                        ${index > 0 ? '<span class="separator">|</span>' : ''}
+                        <a href="products.html?category=${category.slug}" class="nav-item ${index === 0 ? 'active' : ''}">
+                            ${category.name}
+                        </a>
+                    `).join('');
+            }
+        }
+
+        // Gọi loadCategories khi trang load và sau mỗi lần localStorage thay đổi
+        document.addEventListener('DOMContentLoaded', loadCategories);
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'categories') {
+                loadCategories();
+            }
+        });
     </script>
 </body>
 

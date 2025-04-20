@@ -6,6 +6,7 @@
     <title>Fashion Store - Lịch Sử Đơn Hàng</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/navbar.js"></script>
     <style>
         .orders-section {
             padding: 80px 20px;
@@ -58,31 +59,13 @@
             font-size: 0.9em;
         }
 
-        .order-status {
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 0.9em;
-        }
-
-        .status-processing {
-            background: #fff3e0;
-            color: #ff9800;
-        }
-
-        .status-shipping {
-            background: #e3f2fd;
-            color: #2196f3;
-        }
-
-        .status-delivered {
-            background: #e8f5e9;
-            color: #4caf50;
-        }
-
+        /* Remove all status-related styles */
+        .order-status,
+        .status-processing,
+        .status-shipping,
+        .status-delivered,
         .status-cancelled {
-            background: #ffebee;
-            color: #f44336;
+            display: none;
         }
 
         .order-details {
@@ -90,7 +73,7 @@
         }
 
         .order-items {
-            margin-bottom: 20px;
+            margin: 0;
         }
 
         .order-item {
@@ -127,20 +110,23 @@
         }
 
         .order-total {
-            text-align: right;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #ff6b6b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .total-label {
             color: #666;
-            margin-right: 10px;
+            font-size: 0.9em;
+            font-weight: normal;
         }
 
-        .total-amount {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #ff6b6b;
+        .order-total i {
+            font-size: 0.9em;
+            color: #666;
         }
 
         .tracking-timeline {
@@ -534,7 +520,7 @@
             }
 
             const userOrders = orders.filter(order => {
-                const customerEmail = order.customer?.email;
+                const customerEmail = order.customerInfo?.email;
                 return customerEmail === currentUser.email;
             }).sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
 
@@ -561,27 +547,59 @@
                     minute: '2-digit'
                 });
 
+                // Tạo timeline mặc định nếu chưa có
+                if (!order.timeline) {
+                    const orderTime = new Date(order.orderDate);
+                    order.timeline = [
+                        {
+                            status: 'Đơn hàng đã đặt',
+                            date: orderTime.toISOString(),
+                            location: 'Hệ thống Fashion Store',
+                            completed: true,
+                            active: true
+                        },
+                        {
+                            status: 'Đang xử lý',
+                            date: new Date(orderTime.getTime() + 30 * 60000).toISOString(),
+                            location: 'Kho hàng Fashion Store',
+                            completed: false,
+                            active: false
+                        },
+                        {
+                            status: 'Đang giao hàng',
+                            date: new Date(orderTime.getTime() + 24 * 60 * 60000).toISOString(),
+                            location: 'Đơn vị vận chuyển',
+                            completed: false,
+                            active: false
+                        },
+                        {
+                            status: 'Đã giao hàng',
+                            date: new Date(orderTime.getTime() + 72 * 60 * 60000).toISOString(),
+                            location: 'Địa chỉ người nhận',
+                            completed: false,
+                            active: false
+                        }
+                    ];
+                }
+
+                // Tìm trạng thái hiện tại
                 const now = new Date();
-                const timeline = order.timeline || [];
-                let currentStatus = 'Đang xử lý';
+                let currentStatus = order.timeline[0].status;
                 let statusClass = 'processing';
 
-                if (timeline.length > 0) {
-                    for (let i = timeline.length - 1; i >= 0; i--) {
-                        const step = timeline[i];
-                        if (new Date(step.date) <= now) {
-                            currentStatus = step.status;
-                            statusClass = step.status.toLowerCase().replace(/\s+/g, '-');
-                            break;
-                        }
+                for (let i = order.timeline.length - 1; i >= 0; i--) {
+                    const step = order.timeline[i];
+                    if (new Date(step.date) <= now) {
+                        currentStatus = step.status;
+                        statusClass = step.status.toLowerCase().replace(/\s+/g, '-');
+                        break;
                     }
                 }
 
-                // Tính thời gian còn lại đến bước tiếp theo
+                // Tính thời gian cho bước tiếp theo
                 let nextStep = null;
                 let timeRemaining = '';
-                for (let i = 0; i < timeline.length; i++) {
-                    const step = timeline[i];
+                for (const step of order.timeline) {
                     const stepDate = new Date(step.date);
                     if (stepDate > now) {
                         nextStep = step;
@@ -598,20 +616,20 @@
 
                 return `
                     <div class="order-card ${order.orderId === targetOrderId ? 'highlight-order' : ''}" 
-                         data-order-id="${order.orderId}">
+                         data-order-id="${order.orderId || ''}">
                         <div class="order-header">
                             <div class="order-info">
-                                <span class="order-id">Đơn hàng #${order.orderId}</span>
+                                <span class="order-id">Đơn hàng #${order.orderId || 'N/A'}</span>
                                 <span class="order-date">${formattedDate}</span>
                             </div>
-                            <span class="order-status status-${statusClass}">
-                                <i class="fas ${getStatusIcon(currentStatus)}"></i>
-                                ${currentStatus}
-                            </span>
+                            <div class="order-total">
+                                <span class="total-label">Tổng tiền:</span>
+                                ${formatPrice(order.total || 0)}
+                            </div>
                         </div>
                         <div class="order-details">
                             <div class="order-items">
-                                ${order.items.map(item => `
+                                ${(order.items || []).map(item => `
                                     <div class="order-item">
                                         <img src="${item.image}" alt="${item.name}">
                                         <div class="order-item-info">
@@ -622,40 +640,6 @@
                                         </div>
                                     </div>
                                 `).join('')}
-                            </div>
-                            <div class="order-total">
-                                <span class="total-label">Tổng tiền:</span>
-                                <span class="total-amount">${order.total}</span>
-                            </div>
-                            <div class="payment-info">
-                                <h4>Thông tin thanh toán</h4>
-                                <div class="payment-method">
-                                    <i class="fas ${getPaymentIcon(order.payment?.method || 'cod')}"></i>
-                                    <div class="payment-details">
-                                        <span class="payment-method-name">
-                                            ${getPaymentMethodName(order.payment?.method || 'cod')}
-                                        </span>
-                                        <span class="payment-status ${order.payment?.status === 'Đã thanh toán' ? 'paid' : 'pending'}">
-                                            <i class="fas ${order.payment?.status === 'Đã thanh toán' ? 'fa-check-circle' : 'fa-clock'}"></i>
-                                            ${order.payment?.status || 'Chưa thanh toán'}
-                                        </span>
-                                    </div>
-                                </div>
-                                ${order.payment?.method === 'bank' ? `
-                                    <div class="bank-details">
-                                        <p><strong>Ngân hàng:</strong> Vietcombank</p>
-                                        <p><strong>Số tài khoản:</strong> 1234567890</p>
-                                        <p><strong>Chủ tài khoản:</strong> FASHION STORE</p>
-                                        <p><strong>Nội dung:</strong> DH${order.orderId}</p>
-                                    </div>
-                                ` : ''}
-                                ${order.payment?.method === 'momo' ? `
-                                    <div class="momo-details">
-                                        <p><strong>Số điện thoại:</strong> 0123456789</p>
-                                        <p><strong>Tên tài khoản:</strong> FASHION STORE</p>
-                                        <p><strong>Nội dung:</strong> DH${order.orderId}</p>
-                                    </div>
-                                ` : ''}
                             </div>
                             <div class="tracking-timeline">
                                 <h4 class="timeline-title">
@@ -668,10 +652,10 @@
                                     ` : ''}
                                 </h4>
                                 <div class="timeline">
-                                    ${(order.timeline || []).map(item => {
-                                        const stepDate = new Date(item.date);
+                                    ${order.timeline.map(step => {
+                                        const stepDate = new Date(step.date);
                                         const isCompleted = stepDate <= now;
-                                        const isActive = item.status === currentStatus;
+                                        const isActive = step.status === currentStatus;
                                         return `
                                             <div class="timeline-item ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''}">
                                                 <div class="timeline-date">
@@ -685,10 +669,10 @@
                                                     })}
                                                 </div>
                                                 <div class="timeline-status">
-                                                    <i class="fas ${getStatusIcon(item.status)}"></i>
-                                                    ${item.status}
+                                                    <i class="fas ${getStatusIcon(step.status)}"></i>
+                                                    ${step.status}
                                                 </div>
-                                                <div class="timeline-location">${item.location}</div>
+                                                <div class="timeline-location">${step.location}</div>
                                             </div>
                                         `;
                                     }).join('')}
@@ -705,6 +689,9 @@
                     scrollToOrder(targetOrderId);
                 }, 100);
             }
+
+            // Lưu lại các đơn hàng đã cập nhật timeline
+            localStorage.setItem('orders', JSON.stringify(userOrders));
         }
 
         // Hàm lấy icon cho từng trạng thái
@@ -731,33 +718,41 @@
             }).format(price);
         }
 
-        // Thêm hàm mới để lấy icon cho phương thức thanh toán
-        function getPaymentIcon(method) {
-            switch (method) {
-                case 'cod':
-                    return 'fa-money-bill-wave';
-                case 'bank':
-                    return 'fa-university';
-                case 'momo':
-                    return 'fa-wallet';
-                default:
-                    return 'fa-money-bill-wave';
-            }
-        }
+        // Cập nhật trạng thái đơn hàng mỗi phút
+        setInterval(() => {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const now = new Date();
+            let hasUpdates = false;
 
-        // Thêm hàm mới để lấy tên phương thức thanh toán
-        function getPaymentMethodName(method) {
-            switch (method) {
-                case 'cod':
-                    return 'Thanh toán khi nhận hàng (COD)';
-                case 'bank':
-                    return 'Chuyển khoản ngân hàng';
-                case 'momo':
-                    return 'Ví điện tử MoMo';
-                default:
-                    return 'Thanh toán khi nhận hàng (COD)';
+            orders.forEach(order => {
+                if (!order.timeline) return;
+                
+                order.timeline.forEach((step, index) => {
+                    const stepDate = new Date(step.date);
+                    if (stepDate <= now && !step.completed) {
+                        step.completed = true;
+                        if (index < order.timeline.length - 1) {
+                            order.timeline[index + 1].active = true;
+                        }
+                        hasUpdates = true;
+                    }
+                });
+
+                // Cập nhật trạng thái chính của đơn hàng
+                for (let i = order.timeline.length - 1; i >= 0; i--) {
+                    const step = order.timeline[i];
+                    if (new Date(step.date) <= now) {
+                        order.status = step.status;
+                        break;
+                    }
+                }
+            });
+
+            if (hasUpdates) {
+                localStorage.setItem('orders', JSON.stringify(orders));
+                displayOrders();
             }
-        }
+        }, 60000); // Cập nhật mỗi phút
 
         // Khởi tạo trang và cập nhật real-time
         document.addEventListener('DOMContentLoaded', () => {
@@ -770,42 +765,6 @@
 
             updateAuthStatus();
             displayOrders();
-
-            // Cập nhật trạng thái đơn hàng mỗi 30 giây
-            setInterval(() => {
-                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-                let hasUpdates = false;
-
-                orders.forEach(order => {
-                    if (!order.timeline) return;
-                    
-                    const now = new Date();
-                    order.timeline.forEach((step, index) => {
-                        const stepDate = new Date(step.date);
-                        if (stepDate <= now && !step.completed) {
-                            step.completed = true;
-                            if (index < order.timeline.length - 1) {
-                                order.timeline[index + 1].active = true;
-                            }
-                            hasUpdates = true;
-                        }
-                    });
-
-                    // Cập nhật trạng thái chính của đơn hàng
-                    for (let i = order.timeline.length - 1; i >= 0; i--) {
-                        const step = order.timeline[i];
-                        if (new Date(step.date) <= now) {
-                            order.status = step.status;
-                            break;
-                        }
-                    }
-                });
-
-                if (hasUpdates) {
-                    localStorage.setItem('orders', JSON.stringify(orders));
-                    displayOrders();
-                }
-            }, 30000); // Cập nhật mỗi 30 giây
         });
     </script>
 </body>

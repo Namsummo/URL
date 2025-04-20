@@ -1,0 +1,276 @@
+<!-- Products Section -->
+<section class="products-section">
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Categories Sidebar -->
+        <aside class="categories-sidebar">
+            <h2>Danh mục sản phẩm</h2>
+            <ul class="category-list">
+                <li><a href="#">Áo phông/Áo thun</a></li>
+                <li><a href="#">Áo polo</a></li>
+                <li><a href="#">Áo sơ mi</a></li>
+                <li><a href="#">Áo chống nắng</a></li>
+                <li class="active">
+                    <a href="#" class="active">Canifa Active/Quần áo thể thao</a>
+                    <ul class="subcategory-list">
+                        <li><a href="#" class="active">Tất cả (21 sản phẩm)</a></li>
+                        <li><a href="#">Áo active</a></li>
+                        <li><a href="#">Quần active</a></li>
+                        <li><a href="#">Bộ quần áo active</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Quần soóc/Quần short</a></li>
+                <li><a href="#">Quần dài & Quần Jean</a></li>
+                <li><a href="#">Quần áo nỉ</a></li>
+                <li><a href="#">Quần áo mặc nhà/Đồ ngủ</a></li>
+                <li><a href="#">Áo khoác & Giữ nhiệt</a></li>
+                <li><a href="#">Áo len</a></li>
+                <li><a href="#">Bộ nỉ/Bộ quần áo</a></li>
+                <li><a href="#">Đồ lót</a></li>
+                <li><a href="#">Tất/Vớ</a></li>
+            </ul>
+        </aside>
+
+        <!-- Products Grid -->
+        <div class="products-container">
+            <div class="category-header">
+                <h1>Canifa Active/Quần áo thể thao</h1>
+                <div class="category-filters">
+                    <select class="sort-select">
+                        <option>Sắp xếp theo</option>
+                        <option>Giá thấp đến cao</option>
+                        <option>Giá cao đến thấp</option>
+                        <option>Mới nhất</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <!-- Active Wear Products -->
+                <div class="product-card">
+                    <div class="product-badge">FREESHIP</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600"
+                            alt="Áo Polo Active Nam">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">Xem nhanh</button>
+                            <button class="add-to-cart-btn">Thêm vào giỏ</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Áo Polo Active Nam</h3>
+                        <p class="product-price">399.000₫</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge">FREESHIP</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1605367924938-29c3b5700bb9?w=600"
+                            alt="Áo Thun Active">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">Xem nhanh</button>
+                            <button class="add-to-cart-btn">Thêm vào giỏ</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Áo Thun Active</h3>
+                        <p class="product-price">299.000₫</p>
+                    </div>
+                </div>
+
+                <!-- Add more product cards as needed -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .products-section {
+        padding-top: 80px;
+    }
+
+    .main-content {
+        display: flex;
+        gap: 30px;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .categories-sidebar {
+        width: 280px;
+        flex-shrink: 0;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .category-list>li {
+        margin-bottom: 10px;
+    }
+
+    .category-list a {
+        display: block;
+        padding: 8px 12px;
+        color: #666;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .category-list a:hover,
+    .category-list a.active {
+        color: #ff4400;
+        background: #fff5f2;
+    }
+
+    .subcategory-list {
+        list-style: none;
+        padding-left: 20px;
+        margin-top: 5px;
+    }
+
+    .subcategory-list a {
+        padding: 6px 12px;
+        font-size: 0.95em;
+    }
+
+    .products-container {
+        flex: 1;
+    }
+
+    .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .category-header h1 {
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .sort-select {
+        padding: 8px 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: white;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 30px;
+    }
+
+    .product-card {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #ff4400;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .product-image {
+        position: relative;
+        padding-top: 100%;
+    }
+
+    .product-image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .product-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .product-card:hover .product-overlay {
+        opacity: 1;
+    }
+
+    .quick-view-btn,
+    .add-to-cart-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        background: white;
+        color: #333;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .add-to-cart-btn {
+        background: #ff4400;
+        color: white;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-title {
+        margin: 0;
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .product-price {
+        color: #ff4400;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        .main-content {
+            flex-direction: column;
+        }
+
+        .categories-sidebar {
+            width: 100%;
+        }
+    }
+</style>

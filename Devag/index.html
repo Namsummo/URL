@@ -94,6 +94,77 @@
         }
 
         /* Keep product-grid styles from styles.css */
+
+        /* Add styles for the sidebar */
+        .main-content {
+            display: flex;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .categories-sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .categories-sidebar h2 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-list li {
+            margin-bottom: 10px;
+        }
+
+        .category-list a {
+            display: block;
+            padding: 8px 12px;
+            color: #666;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .category-list a:hover {
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .category-list a.active {
+            color: #ff4400;
+            background: #fff5f2;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .categories-sidebar {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -123,6 +194,26 @@
     </section>
 
     <div class="main-content">
+        <!-- Add Product Categories Sidebar -->
+        <aside class="categories-sidebar">
+            <h2>Danh mục sản phẩm</h2>
+            <ul class="category-list">
+                <li><a href="#">Áo phông/Áo thun</a></li>
+                <li><a href="#">Áo polo</a></li>
+                <li><a href="#">Áo sơ mi</a></li>
+                <li><a href="#">Áo chống nắng</a></li>
+                <li><a href="#" class="active">Canifa Active/Quần áo thể thao</a></li>
+                <li><a href="#">Quần soóc/Quần short</a></li>
+                <li><a href="#">Quần dài & Quần Jean</a></li>
+                <li><a href="#">Quần áo nỉ</a></li>
+                <li><a href="#">Quần áo mặc nhà/Đồ ngủ</a></li>
+                <li><a href="#">Áo khoác & Giữ nhiệt</a></li>
+                <li><a href="#">Áo len</a></li>
+                <li><a href="#">Bộ nỉ/Bộ quần áo</a></li>
+                <li><a href="#">Đồ lót</a></li>
+                <li><a href="#">Tất/Vớ</a></li>
+            </ul>
+        </aside>
         <main class="content">
             <!-- Section: Áo Xuân Hè -->
             <section class="page-subheader">
