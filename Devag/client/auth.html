@@ -377,11 +377,6 @@
                 const rememberMe = document.getElementById('rememberMe').checked;
 
                 try {
-                    // Clear existing auth data
-                    localStorage.removeItem('adminUser');
-                    localStorage.removeItem('clientUser');
-                    sessionStorage.removeItem('clientUser');
-
                     // Admin login
                     if (email === 'admin@fashionstore.com' && password === 'admin123') {
                         const adminUser = {
