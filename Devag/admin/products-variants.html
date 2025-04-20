@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý biến thể sản phẩm - Fashion Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/middleware.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #2c3e50, #1a252f);
+            color: #fff;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header h2 {
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            padding: 30px 0;
+        }
+
+        .nav-item {
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            color: #c2c7d0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 5px 0;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border-left: 4px solid #ff6b6b;
+            transform: translateX(5px);
+        }
+
+        .nav-item i {
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        .top-bar {
+            background: #fff;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid #ff6b6b;
+            padding: 2px;
+        }
+
+        .variants-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .variants-header h2 {
+            font-size: 1.8em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .add-variant-btn {
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .add-variant-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        /* Table Styles */
+        .variants-table {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .table th, .table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+
+        .table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .variant-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .variant-input:focus {
+            border-color: #9C27B0;
+            outline: none;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status-active {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-inactive {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .edit-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #43A047;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #E53935;
+        }
+
+        .back-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar-header h2, .nav-item span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+
+            .variants-table {
+                overflow-x: auto;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .cancel-btn {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            color: #666;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .save-btn {
+            background: #ff6b6b;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .save-btn:hover {
+            background: #ff5252;
+        }
+
+        .product-image-small {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.2em;
+        }
+
+        /* Image Input Styles */
+        .form-group input[type="file"] {
+            display: none;
+        }
+
+        .form-group .image-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100px;
+            background: #fff;
+            border: 1px dashed #ff6b6b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .form-group .image-upload-label:hover {
+            background: #fff5f5;
+        }
+
+        .form-group .image-upload-label i {
+            color: #ff6b6b;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .form-group .image-upload-label span {
+            color: #666;
+            font-size: 14px;
+        }
+
+        #imagePreview {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        #previewImg {
+            max-width: 200px;
+            max-height: 200px;
+            border: 1px solid #ddd;
+        }
+
+        .image-preview-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .remove-image:hover {
+            background: #ff5252;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Fashion Store</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="categories.html" class="nav-item">
+                    <i class="fas fa-tags"></i>
+                    <span>Quản lý danh mục</span>
+                </a>
+                <a href="products.html" class="nav-item active">
+                    <i class="fas fa-box"></i>
+                    <span>Quản lý sản phẩm</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Quản lý đơn hàng</span>
+                </a>
+                <a href="customers.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Quản lý tài khoản</span>
+                </a>
+                <a href="promotions.html" class="nav-item">
+                    <i class="fas fa-percent"></i>
+                    <span>Khuyến mãi</span>
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Báo cáo, phản hồi</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Cài đặt</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/40" alt="Admin">
+                    <span>Administrator</span>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Đăng xuất
+                </button>
+            </div>
+
+            <button class="back-btn" onclick="window.location.href='products.html'">
+                <i class="fas fa-arrow-left"></i>
+                Quay lại
+            </button>
+
+            <div class="variants-header">
+                <h2 id="productName">Quản lý biến thể sản phẩm</h2>
+                <button class="add-variant-btn" onclick="openAddModal()">
+                    <i class="fas fa-plus"></i>
+                    Thêm biến thể
+                </button>
+            </div>
+
+            <div class="variants-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Hình ảnh</th>
+                            <th>Màu sắc</th>
+                            <th>Size</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="variantsTableBody">
+                        <!-- Variants will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Variant Modal -->
+    <div class="modal" id="variantModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Thêm biến thể mới</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="variantForm">
+                <div class="form-group">
+                    <label for="variantColor">Màu sắc</label>
+                    <input type="text" id="variantColor" required>
+                </div>
+                <div class="form-group">
+                    <label for="variantSize">Size</label>
+                    <input type="text" id="variantSize" required>
+                </div>
+                <div class="form-group">
+                    <label for="variantQuantity">Số lượng</label>
+                    <input type="number" id="variantQuantity" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="variantPrice">Đơn giá (VNĐ)</label>
+                    <input type="number" id="variantPrice" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Hình ảnh sản phẩm</label>
+                    <div class="image-upload-container">
+                        <label for="variantImage" class="image-upload-label">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Kéo thả hoặc click để chọn ảnh</span>
+                        </label>
+                        <input type="file" id="variantImage" accept="image/*">
+                        <div id="imagePreview" style="display: none;">
+                            <div class="image-preview-container">
+                                <img id="previewImg">
+                                <button type="button" class="remove-image" onclick="removeImage()">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="variantStatus">Trạng thái</label>
+                    <select id="variantStatus" required>
+                        <option value="active">Còn hàng</option>
+                        <option value="inactive">Hết hàng</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" onclick="closeModal()">Hủy</button>
+                    <button type="submit" class="save-btn">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Kiểm tra quyền admin
+        document.addEventListener('DOMContentLoaded', function() {
+            const adminUser = JSON.parse(localStorage.getItem('adminUser'));
+            if (!adminUser || adminUser.role !== 'admin') {
+                window.location.href = '../client/auth.html';
+                return;
+            }
+
+            // Cập nhật thông tin admin
+            const adminName = document.querySelector('.user-info span');
+            if (adminName) {
+                adminName.textContent = adminUser.name;
+            }
+
+            // Lấy ID sản phẩm từ URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+            
+            if (!productId) {
+                window.location.href = 'products.html';
+                return;
+            }
+
+            // Load biến thể
+            loadVariants(productId);
+        });
+
+        // Xử lý đăng xuất
+        function logout() {
+            localStorage.removeItem('adminUser');
+            window.location.href = '../client/auth.html';
+        }
+
+        // Load danh sách biến thể
+        function loadVariants(productId) {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const product = products.find(p => p.id === productId);
+            const variants = product.variants || [];
+            const tableBody = document.getElementById('variantsTableBody');
+            
+            // Cập nhật tiêu đề với tên sản phẩm
+            document.getElementById('productName').textContent = `Biến thể của: ${product.name}`;
+            
+            tableBody.innerHTML = variants.map((variant, index) => `
+                <tr>
+                    <td>${product.id}-${index + 1}</td>
+                    <td>
+                        <img src="${variant.image || product.image}" alt="${product.name}" class="product-image-small">
+                    </td>
+                    <td>${variant.color}</td>
+                    <td>${variant.size}</td>
+                    <td>${variant.quantity}</td>
+                    <td>${formatPrice(variant.price)} VNĐ</td>
+                    <td>
+                        <span class="status-badge ${variant.status === 'active' ? 'status-active' : 'status-inactive'}">
+                            ${variant.status === 'active' ? 'Còn hàng' : 'Hết hàng'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="edit-btn" onclick="editVariant(${index})">
+                                <i class="fas fa-edit"></i> Sửa
+                            </button>
+                            <button class="delete-btn" onclick="deleteVariant(${index})">
+                                <i class="fas fa-trash"></i> Xóa
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Format giá
+        function formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN').format(price);
+        }
+
+        // Mở modal thêm biến thể
+        function openAddModal() {
+            document.getElementById('modalTitle').textContent = 'Thêm biến thể mới';
+            document.getElementById('variantForm').reset();
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('variantForm').dataset.mode = 'add';
+            document.getElementById('variantModal').style.display = 'flex';
+        }
+
+        // Mở modal sửa biến thể
+        function editVariant(index) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const product = products.find(p => p.id === productId);
+            const variant = product.variants[index];
+            
+            if (variant) {
+                document.getElementById('modalTitle').textContent = 'Sửa biến thể';
+                document.getElementById('variantForm').reset();
+                document.getElementById('imagePreview').style.display = 'none';
+                
+                if (variant.image) {
+                    document.getElementById('previewImg').src = variant.image;
+                    document.getElementById('imagePreview').style.display = 'block';
+                }
+                
+                document.getElementById('variantColor').value = variant.color;
+                document.getElementById('variantSize').value = variant.size;
+                document.getElementById('variantQuantity').value = variant.quantity;
+                document.getElementById('variantPrice').value = variant.price;
+                document.getElementById('variantStatus').value = variant.status;
+                document.getElementById('variantForm').dataset.mode = 'edit';
+                document.getElementById('variantForm').dataset.index = index;
+                document.getElementById('variantModal').style.display = 'flex';
+            }
+        }
+
+        // Xóa biến thể
+        function deleteVariant(index) {
+            if (confirm('Bạn có chắc chắn muốn xóa biến thể này?')) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const productId = parseInt(urlParams.get('id'));
+                const products = JSON.parse(localStorage.getItem('products')) || [];
+                const product = products.find(p => p.id === productId);
+                
+                if (product.variants) {
+                    product.variants.splice(index, 1);
+                    localStorage.setItem('products', JSON.stringify(products));
+                    loadVariants(productId);
+                }
+            }
+        }
+
+        // Đóng modal
+        function closeModal() {
+            document.getElementById('variantModal').style.display = 'none';
+        }
+
+        // Xử lý form thêm/sửa biến thể
+        document.getElementById('variantForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const product = products.find(p => p.id === productId);
+            
+            const imageFile = document.getElementById('variantImage').files[0];
+            let imageUrl = '';
+            
+            if (imageFile) {
+                // Convert image to base64
+                const reader = new FileReader();
+                imageUrl = await new Promise((resolve) => {
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(imageFile);
+                });
+            }
+            
+            const formData = {
+                image: imageUrl || (this.dataset.mode === 'edit' ? product.variants[parseInt(this.dataset.index)].image : ''),
+                color: document.getElementById('variantColor').value,
+                size: document.getElementById('variantSize').value,
+                quantity: parseInt(document.getElementById('variantQuantity').value),
+                price: parseInt(document.getElementById('variantPrice').value),
+                status: document.getElementById('variantStatus').value
+            };
+
+            if (!product.variants) {
+                product.variants = [];
+            }
+
+            if (this.dataset.mode === 'add') {
+                product.variants.push(formData);
+            } else {
+                const index = parseInt(this.dataset.index);
+                if (!imageUrl) {
+                    formData.image = product.variants[index].image;
+                }
+                product.variants[index] = formData;
+            }
+
+            localStorage.setItem('products', JSON.stringify(products));
+            closeModal();
+            loadVariants(productId);
+        });
+
+        // Preview hình ảnh khi chọn file
+        document.getElementById('variantImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                const preview = document.getElementById('imagePreview');
+                const previewImg = document.getElementById('previewImg');
+
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Xóa hình ảnh đã chọn
+        function removeImage() {
+            document.getElementById('variantImage').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('previewImg').src = '';
+        }
+
+        // Đóng modal khi click bên ngoài
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('variantModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html> 

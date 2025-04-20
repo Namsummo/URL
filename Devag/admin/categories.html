@@ -456,7 +456,6 @@
                             <th>ID</th>
                             <th>Tên danh mục</th>
                             <th>Mô tả</th>
-                            <th>Số sản phẩm</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -528,7 +527,6 @@
                     <td>${category.id}</td>
                     <td>${category.name}</td>
                     <td>${category.description || '-'}</td>
-                    <td>${category.productCount || 0}</td>
                     <td>
                         <div class="action-buttons">
                             <button class="edit-btn" onclick="editCategory(${category.id})">
@@ -576,9 +574,17 @@
         // Xóa danh mục
         function deleteCategory(id) {
             if (confirm('Bạn có chắc chắn muốn xóa danh mục này?')) {
+                // Xóa từ categories
                 const categories = JSON.parse(localStorage.getItem('categories')) || [];
                 const updatedCategories = categories.filter(c => c.id !== id);
                 localStorage.setItem('categories', JSON.stringify(updatedCategories));
+
+                // Xóa từ navCategories
+                const navCategories = JSON.parse(localStorage.getItem('navCategories')) || [];
+                const updatedNavCategories = navCategories.filter(c => c.id !== id);
+                localStorage.setItem('navCategories', JSON.stringify(updatedNavCategories));
+
+                // Cập nhật lại giao diện
                 loadCategories();
             }
         }
@@ -598,14 +604,45 @@
                     id: Date.now(),
                     name: name,
                     description: description,
-                    productCount: 0
+                    slug: name.toLowerCase().replace(/\s+/g, '-'),
+                    icon: 'fas fa-folder',
+                    productCount: 0,
+                    isActive: true,
+                    displayOrder: categories.length + 1
                 };
                 categories.push(newCategory);
+
+                // Cập nhật danh mục cho navigation
+                let navCategories = JSON.parse(localStorage.getItem('navCategories')) || [];
+                navCategories.push({
+                    id: newCategory.id,
+                    name: newCategory.name,
+                    slug: newCategory.slug,
+                    icon: newCategory.icon
+                });
+                localStorage.setItem('navCategories', JSON.stringify(navCategories));
             } else {
                 const id = parseInt(this.dataset.id);
+                const slug = name.toLowerCase().replace(/\s+/g, '-');
                 categories = categories.map(c => 
-                    c.id === id ? { ...c, name, description } : c
+                    c.id === id ? { 
+                        ...c, 
+                        name, 
+                        description,
+                        slug: slug
+                    } : c
                 );
+
+                // Cập nhật danh mục trong navigation
+                let navCategories = JSON.parse(localStorage.getItem('navCategories')) || [];
+                navCategories = navCategories.map(c =>
+                    c.id === id ? {
+                        ...c,
+                        name: name,
+                        slug: slug
+                    } : c
+                );
+                localStorage.setItem('navCategories', JSON.stringify(navCategories));
             }
             
             localStorage.setItem('categories', JSON.stringify(categories));
