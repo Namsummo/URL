@@ -34,7 +34,7 @@
     <section class="hero">
         <div class="hero-slider">
             <div class="slide active">
-                <img src="https://images.unsplash.com/photo-1573855619003-97b4799dcd8b?w=1200&auto=format&fit=crop&q=80" alt="Banner 1">
+                <img src="https://2885371169.e.cdneverest.net/media/Simiconnector/ts1-2.webp" alt="Banner 1">
                 <div class="hero-content">
                     <h1>Thời Trang Nam Nữ</h1>
                     <p>Khám phá bộ sưu tập thời trang mới nhất với những thiết kế độc đáo và chất lượng cao cấp</p>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="slide">
-                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&auto=format&fit=crop&q=80" alt="Banner 2">
+                <img src="https://2885371169.e.cdneverest.net/media/Simiconnector/ts4.webp" alt="Banner 2">
                 <div class="hero-content">
                     <h1>Bộ Sưu Tập Mùa Hè 2024</h1>
                     <p>Tận hưởng mùa hè với những thiết kế thoáng mát, năng động và thời trang</p>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="slide">
-                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&auto=format&fit=crop&q=80" alt="Banner 3">
+                <img src="https://2885371169.e.cdneverest.net/media/Simiconnector/ts2.webp" alt="Banner 3">
                 <div class="hero-content">
                     <h1>Ưu Đãi Đặc Biệt</h1>
                     <p>Giảm giá lên đến 50% cho các sản phẩm mới về. Nhanh tay sở hữu ngay!</p>
@@ -87,44 +87,14 @@
                 </div>
             </section>
 
-            <section class="featured-promotions">
-                <h2>Khuyến Mãi Nổi Bật</h2>
-                <div class="promotions-container">
-                    <a href="promotions.html" class="promotion-link">
-                        <div class="promotion-card">
-                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
-                                alt="Áo Thun Nam" class="promotion-image">
-                            <div class="promotion-content">
-                                <h3 class="promotion-title">Giảm 50% Áo Thun Nam</h3>
-                                <p class="promotion-description">Áo thun nam cao cấp với chất liệu cotton 100%</p>
-                                <span class="promotion-status status-active">Đang diễn ra</span>
-                            </div>
-                        </div>
-                    </a>
+            <section class="promotion-banner">
+                <img src="https://2885371169.e.cdneverest.net/media/Simiconnector/ts6.webp" alt="Banner Khuyến Mãi" class="banner-image">
+            </section>
 
-                    <a href="promotions.html" class="promotion-link">
-                        <div class="promotion-card">
-                            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
-                                alt="Quần Jean Nam" class="promotion-image">
-                            <div class="promotion-content">
-                                <h3 class="promotion-title">Mua 2 Tặng 1 Quần Jean Nam</h3>
-                                <p class="promotion-description">Quần jean nam cao cấp, nhiều size</p>
-                                <span class="promotion-status status-active">Đang diễn ra</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="promotions.html" class="promotion-link">
-                        <div class="promotion-card">
-                            <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
-                                alt="Áo Thun Nữ" class="promotion-image">
-                            <div class="promotion-content">
-                                <h3 class="promotion-title">Áo Thun Nữ - Giảm 40%</h3>
-                                <p class="promotion-description">Áo thun nữ thời trang, nhiều mẫu mã</p>
-                                <span class="promotion-status status-active">Đang diễn ra</span>
-                            </div>
-                        </div>
-                    </a>
+            <section class="featured-products">
+                <h2>Family T-shirt</h2>
+                <div class="product-grid">
+                    <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
                 </div>
             </section>
 
@@ -221,7 +191,7 @@
             display: flex;
             max-width: 1500px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px 20px 20px;
         }
 
         .content {
@@ -235,6 +205,19 @@
         .categories,
         .features {
             margin-left: 0;
+        }
+
+        .featured-promotions,
+        .featured-promotions h2,
+        .promotions-container,
+        .promotion-link,
+        .promotion-card,
+        .promotion-image,
+        .promotion-content,
+        .promotion-title,
+        .promotion-description,
+        .promotion-status {
+            display: none;
         }
 
         .featured-promotions {
@@ -316,21 +299,39 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background-color: #4CAF50;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
             color: white;
             border: none;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            z-index: 1;
         }
 
         .chat-button:hover {
-            background-color: #45a049;
-            transform: scale(1.1);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .chat-button i {
+            position: relative;
+            z-index: 2;
         }
 
         .chat-window {
@@ -340,25 +341,36 @@
             width: 350px;
             height: 450px;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
             display: none;
             flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .chat-header {
-            padding: 15px;
-            background: #4CAF50;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
             color: white;
-            border-radius: 10px 10px 0 0;
+            border-radius: 15px 15px 0 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .chat-header h3 {
             margin: 0;
             font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-header h3 i {
+            font-size: 18px;
         }
 
         .close-chat {
@@ -367,57 +379,118 @@
             color: white;
             font-size: 20px;
             cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-chat:hover {
+            transform: rotate(90deg);
         }
 
         .chat-messages {
             flex-grow: 1;
-            padding: 15px;
+            padding: 20px;
             overflow-y: auto;
+            background: #f8f9fa;
         }
 
         .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message p {
+            padding: 12px 15px;
+            border-radius: 15px;
             max-width: 80%;
+            position: relative;
+            word-wrap: break-word;
         }
 
-        .message.system {
-            background: #f0f0f0;
+        .message.system p {
+            background: white;
+            color: #333;
+            border: 1px solid #eee;
             align-self: flex-start;
+            margin-left: 10px;
         }
 
-        .message.user {
-            background: #4CAF50;
+        .message.system p::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-left: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .message.user p {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
             color: white;
-            margin-left: auto;
+            align-self: flex-end;
+            margin-right: 10px;
+        }
+
+        .message.user p::before {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
         }
 
         .chat-input {
-            padding: 10px;
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eee;
             display: flex;
             gap: 10px;
-            border-top: 1px solid #eee;
         }
 
         .chat-input input {
             flex-grow: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 12px 15px;
+            border: 1px solid #eee;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input input:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
         }
 
         .chat-input button {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
         .chat-input button:hover {
-            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+        }
+
+        .chat-input button i {
+            font-size: 16px;
         }
 
         .typing-indicator {
@@ -433,32 +506,50 @@
             text-align: right;
         }
 
-        .message.system {
-            position: relative;
+        /* Custom scrollbar */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
         }
 
-        .message.system::before {
-            content: 'Nhân viên hỗ trợ';
-            position: absolute;
-            top: -15px;
-            left: 0;
-            font-size: 0.8em;
-            color: #666;
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
         }
 
-        .message.user::before {
-            content: 'Bạn';
-            position: absolute;
-            top: -15px;
-            right: 0;
-            font-size: 0.8em;
-            color: #666;
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #ff6b6b;
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #ff5252;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chat-window {
+                width: 100%;
+                height: calc(100vh - 100px);
+                bottom: 60px;
+                right: 0;
+                border-radius: 0;
+            }
         }
 
         /* Slider styles */
         .hero {
             position: relative;
-            height: 600px;
+            height: 800px;
             overflow: hidden;
         }
 
@@ -479,6 +570,19 @@
             z-index: 1;
         }
 
+        /* Màu nền cho từng slide */
+        .slide:nth-child(1) {
+            background-color: #d6bfae; /* Màu be cho slide 1 */
+        }
+
+        .slide:nth-child(2) {
+            background-color: #26b1c2; /* Màu xanh ngọc cho slide 2 */
+        }
+
+        .slide:nth-child(3) {
+            background-color: #bdb4ac; /* Màu xám cho slide 3 */
+        }
+
         .slide.active {
             opacity: 1;
             z-index: 2;
@@ -487,11 +591,12 @@
         .slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             position: absolute;
             top: 0;
             left: 0;
-            filter: brightness(0.7);
+            filter: brightness(0.8);
+            background-color: transparent;
         }
 
         .hero-content {
@@ -501,7 +606,7 @@
             color: white;
             max-width: 800px;
             margin: 0 auto;
-            padding: 180px 20px 0;
+            padding: 320px 20px 0;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
@@ -627,11 +732,11 @@
 
         @media (max-width: 768px) {
             .hero {
-                height: 500px;
+                height: 600px;
             }
             
             .hero-content {
-                padding-top: 120px;
+                padding-top: 170px;
             }
             
             .hero-content h1 {
@@ -728,69 +833,65 @@
         .featured-products {
             width: calc(100% + 100px);
             margin-left: -50px;
-            padding: 0 50px;
+            padding: 25px 50px;
+            background: linear-gradient(to bottom, #fff 0%, #f9f9f9 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-products + .promotion-banner {
+            margin-top: 0px;
+        }
+
+        .featured-products::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #ff6b6b, transparent);
         }
 
         .featured-products h2 {
-            font-size: 2em;
+            font-size: 2.2em;
             color: #333;
             margin-bottom: 30px;
             text-align: center;
             position: relative;
+            padding-bottom: 15px;
         }
 
-        .featured-products h2:after {
+        .featured-products h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
+            width: 80px;
             height: 3px;
-            background-color: #ff6b6b;
+            background: linear-gradient(to right, transparent, #ff6b6b, transparent);
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(4, 350px);
+            grid-template-columns: repeat(4, 1fr);
             gap: 35px;
             margin-top: 30px;
             width: 100%;
             justify-content: center;
             padding: 0 25px;
-        }
-
-        @media (max-width: 1600px) {
-            .featured-products {
-                width: 100%;
-                margin-left: 0;
-                padding: 0 20px;
-            }
-            .product-grid {
-                grid-template-columns: repeat(3, 350px);
-                padding: 0;
-            }
-        }
-
-        @media (max-width: 1200px) {
-            .product-grid {
-                grid-template-columns: repeat(2, 350px);
-                gap: 30px;
-            }
+            position: relative;
+            max-width: 1500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .product-card {
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 15px;
-            position: relative;
-            width: 350px;
-            min-height: 430px;
-            cursor: pointer;
-            text-decoration: none;
-            overflow: hidden;
+            width: 100%;
+            min-width: 280px;
+            max-width: 350px;
+            margin: 0 auto;
         }
 
         .product-card:hover {
@@ -799,26 +900,92 @@
         }
 
         .product-card:hover .product-image {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .product-image {
-            width: 320px;
+            width: 100%;
             height: 300px;
             object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            transition: transform 0.4s ease;
+            border-radius: 8px;
+            margin-bottom: 0;
+            transition: transform 0.3s ease;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 70%, rgba(0,0,0,0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-image::after {
+            opacity: 1;
         }
 
         .product-info {
-            padding: 10px 5px;
+            padding: 15px 10px;
+            position: relative;
+        }
+
+        .product-name {
+            font-size: 14px !important;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: auto;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .product-card:hover .product-name {
+            color: inherit;
+        }
+
+        .product-price {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin: 8px 0;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .product-price::after {
+            content: 'đ';
+            font-size: 0.8em;
+            margin-left: 2px;
+            color: #ff6b6b;
+        }
+
+        .product-card:hover .product-price {
+            transform: translateX(5px);
         }
 
         .color-options {
             display: flex;
             gap: 8px;
             margin: 0 0 12px 0;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .color-options {
+            box-shadow: none;
         }
 
         .color-option {
@@ -834,93 +1001,87 @@
 
         .color-option:hover {
             transform: scale(1.15);
+            box-shadow: 0 0 0 2px #ff6b6b;
         }
 
         .color-option.selected {
             box-shadow: 0 0 0 2px #ff6b6b;
         }
 
-        .color-option.selected::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.6);
-        }
-
-        .product-name {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #2d3436;
-            margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            height: 2.8em;
-            text-align: left;
-            line-height: 1.4;
-        }
-
-        .product-price {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #ff6b6b;
-            margin: 8px 0;
-            text-align: left;
-            display: flex;
-            align-items: center;
-        }
-
-        .product-price::before {
-            content: '₫';
-            font-size: 0.8em;
-            margin-right: 2px;
-            color: #ff6b6b;
-        }
-
         @media (max-width: 1600px) {
-            .product-grid {
-                grid-template-columns: repeat(3, 350px);
+            .featured-products {
+                width: 100%;
+                margin-left: 0;
+                padding: 25px 20px;
             }
-            .product-card {
-                min-height: 420px;
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+                padding: 0;
             }
         }
 
         @media (max-width: 1200px) {
             .product-grid {
-                grid-template-columns: repeat(2, 350px);
+                grid-template-columns: repeat(2, 1fr);
                 gap: 25px;
-            }
-            .product-card {
-                min-height: 410px;
-            }
-            .product-image {
-                height: 280px;
             }
         }
 
         @media (max-width: 768px) {
+            .featured-products {
+                padding: 25px 10px;
+            }
             .product-grid {
-                grid-template-columns: repeat(1, 350px);
+                grid-template-columns: 1fr;
                 gap: 20px;
             }
-            .product-card {
-                min-height: 400px;
+            .featured-products h2 {
+                font-size: 1.8em;
             }
-            .product-image {
-                height: 270px;
+        }
+
+        .promotion-banner {
+            width: calc(100% + 100px);
+            margin-left: -50px;
+            padding: 50px 50px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 1560px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .promotion-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .banner-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .promotion-banner:hover .banner-image {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 1600px) {
+            .promotion-banner {
+                width: 100%;
+                margin-left: 0;
+                padding: 0 20px;
             }
-            .product-name {
-                font-size: 1.1em;
-            }
-            .product-price {
-                font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .promotion-banner {
+                width: calc(100% - 20px);
+                margin: 20px 10px;
+                padding: 0;
             }
         }
     </style>
@@ -929,6 +1090,10 @@
         function toggleChat() {
             const chatWindow = document.getElementById('chatWindow');
             chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function viewProductDetail(productId) {
+            window.location.href = `product-detail.html?id=${productId}`;
         }
 
         function showTypingIndicator() {
@@ -995,74 +1160,91 @@
             const prevBtn = document.querySelector('.prev-arrow');
             const nextBtn = document.querySelector('.next-arrow');
             let currentSlide = 0;
-            let slideInterval;
+            let animationFrameId;
+            let lastTime = 0;
+            const INTERVAL = 4000; // 4 seconds
 
-            // Function to initialize the slider
-            function initSlider() {
-                // Start automatic slideshow
-                startSlideshow();
-                
-                // Add event listeners for dots
-                dots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const slideIndex = parseInt(this.getAttribute('data-slide'));
-                        goToSlide(slideIndex);
-                    });
-                });
-                
-                // Add event listeners for arrows
-                prevBtn.addEventListener('click', prevSlide);
-                nextBtn.addEventListener('click', nextSlide);
-                
-                // Pause slideshow on hover
-                const slider = document.querySelector('.hero-slider');
-                slider.addEventListener('mouseenter', pauseSlideshow);
-                slider.addEventListener('mouseleave', startSlideshow);
-            }
-
-            // Function to show a specific slide
             function goToSlide(index) {
-                // Remove active class from all slides and dots
                 slides.forEach(slide => slide.classList.remove('active'));
                 dots.forEach(dot => dot.classList.remove('active'));
                 
-                // Add active class to current slide and dot
                 slides[index].classList.add('active');
                 dots[index].classList.add('active');
                 
-                // Update current slide index
                 currentSlide = index;
             }
 
-            // Function to go to next slide
             function nextSlide() {
                 const next = (currentSlide + 1) % slides.length;
                 goToSlide(next);
             }
 
-            // Function to go to previous slide
             function prevSlide() {
                 const prev = (currentSlide - 1 + slides.length) % slides.length;
                 goToSlide(prev);
             }
 
-            // Function to start automatic slideshow
-            function startSlideshow() {
-                // Clear any existing interval
-                if (slideInterval) {
-                    clearInterval(slideInterval);
+            function animate(currentTime) {
+                if (!lastTime) lastTime = currentTime;
+                const deltaTime = currentTime - lastTime;
+
+                if (deltaTime >= INTERVAL) {
+                    nextSlide();
+                    lastTime = currentTime;
                 }
+
+                animationFrameId = requestAnimationFrame(animate);
+            }
+
+            function startSlideshow() {
+                if (!animationFrameId) {
+                    lastTime = 0;
+                    animationFrameId = requestAnimationFrame(animate);
+                }
+            }
+
+            function stopSlideshow() {
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
+            }
+
+            function initSlider() {
+                goToSlide(0);
+                startSlideshow();
                 
-                // Set interval for 5 seconds
-                slideInterval = setInterval(nextSlide, 5000);
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        goToSlide(index);
+                        lastTime = 0; // Reset timer after manual navigation
+                    });
+                });
+                
+                prevBtn.addEventListener('click', () => {
+                    prevSlide();
+                    lastTime = 0; // Reset timer after manual navigation
+                });
+                
+                nextBtn.addEventListener('click', () => {
+                    nextSlide();
+                    lastTime = 0; // Reset timer after manual navigation
+                });
+                
+                const slider = document.querySelector('.hero-slider');
+                slider.addEventListener('mouseenter', stopSlideshow);
+                slider.addEventListener('mouseleave', startSlideshow);
+
+                // Handle visibility change
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        stopSlideshow();
+                    } else {
+                        startSlideshow();
+                    }
+                });
             }
 
-            // Function to pause slideshow
-            function pauseSlideshow() {
-                clearInterval(slideInterval);
-            }
-
-            // Initialize slider
             initSlider();
         });
 
@@ -1070,74 +1252,174 @@
             // Load categories for navigation
             loadCategories();
             
-            // Load featured products
-            const featuredProducts = [
-                {
-                    id: 1,
-                    colors: ['#1a237e', '#c62828', '#ffffff'],
-                    name: 'Áo Thun Nam Premium',
-                    price: '299.000₫',
-                    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60'
-                },
-                {
-                    id: 2,
-                    colors: ['#212121', '#f5f5f5', '#01579b'],
-                    name: 'Áo Polo Nam Thể Thao',
-                    price: '359.000₫',
-                    image: 'https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=500&auto=format&fit=crop&q=60'
-                },
-                {
-                    id: 3,
-                    colors: ['#1a237e', '#263238', '#000000'],
-                    name: 'Quần Jean Nam Slim Fit',
-                    price: '499.000₫',
-                    image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60'
-                },
-                {
-                    id: 4,
-                    colors: ['#ffffff', '#90caf9', '#f5f5f5'],
-                    name: 'Áo Sơ Mi Nam Công Sở',
-                    price: '399.000₫',
-                    image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?w=500&auto=format&fit=crop&q=60'
-                }
-            ];
-
-            const productGrid = document.querySelector('.product-grid');
-            productGrid.innerHTML = ''; // Xóa tất cả sản phẩm cũ
-
-            featuredProducts.forEach(product => {
-                const productCard = `
-                    <a href="product-detail.html?id=${product.id}" class="product-card">
-                        <img src="${product.image}" alt="${product.name}" class="product-image">
-                        <div class="product-info">
-                            <div class="color-options">
-                                ${product.colors.map(color => `
-                                    <div class="color-option" 
-                                         style="background-color: ${color}"
-                                         onclick="selectColor(this, event)">
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-price">${product.price}</div>
-                        </div>
-                    </a>
-                `;
-                productGrid.innerHTML += productCard;
-            });
+            // Load featured products from localStorage
+            loadFeaturedProducts();
+            
+            // Load best selling products
+            loadBestSellingProducts();
         });
 
-        function selectColor(element, event) {
-            // Ngăn chặn sự kiện click lan ra thẻ a
-            event.preventDefault();
-            event.stopPropagation();
+        // Thêm ánh xạ màu tiếng Việt sang mã màu HEX
+        const colorMapping = {
+            'đen': '#000000',
+            'xám': '#808080',
+            'trắng': '#FFFFFF',
+            'đỏ': '#FF0000',
+            'xanh dương': '#0000FF',
+            'xanh lá': '#008000',
+            'vàng': '#FFFF00',
+            'cam': '#FFA500',
+            'tím': '#800080',
+            'hồng': '#FFC0CB',
+            'nâu': '#A52A2A',
+            'be': '#F5F5DC',
+            'xanh navy': '#000080',
+            'xanh mint': '#98FF98',
+            'xanh ngọc': '#40E0D0',
+            'ghi': '#808080',
+            'kem': '#FFFDD0',
+            'rêu': '#556B2F'
+        };
+
+        function getColorCode(colorName) {
+            const normalizedColor = colorName.toLowerCase().trim();
+            return colorMapping[normalizedColor] || colorName;
+        }
+
+        function loadFeaturedProducts() {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const featuredProducts = products.filter(product => product.isFeatured).slice(0, 8); // Lấy 8 sản phẩm
             
+            const productGrid = document.querySelector('.product-grid');
+            productGrid.innerHTML = '';
+
+            if (featuredProducts.length === 0) {
+                productGrid.innerHTML = '<p class="no-products">Chưa có sản phẩm nổi bật</p>';
+                return;
+            }
+
+            featuredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.onclick = null;
+                
+                const imageContainer = document.createElement('div');
+                imageContainer.className = 'product-image';
+                imageContainer.dataset.productId = product.id;
+                imageContainer.style.cursor = 'pointer';
+                imageContainer.onclick = () => viewProductDetail(product.id);
+                
+                const defaultVariant = product.variants && product.variants.length > 0 ? product.variants[0] : null;
+                const defaultImage = defaultVariant ? (defaultVariant.image || product.image) : product.image;
+                
+                if (defaultImage) {
+                    if (defaultImage.startsWith('data:image')) {
+                        imageContainer.style.backgroundImage = `url(${defaultImage})`;
+                    } else {
+                        try {
+                            imageContainer.style.backgroundImage = `url(${defaultImage})`;
+                        } catch (e) {
+                            imageContainer.style.backgroundImage = 'url(https://via.placeholder.com/300x300)';
+                        }
+                    }
+                } else {
+                    imageContainer.style.backgroundImage = 'url(https://via.placeholder.com/300x300)';
+                }
+
+                const productInfo = document.createElement('div');
+                productInfo.className = 'product-info';
+                productInfo.onclick = null;
+
+                if (product.variants && product.variants.length > 0) {
+                    const colorOptions = document.createElement('div');
+                    colorOptions.className = 'color-options';
+                    colorOptions.onclick = (e) => e.stopPropagation();
+                    
+                    const colorVariants = product.variants.reduce((acc, variant) => {
+                        if (variant.color && !acc[variant.color]) {
+                            acc[variant.color] = variant;
+                        }
+                        return acc;
+                    }, {});
+                    
+                    Object.entries(colorVariants).forEach(([color, variant], index) => {
+                        const colorOption = document.createElement('div');
+                        colorOption.className = `color-option ${index === 0 ? 'selected' : ''}`;
+                        colorOption.style.backgroundColor = getColorCode(color);
+                        colorOption.title = color;
+                        colorOption.dataset.variantImage = variant.image || product.image;
+                        colorOption.dataset.productId = product.id;
+                        colorOption.dataset.variantPrice = variant.price || product.price;
+                        colorOption.onclick = (e) => {
+                            e.stopPropagation();
+                            selectColor(colorOption);
+                        };
+                        colorOptions.appendChild(colorOption);
+                    });
+                    
+                    productInfo.appendChild(colorOptions);
+                }
+
+                const title = document.createElement('h3');
+                title.className = 'product-name';
+                title.textContent = product.name;
+                
+                const price = document.createElement('p');
+                price.className = 'product-price';
+                price.dataset.productId = product.id;
+                price.textContent = formatPrice(defaultVariant ? defaultVariant.price : product.price);
+
+                productInfo.appendChild(title);
+                productInfo.appendChild(price);
+
+                productCard.appendChild(imageContainer);
+                productCard.appendChild(productInfo);
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        function formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN').format(price);
+        }
+
+        function selectColor(element) {
             // Bỏ chọn tất cả các màu trong cùng một nhóm
             const colorOptions = element.parentElement.querySelectorAll('.color-option');
             colorOptions.forEach(option => option.classList.remove('selected'));
             
             // Chọn màu mới
             element.classList.add('selected');
+            
+            // Lấy thông tin sản phẩm
+            const productId = element.dataset.productId;
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const product = products.find(p => p.id === parseInt(productId));
+            
+            if (!product || !product.variants) return;
+            
+            // Lọc các biến thể theo màu đã chọn
+            const colorVariants = product.variants.filter(v => v.color === element.title);
+            
+            // Cập nhật hình ảnh
+            const imageContainer = document.querySelector(`.product-image[data-product-id="${productId}"]`);
+            if (imageContainer && colorVariants.length > 0) {
+                const variantImage = colorVariants[0].image || product.image;
+                if (variantImage.startsWith('data:image')) {
+                    imageContainer.style.backgroundImage = `url(${variantImage})`;
+                } else {
+                    try {
+                        imageContainer.style.backgroundImage = `url(${variantImage})`;
+                    } catch (e) {
+                        imageContainer.style.backgroundImage = 'url(https://via.placeholder.com/300x300)';
+                    }
+                }
+            }
+            
+            // Cập nhật giá
+            const priceElement = document.querySelector(`.product-price[data-product-id="${productId}"]`);
+            if (priceElement && colorVariants.length > 0) {
+                priceElement.textContent = formatPrice(colorVariants[0].price);
+            }
         }
 
         const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
@@ -1176,6 +1458,127 @@
                 loadCategories();
             }
         });
+
+        // Thêm event listener để lắng nghe thay đổi từ localStorage
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'products') {
+                loadFeaturedProducts();
+            }
+        });
+
+        // Gọi loadFeaturedProducts khi trang được load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFeaturedProducts();
+        });
+
+        function loadBestSellingProducts() {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const categories = JSON.parse(localStorage.getItem('categories')) || [];
+            
+            // Tìm category Family T-shirt
+            const familyTshirtCategory = categories.find(cat => cat.name === 'Family T-shirt');
+            
+            // Lọc sản phẩm thuộc category Family T-shirt
+            const familyTshirtProducts = products.filter(product => {
+                return product.categoryId === familyTshirtCategory?.id;
+            });
+            
+            const productGrids = document.querySelectorAll('.product-grid');
+            const familyTshirtGrid = productGrids[1]; // Grid thứ hai
+
+            if (familyTshirtGrid) {
+                familyTshirtGrid.innerHTML = '';
+
+                if (!familyTshirtCategory) {
+                    familyTshirtGrid.innerHTML = '<p class="no-products">Chưa có danh mục Family T-shirt</p>';
+                    return;
+                }
+
+                if (familyTshirtProducts.length === 0) {
+                    familyTshirtGrid.innerHTML = '<p class="no-products">Chưa có sản phẩm trong danh mục Family T-shirt</p>';
+                    return;
+                }
+
+                familyTshirtProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.onclick = null;
+                    
+                    const imageContainer = document.createElement('div');
+                    imageContainer.className = 'product-image';
+                    imageContainer.dataset.productId = product.id;
+                    imageContainer.style.cursor = 'pointer';
+                    imageContainer.onclick = () => viewProductDetail(product.id);
+                    
+                    const defaultVariant = product.variants && product.variants.length > 0 ? product.variants[0] : null;
+                    const defaultImage = defaultVariant ? (defaultVariant.image || product.image) : product.image;
+                    
+                    if (defaultImage) {
+                        if (defaultImage.startsWith('data:image')) {
+                            imageContainer.style.backgroundImage = `url(${defaultImage})`;
+                        } else {
+                            try {
+                                imageContainer.style.backgroundImage = `url(${defaultImage})`;
+                            } catch (e) {
+                                imageContainer.style.backgroundImage = 'url(https://via.placeholder.com/300x300)';
+                            }
+                        }
+                    } else {
+                        imageContainer.style.backgroundImage = 'url(https://via.placeholder.com/300x300)';
+                    }
+
+                    const productInfo = document.createElement('div');
+                    productInfo.className = 'product-info';
+                    productInfo.onclick = null;
+
+                    if (product.variants && product.variants.length > 0) {
+                        const colorOptions = document.createElement('div');
+                        colorOptions.className = 'color-options';
+                        colorOptions.onclick = (e) => e.stopPropagation();
+                        
+                        const colorVariants = product.variants.reduce((acc, variant) => {
+                            if (variant.color && !acc[variant.color]) {
+                                acc[variant.color] = variant;
+                            }
+                            return acc;
+                        }, {});
+                        
+                        Object.entries(colorVariants).forEach(([color, variant], index) => {
+                            const colorOption = document.createElement('div');
+                            colorOption.className = `color-option ${index === 0 ? 'selected' : ''}`;
+                            colorOption.style.backgroundColor = getColorCode(color);
+                            colorOption.title = color;
+                            colorOption.dataset.variantImage = variant.image || product.image;
+                            colorOption.dataset.productId = product.id;
+                            colorOption.dataset.variantPrice = variant.price || product.price;
+                            colorOption.onclick = (e) => {
+                                e.stopPropagation();
+                                selectColor(colorOption);
+                            };
+                            colorOptions.appendChild(colorOption);
+                        });
+                        
+                        productInfo.appendChild(colorOptions);
+                    }
+
+                    const title = document.createElement('h3');
+                    title.className = 'product-name';
+                    title.textContent = product.name;
+                    
+                    const price = document.createElement('p');
+                    price.className = 'product-price';
+                    price.dataset.productId = product.id;
+                    price.textContent = formatPrice(defaultVariant ? defaultVariant.price : product.price);
+
+                    productInfo.appendChild(title);
+                    productInfo.appendChild(price);
+
+                    productCard.appendChild(imageContainer);
+                    productCard.appendChild(productInfo);
+                    familyTshirtGrid.appendChild(productCard);
+                });
+            }
+        }
     </script>
 </body>
 

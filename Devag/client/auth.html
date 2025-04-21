@@ -384,6 +384,7 @@
                             id: 'admin',
                             name: 'Administrator',
                             email: email,
+                            username: 'Administrator',
                             role: 'admin'
                         };
                         localStorage.setItem('adminUser', JSON.stringify(adminUser));
@@ -404,28 +405,35 @@
                             name: user.name,
                             email: user.email,
                             phone: user.phone,
+                            username: user.name,
                             role: 'client'
                         };
                         
                         // Lưu thông tin đăng nhập
                         if (rememberMe) {
                             localStorage.setItem('clientUser', JSON.stringify(clientUser));
-                            sessionStorage.removeItem('clientUser'); // Xóa session nếu có
+                            sessionStorage.removeItem('clientUser');
                         } else {
                             sessionStorage.setItem('clientUser', JSON.stringify(clientUser));
-                            localStorage.removeItem('clientUser'); // Xóa local storage nếu có
+                            localStorage.removeItem('clientUser');
                         }
 
-                        console.log('Đã lưu thông tin đăng nhập:', {
-                            rememberMe,
-                            storage: rememberMe ? 'localStorage' : 'sessionStorage',
-                            user: clientUser
-                        });
-                        
                         showNotification('Đăng nhập thành công!', 'Chào mừng bạn đã quay trở lại Fashion Store');
-                        setTimeout(() => {
-                            window.location.replace('index.html');
-                        }, 1500);
+                        
+                        // Kiểm tra returnUrl từ sessionStorage
+                        const returnUrl = sessionStorage.getItem('returnUrl');
+                        if (returnUrl) {
+                            // Xóa returnUrl sau khi sử dụng
+                            sessionStorage.removeItem('returnUrl');
+                            setTimeout(() => {
+                                window.location.href = returnUrl;
+                            }, 1500);
+                        } else {
+                            // Nếu không có returnUrl, chuyển về trang chủ
+                            setTimeout(() => {
+                                window.location.replace('index.html');
+                            }, 1500);
+                        }
                     } else {
                         showNotification('Đăng nhập thất bại', 'Email hoặc mật khẩu không chính xác!', 'error');
                     }
@@ -468,6 +476,7 @@
                     email,
                     phone,
                     password,
+                    username: name,
                     role: 'client'
                 };
 

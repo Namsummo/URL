@@ -279,6 +279,34 @@
             padding: 20px;
             box-sizing: border-box;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .payment-error {
+            display: none;
+            color: #dc3545;
+            font-size: 0.9em;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: #fff5f5;
+            border: 1px solid #ffebee;
+            border-radius: 6px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .payment-error i {
+            margin-right: 6px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .payment-title {
@@ -563,12 +591,16 @@
                 </div>
                 <div class="payment-methods">
                     <div class="payment-title">Phương thức thanh toán</div>
-                    <select class="payment-select" id="payment-method">
+                    <select class="payment-select" id="payment-method" required>
                         <option value="">Chọn phương thức thanh toán</option>
                         <option value="cod">Thanh toán khi nhận hàng (COD)</option>
                         <option value="banking">Chuyển khoản ngân hàng</option>
                         <option value="momo">Ví điện tử MoMo</option>
                     </select>
+                    <div class="payment-error" id="payment-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Vui lòng chọn phương thức thanh toán
+                    </div>
                 </div>
                 <button class="place-order-btn" id="place-order-btn">
                     <i class="fas fa-lock"></i>
@@ -706,7 +738,7 @@
                     <img src="${item.image}" alt="${item.name}" class="order-item-image">
                         <div class="order-item-details">
                         <div class="order-item-name" title="${item.name}">${item.name}</div>
-                        <span class="order-item-quantity">Số lượng: ${item.quantity}</span>
+                        <span class="order-item-quantity">Số lượng: ${item.quantity} | Size: ${item.size}</span>
                         <div class="order-item-price">${formatPrice(item.price)}</div>
                     </div>
                 </div>
@@ -730,10 +762,24 @@
 
         document.getElementById('place-order-btn').addEventListener('click', function() {
             const form = document.getElementById('shipping-form');
+            const paymentMethod = document.getElementById('payment-method');
+            const paymentError = document.getElementById('payment-error');
+
+            // Kiểm tra form shipping và payment method
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
             }
+
+            // Kiểm tra phương thức thanh toán
+            if (!paymentMethod.value) {
+                paymentMethod.focus();
+                paymentError.style.display = 'block';
+                return;
+            }
+
+            // Ẩn thông báo lỗi nếu đã chọn phương thức thanh toán
+            paymentError.style.display = 'none';
 
             // Tạo ID đơn hàng ngẫu nhiên
             const orderId = 'DH' + Date.now().toString().slice(-6);
@@ -787,7 +833,7 @@
                 status: 'Đang xử lý',
                 timeline: timeline,
                 payment: {
-                    method: document.getElementById('payment-method').value,
+                    method: paymentMethod.value,
                     status: 'Chưa thanh toán'
                 },
                 total: calculateTotal(),
@@ -815,6 +861,14 @@
 
             // Hiển thị modal thông báo thành công
             document.getElementById('successModal').style.display = 'flex';
+        });
+
+        // Thêm event listener để ẩn thông báo lỗi khi người dùng chọn phương thức thanh toán
+        document.getElementById('payment-method').addEventListener('change', function() {
+            const paymentError = document.getElementById('payment-error');
+            if (this.value) {
+                paymentError.style.display = 'none';
+            }
         });
 
         // Hàm tính tổng tiền đơn hàng

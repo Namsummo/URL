@@ -571,24 +571,6 @@
             document.getElementById('categoryModal').style.display = 'none';
         }
 
-        // Xóa danh mục
-        function deleteCategory(id) {
-            if (confirm('Bạn có chắc chắn muốn xóa danh mục này?')) {
-                // Xóa từ categories
-                const categories = JSON.parse(localStorage.getItem('categories')) || [];
-                const updatedCategories = categories.filter(c => c.id !== id);
-                localStorage.setItem('categories', JSON.stringify(updatedCategories));
-
-                // Xóa từ navCategories
-                const navCategories = JSON.parse(localStorage.getItem('navCategories')) || [];
-                const updatedNavCategories = navCategories.filter(c => c.id !== id);
-                localStorage.setItem('navCategories', JSON.stringify(updatedNavCategories));
-
-                // Cập nhật lại giao diện
-                loadCategories();
-            }
-        }
-
         // Xử lý form thêm/sửa
         document.getElementById('categoryForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -649,6 +631,29 @@
             closeModal();
             loadCategories();
         });
+
+        // Xóa danh mục
+        function deleteCategory(id) {
+            if (confirm('Bạn có chắc chắn muốn xóa danh mục này? Tất cả sản phẩm thuộc danh mục này cũng sẽ bị xóa.')) {
+                // Xóa từ categories
+                const categories = JSON.parse(localStorage.getItem('categories')) || [];
+                const updatedCategories = categories.filter(c => c.id !== id);
+                localStorage.setItem('categories', JSON.stringify(updatedCategories));
+
+                // Xóa từ navCategories
+                const navCategories = JSON.parse(localStorage.getItem('navCategories')) || [];
+                const updatedNavCategories = navCategories.filter(c => c.id !== id);
+                localStorage.setItem('navCategories', JSON.stringify(updatedNavCategories));
+
+                // Xóa tất cả sản phẩm thuộc danh mục này
+                const products = JSON.parse(localStorage.getItem('products')) || [];
+                const updatedProducts = products.filter(p => p.categoryId !== id);
+                localStorage.setItem('products', JSON.stringify(updatedProducts));
+
+                // Cập nhật lại giao diện
+                loadCategories();
+            }
+        }
 
         // Đóng modal khi click bên ngoài
         window.addEventListener('click', function(e) {

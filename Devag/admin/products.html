@@ -512,6 +512,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Hình ảnh</th>
                             <th>Tên sản phẩm</th>
                             <th>Danh mục</th>
@@ -632,6 +633,7 @@
                 const createdAt = product.createdAt ? new Date(product.createdAt).toLocaleDateString('vi-VN') : '';
                 return `
                     <tr>
+                        <td>${product.id}</td>
                         <td>
                             <img src="${product.image}" alt="${product.name}" class="product-image-small">
                         </td>
@@ -749,7 +751,9 @@
                     name: document.getElementById('productName').value,
                     categoryId: parseInt(document.getElementById('productCategory').value),
                     description: document.getElementById('productDescription').value,
-                    isFeatured: document.getElementById('isFeatured').checked
+                    isFeatured: document.getElementById('isFeatured').checked,
+                    price: 0, // Giá mặc định, sẽ được cập nhật trong biến thể
+                    variants: [] // Mảng biến thể rỗng
                 };
 
                 // Thêm ngày tạo khi thêm mới
@@ -765,7 +769,14 @@
                         reader.readAsDataURL(imageFile);
                     });
                 } else if (form.dataset.mode === 'edit') {
-                    formData.image = document.getElementById('imagePreview').src;
+                    // Giữ lại ảnh cũ và các biến thể khi sửa
+                    const products = JSON.parse(localStorage.getItem('products')) || [];
+                    const existingProduct = products.find(p => p.id === parseInt(form.dataset.id));
+                    if (existingProduct) {
+                        formData.image = existingProduct.image;
+                        formData.variants = existingProduct.variants || [];
+                        formData.price = existingProduct.price || 0;
+                    }
                 }
 
                 // Lưu vào localStorage
@@ -782,8 +793,13 @@
                 }
                 
                 localStorage.setItem('products', JSON.stringify(products));
+
+                // Trigger storage event để cập nhật trang chủ
+                window.dispatchEvent(new Event('storage'));
+                
                 closeModal();
                 loadProducts();
+                alert(form.dataset.mode === 'add' ? 'Thêm sản phẩm thành công!' : 'Cập nhật sản phẩm thành công!');
 
             } catch (error) {
                 console.error('Lỗi khi lưu sản phẩm:', error);
