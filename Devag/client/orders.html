@@ -52,6 +52,26 @@
             font-size: 1.2em;
             font-weight: 600;
             color: #333;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .payment-badge {
+            font-size: 0.85em;
+            padding: 4px 12px;
+            border-radius: 15px;
+            background: #f8f9fa;
+            color: #666;
+            font-weight: normal;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .payment-badge i {
+            font-size: 1.1em;
+            color: #ff6b6b;
         }
 
         .order-date {
@@ -578,6 +598,27 @@
                             location: 'Địa chỉ người nhận',
                             completed: false,
                             active: false
+                        },
+                        {
+                            status: 'Đã nhận hàng',
+                            date: null, // Sẽ được cập nhật khi admin xác nhận
+                            location: 'Khách hàng',
+                            completed: false,
+                            active: false
+                        },
+                        {
+                            status: 'Đã thanh toán',
+                            date: null, // Sẽ được cập nhật khi admin xác nhận
+                            location: 'Hệ thống thanh toán',
+                            completed: false,
+                            active: false
+                        },
+                        {
+                            status: 'Thành công',
+                            date: null, // Sẽ được cập nhật khi admin xác nhận
+                            location: 'Hệ thống Fashion Store',
+                            completed: false,
+                            active: false
                         }
                     ];
                 }
@@ -619,7 +660,13 @@
                          data-order-id="${order.orderId || ''}">
                         <div class="order-header">
                             <div class="order-info">
-                                <span class="order-id">Đơn hàng #${order.orderId || 'N/A'}</span>
+                                <span class="order-id">
+                                    Đơn hàng #${order.orderId || 'N/A'}
+                                    <span class="payment-badge">
+                                        <i class="${getPaymentIcon(order.payment?.method)}"></i>
+                                        ${getPaymentMethodName(order.payment?.method)}
+                                    </span>
+                                </span>
                                 <span class="order-date">${formattedDate}</span>
                             </div>
                             <div class="order-total">
@@ -704,7 +751,13 @@
                 case 'Đang giao hàng':
                     return 'fa-truck';
                 case 'Đã giao hàng':
-                    return 'fa-check-circle';
+                    return 'fa-box-check';
+                case 'Đã nhận hàng':
+                    return 'fa-hand-holding-box';
+                case 'Đã thanh toán':
+                    return 'fa-money-check-alt';
+                case 'Thành công':
+                    return 'fa-check-double';
                 default:
                     return 'fa-info-circle';
             }
@@ -718,33 +771,49 @@
             }).format(price);
         }
 
+        // Thêm hàm để lấy icon cho phương thức thanh toán
+        function getPaymentIcon(method) {
+            switch (method) {
+                case 'cod':
+                    return 'fas fa-money-bill-wave';
+                case 'banking':
+                    return 'fas fa-university';
+                case 'momo':
+                    return 'fas fa-wallet';
+                default:
+                    return 'fas fa-credit-card';
+            }
+        }
+
+        // Thêm hàm để lấy tên phương thức thanh toán
+        function getPaymentMethodName(method) {
+            switch (method) {
+                case 'cod':
+                    return 'Thanh toán khi nhận hàng';
+                case 'banking':
+                    return 'Chuyển khoản ngân hàng';
+                case 'momo':
+                    return 'Ví MoMo';
+                default:
+                    return 'Chưa xác định';
+            }
+        }
+
         // Cập nhật trạng thái đơn hàng mỗi phút
         setInterval(() => {
             const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const adminOrders = JSON.parse(localStorage.getItem('adminOrders') || '[]');
             const now = new Date();
             let hasUpdates = false;
 
             orders.forEach(order => {
-                if (!order.timeline) return;
-                
-                order.timeline.forEach((step, index) => {
-                    const stepDate = new Date(step.date);
-                    if (stepDate <= now && !step.completed) {
-                        step.completed = true;
-                        if (index < order.timeline.length - 1) {
-                            order.timeline[index + 1].active = true;
-                        }
-                        hasUpdates = true;
-                    }
-                });
-
-                // Cập nhật trạng thái chính của đơn hàng
-                for (let i = order.timeline.length - 1; i >= 0; i--) {
-                    const step = order.timeline[i];
-                    if (new Date(step.date) <= now) {
-                        order.status = step.status;
-                        break;
-                    }
+                // Tìm đơn hàng tương ứng từ admin
+                const adminOrder = adminOrders.find(ao => ao.orderId === order.orderId);
+                if (adminOrder && adminOrder.timeline) {
+                    // Cập nhật timeline từ admin
+                    order.timeline = adminOrder.timeline;
+                    order.status = adminOrder.status;
+                    hasUpdates = true;
                 }
             });
 
