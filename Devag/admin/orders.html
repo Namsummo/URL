@@ -467,7 +467,6 @@
                             <th>Ngày đặt</th>
                             <th>Tổng tiền</th>
                             <th>Trạng thái</th>
-                            <th>Thanh toán</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -542,11 +541,6 @@
                         <td>
                             <span class="order-status status-${getStatusClass(order.status)}">
                                 ${order.status}
-                            </span>
-                        </td>
-                        <td>
-                            <span class="order-status ${getPaymentStatusClass(order.payment.status)}">
-                                ${order.payment.status}
                             </span>
                         </td>
                         <td>
@@ -670,10 +664,7 @@
                 const statusOptions = [
                     'Đang xử lý',
                     'Đang giao hàng',
-                    'Đã giao hàng',
-                    'Đã nhận hàng',
-                    'Đã thanh toán',
-                    'Thành công'
+                    'Đã giao hàng'
                 ];
 
                 // Tạo modal cho việc cập nhật trạng thái
@@ -710,6 +701,7 @@
         // Hàm lưu trạng thái mới
         function saveOrderStatus(orderId) {
             const orders = JSON.parse(localStorage.getItem('adminOrders')) || [];
+            const clientOrders = JSON.parse(localStorage.getItem('orders')) || [];
             const order = orders.find(o => o.orderId === orderId);
             const newStatus = document.getElementById('newStatus').value;
             
@@ -717,30 +709,98 @@
                 // Cập nhật trạng thái chính
                 order.status = newStatus;
                 
-                // Cập nhật timeline
                 const now = new Date();
-                const currentStep = order.timeline.find(step => step.status === newStatus);
-                if (currentStep) {
-                    currentStep.date = now.toISOString();
-                    currentStep.completed = true;
-                    currentStep.active = true;
+                
+                // Tạo timeline theo cấu trúc client
+                const defaultTimeline = [
+                    {
+                        status: 'Đơn hàng đã đặt',
+                        date: order.orderDate,
+                        location: 'Hệ thống Fashion Store',
+                        completed: true,
+                        active: false
+                    },
+                    {
+                        status: 'Đang xử lý',
+                        date: null,
+                        location: 'Kho hàng Fashion Store',
+                        completed: false,
+                        active: false
+                    },
+                    {
+                        status: 'Đang giao hàng',
+                        date: null,
+                        location: 'Đơn vị vận chuyển',
+                        completed: false,
+                        active: false
+                    },
+                    {
+                        status: 'Đã giao hàng',
+                        date: null,
+                        location: 'Địa chỉ người nhận',
+                        completed: false,
+                        active: false
+                    }
+                ];
 
-                    // Cập nhật các bước trước đó là đã hoàn thành
-                    let foundCurrent = false;
-                    order.timeline.forEach(step => {
-                        if (step === currentStep) {
-                            foundCurrent = true;
-                        } else if (!foundCurrent) {
-                            step.completed = true;
-                            step.active = false;
-                            if (!step.date) {
+                // Nếu chưa có timeline, tạo mới
+                if (!order.timeline) {
+                    order.timeline = defaultTimeline;
+                }
+
+                // Cập nhật trạng thái trong timeline
+                order.timeline.forEach(step => {
+                    switch(newStatus) {
+                        case 'Đang xử lý':
+                            if (step.status === 'Đang xử lý') {
                                 step.date = now.toISOString();
+                                step.completed = true;
+                                step.active = true;
+                            } else if (step.status === 'Đơn hàng đã đặt') {
+                                step.completed = true;
+                                step.active = false;
+                            } else {
+                                step.completed = false;
+                                step.active = false;
                             }
-                        } else {
-                            step.completed = false;
-                            step.active = false;
-                        }
-                    });
+                            break;
+                        case 'Đang giao hàng':
+                            if (step.status === 'Đang giao hàng') {
+                                step.date = now.toISOString();
+                                step.completed = true;
+                                step.active = true;
+                            } else if (step.status === 'Đơn hàng đã đặt' || step.status === 'Đang xử lý') {
+                                step.completed = true;
+                                step.active = false;
+                                if (!step.date) step.date = now.toISOString();
+                            } else {
+                                step.completed = false;
+                                step.active = false;
+                            }
+                            break;
+                        case 'Đã giao hàng':
+                            if (step.status === 'Đã giao hàng') {
+                                step.date = now.toISOString();
+                                step.completed = true;
+                                step.active = true;
+                            } else if (step.status === 'Đơn hàng đã đặt' || step.status === 'Đang xử lý' || step.status === 'Đang giao hàng') {
+                                step.completed = true;
+                                step.active = false;
+                                if (!step.date) step.date = now.toISOString();
+                            } else {
+                                step.completed = false;
+                                step.active = false;
+                            }
+                            break;
+                    }
+                });
+
+                // Cập nhật đơn hàng trong client orders
+                const clientOrder = clientOrders.find(o => o.orderId === orderId);
+                if (clientOrder) {
+                    clientOrder.status = newStatus;
+                    clientOrder.timeline = [...order.timeline]; // Tạo bản sao của timeline
+                    localStorage.setItem('orders', JSON.stringify(clientOrders));
                 }
 
                 // Lưu vào localStorage
@@ -750,6 +810,16 @@
                 closeModal();
                 loadOrders();
             }
+        }
+
+        // Thêm hàm để xác định thứ tự của trạng thái
+        function getStatusOrder(status) {
+            const statusOrder = {
+                'Đang xử lý': 1,
+                'Đang giao hàng': 2,
+                'Đã giao hàng': 3
+            };
+            return statusOrder[status] || 0;
         }
 
         // Đóng modal
@@ -778,18 +848,6 @@
                     return 'cancelled';
                 default:
                     return 'processing';
-            }
-        }
-
-        // Hàm lấy class cho trạng thái thanh toán
-        function getPaymentStatusClass(status) {
-            switch (status.toLowerCase()) {
-                case 'đã thanh toán':
-                    return 'status-delivered';
-                case 'chưa thanh toán':
-                    return 'status-processing';
-                default:
-                    return 'status-processing';
             }
         }
 
