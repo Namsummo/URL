@@ -396,6 +396,74 @@
             gap: 10px;
             margin-top: 20px;
         }
+
+        /* Search Form Styles */
+        .search-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #2196F3;
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+            outline: none;
+        }
+
+        .search-btn {
+            padding: 10px 20px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #1E88E5;
+            transform: translateY(-1px);
+        }
+
+        .search-btn i {
+            font-size: 1.1em;
+        }
+
+        .clear-search {
+            padding: 10px 20px;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .clear-search:hover {
+            background: #555;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 1.1em;
+        }
     </style>
 </head>
 <body>
@@ -456,6 +524,21 @@
 
             <div class="orders-header">
                 <h2>Quản lý đơn hàng</h2>
+            </div>
+            <div class="search-form">
+                <input type="text" 
+                       id="searchInput" 
+                       class="search-input" 
+                       placeholder="Tìm kiếm theo mã đơn hàng hoặc tên khách hàng..."
+                       onkeyup="handleSearch(event)">
+                <button class="search-btn" onclick="searchOrders()">
+                    <i class="fas fa-search"></i>
+                    Tìm kiếm
+                </button>
+                <button class="clear-search" onclick="clearSearch()">
+                    <i class="fas fa-times"></i>
+                    Xóa
+                </button>
             </div>
 
             <div class="orders-table">
@@ -858,6 +941,84 @@
                 closeModal();
             }
         });
+
+        // Hàm xử lý tìm kiếm khi nhấn Enter
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                searchOrders();
+            }
+        }
+
+        // Hàm tìm kiếm đơn hàng
+        function searchOrders() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const orders = JSON.parse(localStorage.getItem('adminOrders')) || [];
+            const tableBody = document.getElementById('ordersTableBody');
+            
+            if (!searchTerm) {
+                loadOrders(); // Nếu không có từ khóa tìm kiếm, hiển thị tất cả
+                return;
+            }
+
+            const filteredOrders = orders.filter(order => {
+                const orderIdMatch = order.orderId.toLowerCase().includes(searchTerm);
+                const customerNameMatch = order.customerInfo.fullname.toLowerCase().includes(searchTerm);
+                return orderIdMatch || customerNameMatch;
+            });
+
+            if (filteredOrders.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="no-results">
+                            <i class="fas fa-search" style="margin-right: 10px;"></i>
+                            Không tìm thấy đơn hàng phù hợp
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            // Hiển thị kết quả tìm kiếm
+            tableBody.innerHTML = filteredOrders.map(order => {
+                const orderDate = new Date(order.orderDate).toLocaleDateString('vi-VN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                return `
+                    <tr>
+                        <td>#${order.orderId}</td>
+                        <td>${order.customerInfo.fullname}</td>
+                        <td>${orderDate}</td>
+                        <td>${formatPrice(order.total)}</td>
+                        <td>
+                            <span class="order-status status-${getStatusClass(order.status)}">
+                                ${order.status}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="view-btn" onclick="viewOrderDetails('${order.orderId}')">
+                                    <i class="fas fa-eye"></i> Chi tiết
+                                </button>
+                                <button class="update-btn" onclick="updateOrderStatus('${order.orderId}')">
+                                    <i class="fas fa-edit"></i> Cập nhật
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Hàm xóa tìm kiếm
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            loadOrders(); // Tải lại tất cả đơn hàng
+        }
     </script>
 </body>
 </html>
